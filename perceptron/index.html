@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+		<script src="scripts/TrainingElement.js"></script>
+		<script src="scripts/Perceptron.js"></script>
+		<script>
+			var perceptron;
+			initialize();
+
+			function initialize() {
+				perceptron = new Perceptron(1, 0.5);
+				var trainingSet = [];
+				trainingSet.push(new TrainingElement([0.1], 0));
+				trainingSet.push(new TrainingElement([0.2], 0));
+				trainingSet.push(new TrainingElement([0.3], 0));
+				trainingSet.push(new TrainingElement([0.5], 1));
+				trainingSet.push(new TrainingElement([0.8], 1));
+				trainingSet.push(new TrainingElement([0.9], 1));
+				console.log(perceptron);
+				console.log("output 0.1 = " + perceptron.calculateOutput([0.1]));
+				console.log("output 0.2 = " + perceptron.calculateOutput([0.2]));
+				console.log("output 0.3 = " + perceptron.calculateOutput([0.3]));
+				console.log("output 0.4 = " + perceptron.calculateOutput([0.4]));
+				console.log("output 0.5 = " + perceptron.calculateOutput([0.5]));
+				console.log("output 0.6 = " + perceptron.calculateOutput([0.6]));
+				console.log("output 0.7 = " + perceptron.calculateOutput([0.7]));
+				console.log("output 0.8 = " + perceptron.calculateOutput([0.8]));
+				console.log("output 0.9 = " + perceptron.calculateOutput([0.9]));
+				perceptron.train(trainingSet);
+				console.log(perceptron);
+				console.log("output 0.1 = " + perceptron.calculateOutput([0.1]));
+				console.log("output 0.2 = " + perceptron.calculateOutput([0.2]));
+				console.log("output 0.3 = " + perceptron.calculateOutput([0.3]));
+				console.log("output 0.4 = " + perceptron.calculateOutput([0.4]));
+				console.log("output 0.5 = " + perceptron.calculateOutput([0.5]));
+				console.log("output 0.6 = " + perceptron.calculateOutput([0.6]));
+				console.log("output 0.7 = " + perceptron.calculateOutput([0.7]));
+				console.log("output 0.8 = " + perceptron.calculateOutput([0.8]));
+				console.log("output 0.9 = " + perceptron.calculateOutput([0.9]));
+			}
+		</script>
+	</body>
+</html>
