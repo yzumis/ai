@@ -34,7 +34,6 @@ class Perceptron {
         var errors = true;
         while(errors) {
             errors = false;
-            console.log(trainingSet);
             for(var i = 0; i < trainingSet.length; i++) {
                 if(this.trainWithElement(trainingSet[i])) {
                     errors = true;
@@ -56,12 +55,7 @@ class Perceptron {
     }
 
     updateWeight(output, trainingElement, i) {
-        console.log("updateWeight before = " + this.weights[i]);
-        console.log(trainingElement.desiredOutput);
-        console.log(output);
-        console.log(trainingElement.inputs[i]);
         this.weights[i] = this.weights[i] + this.learningTax * (trainingElement.desiredOutput - output) * trainingElement.inputs[i];
-        console.log("updateWeight after = " + this.weights[i]);
     }
 
 }
