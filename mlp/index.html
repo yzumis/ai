@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>
+	<body>
+        <script src="scripts/TrainingElement.js"></script>
+		<script src="scripts/Neuron.js"></script>
+		<script src="scripts/Mlp.js"></script>
+		<script>
+
+            // TODO ### CHECK BIAS
+            // TODO ### CHECK Google for mlp xor gives 0.5 
+            play();
+			function play() {
+                var numberOfInputs = 2;
+                var neuronsPerLayer = [2, 2, 1]; // 2 input neurons + 2 neurons in hidden layer + 1 output 
+                // var mlp = new Mlp(numberOfInputs, neuronsPerLayer, 0.0001);
+                var mlp = new Mlp(numberOfInputs, neuronsPerLayer, 0.75);
+                console.log("Output before training");
+                mlp.print();
+                console.log("Output [0, 0] = " + mlp.calculateOutputs([0, 0]));
+                console.log("Output [0, 1] = " + mlp.calculateOutputs([0, 1]));
+                console.log("Output [1, 0] = " + mlp.calculateOutputs([1, 0]));
+                console.log("Output [1, 1] = " + mlp.calculateOutputs([1, 1]));
+                for(var i = 0; i < 100000; i++) {
+                    mlp.train(new TrainingElement([0, 0], [0]));
+                    mlp.train(new TrainingElement([0, 1], [1]));
+                    mlp.train(new TrainingElement([1, 0], [1]));
+                    mlp.train(new TrainingElement([1, 1], [0]));
+                }
+                console.log("Output after training");
+                mlp.print();
+                console.log("Output [0, 0] = " + mlp.calculateOutputs([0, 0]));
+                console.log("Output [0, 1] = " + mlp.calculateOutputs([0, 1]));
+                console.log("Output [1, 0] = " + mlp.calculateOutputs([1, 0]));
+                console.log("Output [1, 1] = " + mlp.calculateOutputs([1, 1]));
+            }   
+        </script>
+    </body>
+</html>
