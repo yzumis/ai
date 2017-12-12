@@ -6,15 +6,11 @@
         <script src="scripts/TrainingElement.js"></script>
 		<script src="scripts/Neuron.js"></script>
 		<script src="scripts/Mlp.js"></script>
-		<script>
-
-            // TODO ### CHECK BIAS
-            // TODO ### CHECK Google for mlp xor gives 0.5 
+		<script> 
             play();
 			function play() {
                 var numberOfInputs = 2;
                 var neuronsPerLayer = [2, 2, 1]; // 2 input neurons + 2 neurons in hidden layer + 1 output 
-                // var mlp = new Mlp(numberOfInputs, neuronsPerLayer, 0.0001);
                 var mlp = new Mlp(numberOfInputs, neuronsPerLayer, 0.75);
                 console.log("Output before training");
                 mlp.print();
