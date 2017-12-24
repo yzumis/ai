@@ -1,5 +1,5 @@
 # ia
-Some artificial intelligence tests in javascript
+Some artificial intelligence tests in java and javascript
 
 It includes:
 - A Perceptron. It also includes an html which trains the perceptron to solve the problem of values greater than/lower than
