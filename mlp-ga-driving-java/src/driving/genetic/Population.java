@@ -25,15 +25,14 @@ public class Population {
         }
     }
 
-    public void calculateFitness() throws InterruptedException {
+    public void calculateFitness(final int generation) throws InterruptedException {
+        final Screen screen = new Screen(track, cars, generation);
         while(existCarAlive()) {
-            final Screen screen = new Screen(track, cars);
-            while(true) {
-                Thread.sleep((long)(1000f / 24f));
-                executeCars(System.currentTimeMillis());
-                screen.repaint();
-            }
+            Thread.sleep((long)(1000f / 24f));
+            executeCars(System.currentTimeMillis());
+            screen.repaint();
         }
+        screen.dispose();
     }
 
     private void executeCars(final long currentTimeMillis) {
@@ -58,7 +57,7 @@ public class Population {
         for(int i = 0; i < this.populationSize; i++) {
             final Car car1 = this.pickRandomCar(totalFitness);
             final Car car2 = this.pickRandomCar(totalFitness);
-            childCars.add(Car.reproduce(car1, car1, mutationRate));
+            childCars.add(Car.reproduce(car1, car2, mutationRate));
         }
         this.cars = childCars;
     }

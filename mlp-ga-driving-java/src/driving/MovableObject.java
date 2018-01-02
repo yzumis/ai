@@ -23,10 +23,11 @@ public abstract class MovableObject {
     }
 
     public void updatePosition(final long currentTimeMillis) {
-        final long timeDifference = currentTimeMillis - this.lastUpdateTime;
+        final long timeDifferenceMillis = currentTimeMillis - this.lastUpdateTime;
+        final float timeDifferenceSeconds = timeDifferenceMillis / 1000f;
         this.lastUpdateTime = currentTimeMillis;
-        this.x = this.x + timeDifference * this.xVelocity;
-        this.y = this.y + timeDifference * this.yVelocity;
+        this.x = this.x + timeDifferenceSeconds * this.xVelocity * 30;
+        this.y = this.y + timeDifferenceSeconds * this.yVelocity * 30;
     }
 
 }

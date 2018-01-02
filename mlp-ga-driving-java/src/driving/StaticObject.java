@@ -38,10 +38,10 @@ public abstract class StaticObject {
 
     public List<Segment> getSegments() {
         final List<Segment> ret = new ArrayList<>();
-        ret.add(new Segment(new Point(this.x, this.y), new Point(this.x + this.xSize, this.y)));
-        ret.add(new Segment(new Point(this.x, this.y), new Point(this.x, this.y + this.ySize)));
-        ret.add(new Segment(new Point(this.x + this.xSize, this.y), new Point(this.x + this.xSize, this.y + this.ySize)));
-        ret.add(new Segment(new Point(this.x, this.y + this.ySize), new Point(this.x + this.xSize, this.y + this.ySize)));
+        ret.add(new Segment(new Point2d(this.x, this.y), new Point2d(this.x + this.xSize, this.y)));
+        ret.add(new Segment(new Point2d(this.x, this.y), new Point2d(this.x, this.y + this.ySize)));
+        ret.add(new Segment(new Point2d(this.x + this.xSize, this.y), new Point2d(this.x + this.xSize, this.y + this.ySize)));
+        ret.add(new Segment(new Point2d(this.x, this.y + this.ySize), new Point2d(this.x + this.xSize, this.y + this.ySize)));
         return ret;
     }
 
