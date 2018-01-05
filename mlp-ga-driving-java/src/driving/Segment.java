@@ -35,15 +35,46 @@ public class Segment implements Paintable {
     private Point2d findImpactPoint(final Segment segment) {
         final Segment r1 = this;
         final Segment r2 = segment;
+        final Point2d ret;
         if(r1.pX() && r2.pX()) {
+            if(r1.getOriginPoint().getY() == r2.getOriginPoint().getY()) {
+                if((r1.getOriginPoint().calculateDistanceToPoint(r2.getOriginPoint())) < (r1.getOriginPoint().calculateDistanceToPoint(r2.getDestinationPoint()))) {
+                    ret = r2.getOriginPoint();
+                } else {
+                    ret = r2.getDestinationPoint();
+                }
+            } else { // r1 parallel r2
+                ret = null;
+            }
         } else if(r1.pX() && r2.pY()) {
+            ret = new Point2d(r2.getOriginPoint().getX(), r1.getOriginPoint().getY());
         } else if(r1.pX() && !r2.pX() && !r2.pY()) {
+            ret = new Point2d(r2.findX(r1.yk()), r1.getOriginPoint().getY());
         } else if(r1.pY() && r2.pX()) {
+            ret = new Point2d(r1.getOriginPoint().getX(), r2.getOriginPoint().getY());
         } else if(r1.pY() && r2.pY()) {
+            if(r1.getOriginPoint().getX() == r2.getOriginPoint().getX()) {
+                if((r1.getOriginPoint().calculateDistanceToPoint(r2.getOriginPoint())) < (r1.getOriginPoint().calculateDistanceToPoint(r2.getDestinationPoint()))) {
+                    ret = r2.getOriginPoint();
+                } else {
+                    ret = r2.getDestinationPoint();
+                }
+            } else { // r1 parallel r2
+                ret = null;
+            }
         } else if(r1.pY() && !r2.pX() && !r2.pY()) {
+            ret = new Point2d(r1.getOriginPoint().getX(), r2.findY(r1.xk()));
         } else if(!r1.pX() && !r1.pY() && r2.pX()) {
+            ret = new Point2d(r1.findX(r2.yk()), r2.getOriginPoint().getY());
         } else if(!r1.pX() && !r1.pY() && r2.pY()) {
-        } else if(!r1.pX() && !r1.pY() && !r2.pX() && !r2.pY()) {
+            ret = new Point2d(r2.getOriginPoint().getX(), r1.findY(r2.xk()));
+        } else { // (!r1.pX() && !r1.pY() && !r2.pX() && !r2.pY())
+            ret = r1.findImpactPointNonParallelAxis(r2);
+        }
+        if(ret != null && r1.inSegment(ret) && r2.inSegment(ret)) {
+            return ret;
+        } else {
+            return null;
         }
     }
 
@@ -109,9 +140,19 @@ public class Segment implements Paintable {
     }
 
     private boolean inSegment(final Point2d point) {
-        final boolean xInSegment = this.originPoint.getX() <= point.getX() && this.destinationPoint.getX() >= point.getX();
-        final boolean yInSegment = this.originPoint.getY() <= point.getY() && this.destinationPoint.getY() >= point.getY();
+        final boolean xInSegment = this.between(point.getX(), this.originPoint.getX(), this.destinationPoint.getX());
+        final boolean yInSegment = this.between(point.getY(), this.originPoint.getY(), this.destinationPoint.getY());
         return xInSegment && yInSegment;
+    }
+
+    private boolean between(final float number, float numberO, float numberD) {
+        final boolean ret;
+        if(numberO < numberD) {
+            ret = (number >= numberO && number <= numberD);
+        } else {
+            ret = (number >= numberD && number <= numberO);
+        }
+        return ret;
     }
 
     @Override

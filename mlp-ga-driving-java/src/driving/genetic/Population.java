@@ -55,9 +55,10 @@ public class Population {
         final List<Car> childCars = new ArrayList<>();
         final float totalFitness = this.calculateTotalFitness();
         for(int i = 0; i < this.populationSize; i++) {
-            final Car car1 = this.pickRandomCar(totalFitness);
-            final Car car2 = this.pickRandomCar(totalFitness);
-            childCars.add(Car.reproduce(car1, car2, mutationRate));
+            final Car car1 = this.pickBestCar();
+            final Car car2 = this.pickBestSecondCar(car1);
+            final Car car3 = this.pickRandomCar(totalFitness);
+            childCars.add(Car.reproduce(car1, car3, mutationRate));
         }
         this.cars = childCars;
     }
@@ -66,6 +67,28 @@ public class Population {
         float ret = 0;
         for(final Car car: this.cars) {
             ret += car.calculateFitness();
+        }
+        return ret;
+    }
+
+    private Car pickBestCar() {
+        Car ret = null;
+        for(final Car car: this.cars) {
+            if(ret == null || ret.calculateFitness() < car.calculateFitness()) {
+                ret = car;
+            }
+        }
+        return ret;
+    }
+
+    private Car pickBestSecondCar(final Car bestCar) {
+        Car ret = null;
+        for(final Car car: this.cars) {
+            if(!bestCar.equals(car)) {
+                if (ret == null || ret.calculateFitness() < car.calculateFitness()) {
+                    ret = car;
+                }
+            }
         }
         return ret;
     }

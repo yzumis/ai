@@ -11,7 +11,8 @@ import java.util.List;
  */
 public class Car extends MovableObject implements Paintable {
 
-    private static final Color WALL_COLOR = Color.RED;
+    private static final Color CAR_COLOR = Color.RED;
+    private static final Color CAR_COLOR_CRASHED = Color.LIGHT_GRAY;
     private static final int NUMBER_OF_INPUTS = 3;
     private static final List<Integer> NEURONS_PER_LAYER = new ArrayList<>();
 
@@ -84,11 +85,16 @@ public class Car extends MovableObject implements Paintable {
     @Override
     public void paint(final Graphics graphics) {
         final Color color = graphics.getColor();
-        graphics.setColor(WALL_COLOR);
-        graphics.fillRect((int)x, (int)y, (int)xSize, (int)ySize);
-        sensor1.paint(graphics);
-        sensor2.paint(graphics);
-        sensor3.paint(graphics);
+        if(this.alive) {
+            graphics.setColor(CAR_COLOR);
+            graphics.fillRect((int) x, (int) y, (int) xSize, (int) ySize);
+            sensor1.paint(graphics);
+            sensor2.paint(graphics);
+            sensor3.paint(graphics);
+        } else {
+            graphics.setColor(CAR_COLOR_CRASHED);
+            graphics.fillRect((int) x, (int) y, (int) xSize, (int) ySize);
+        }
         graphics.setColor(color);
     }
 

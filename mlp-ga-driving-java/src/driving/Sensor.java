@@ -64,13 +64,6 @@ public class Sensor implements Paintable {
         graphics.setColor(SENSOR_COLOR);
         graphics.drawLine((int) this.segment.getOriginPoint().getX(), (int) this.segment.getOriginPoint().getY(), (int)this.segment.getDestinationPoint().getX(), (int)this.segment.getDestinationPoint().getY());
         final Point2d point2d = this.calculateImpactPoint();
-        final List<Segment> trackSegments = this.track.getSegments();
-        for(final Segment trackSegment: trackSegments){
-            trackSegment.paint(graphics);
-        }
-        for(final Point2d impactPoints: this.segment.findImpactPoints(trackSegments)) {
-            impactPoints.paint(graphics);
-        }
         if(point2d != null) {
             point2d.paint(graphics);
         }

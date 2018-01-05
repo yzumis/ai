@@ -27,7 +27,7 @@ public abstract class MovableObject {
         final float timeDifferenceSeconds = timeDifferenceMillis / 1000f;
         this.lastUpdateTime = currentTimeMillis;
         this.x = this.x + timeDifferenceSeconds * this.xVelocity * 30;
-        this.y = this.y + timeDifferenceSeconds * this.yVelocity * 30;
+        this.y = this.y + timeDifferenceSeconds * this.yVelocity * 60;
     }
 
 }
