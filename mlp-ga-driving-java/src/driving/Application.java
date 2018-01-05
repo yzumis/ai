@@ -12,7 +12,7 @@ public class Application {
 
     private static final Track TRACK = new Track();
     private static final int NUMBER_OF_GENERATIONS = 30;
-    private static final int POPULATION_SIZE = 50;
+    private static final int POPULATION_SIZE = 100;
     private static final float MUTATION_RATE = 0.3f;
 
     public static void main(String[] args) throws InterruptedException {
