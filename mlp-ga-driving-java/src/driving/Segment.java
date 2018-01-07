@@ -23,9 +23,6 @@ public class Segment implements Paintable {
         for(final Segment segment: segments) {
             final Point2d impactPoint = this.findImpactPoint(segment);
             if(impactPoint != null) {
-                System.out.println("currentSegment = " + this.toString());
-                System.out.println("impactSegment = " + segment.toString());
-                System.out.println("impactPoint = " + impactPoint.toString());
                 ret.add(impactPoint);
             }
         }

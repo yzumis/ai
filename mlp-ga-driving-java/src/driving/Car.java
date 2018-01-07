@@ -22,8 +22,8 @@ public class Car extends MovableObject implements Paintable {
         NEURONS_PER_LAYER.add(1);
     }
 
-    public static final float CAR_X_SIZE = Screen.X_SIZE / 36  * 3 / 4;
-    private static final float CAR_Y_SIZE = Screen.Y_SIZE / 24 / 2;
+    public static final float CAR_X_SIZE = Screen.X_SIZE / 36 * 3 / 4; // 15
+    private static final float CAR_Y_SIZE = Screen.Y_SIZE / 24 / 2; // 10
 
     public static final float CAR_X_ORIGIN = CAR_X_SIZE;
     public static final float CAR_Y_ORIGIN = Screen.Y_SIZE / 2 - CAR_Y_SIZE / 2;

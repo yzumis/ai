@@ -12,11 +12,13 @@ import java.util.List;
  */
 public class Population {
 
+    private final Screen screen;
     private final int populationSize;
     private final Track track;
     private List<Car> cars;
 
-    public Population(final int populationSize, final Track track) {
+    public Population(final Screen screen, final int populationSize, final Track track) {
+        this.screen = screen;
         this.populationSize = populationSize;
         this.track = track;
         this.cars = new ArrayList<>();
@@ -26,13 +28,12 @@ public class Population {
     }
 
     public void calculateFitness(final int generation) throws InterruptedException {
-        final Screen screen = new Screen(track, cars, generation);
+        this.screen.setupScreen(track, cars, generation);
         while(existCarAlive()) {
             Thread.sleep((long)(1000f / 24f));
             executeCars(System.currentTimeMillis());
-            screen.repaint();
+            this.screen.repaint();
         }
-        screen.dispose();
     }
 
     private void executeCars(final long currentTimeMillis) {

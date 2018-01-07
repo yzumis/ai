@@ -16,7 +16,8 @@ public class Application {
     private static final float MUTATION_RATE = 0.3f;
 
     public static void main(String[] args) throws InterruptedException {
-        final Population population = new Population(POPULATION_SIZE, TRACK);
+        final Screen screen = new Screen();
+        final Population population = new Population(screen, POPULATION_SIZE, TRACK);
         for(int i = 0; i < NUMBER_OF_GENERATIONS; i++) {
             population.calculateFitness(i);
             population.reproduction(MUTATION_RATE);

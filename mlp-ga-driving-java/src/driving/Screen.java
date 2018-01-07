@@ -10,20 +10,23 @@ import java.awt.image.BufferedImage;
  */
 public class Screen extends JFrame {
 
-    public static float X_SIZE = 600;
-    public static float Y_SIZE = 400;
-    private final Track track;
-    private final List<Car> cars;
-    private final int generation;
+    public static float X_SIZE = 720;
+    public static float Y_SIZE = 480;
+    private Track track;
+    private List<Car> cars;
+    private Integer generation;
 
-    public Screen(final Track track, final List<Car> cars, final int generation) {
-        this.track = track;
-        this.cars = cars;
-        this.generation = generation;
+    public Screen() {
         this.setSize((int) X_SIZE, (int) Y_SIZE);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setUndecorated(true);
         this.setVisible(true);
+    }
+
+    public void setupScreen(final Track track, final List<Car> cars, final int generation) {
+        this.track = track;
+        this.cars = cars;
+        this.generation = generation;
     }
 
     @Override
@@ -32,16 +35,25 @@ public class Screen extends JFrame {
         bufferedImage.getGraphics().fillRect(0, 0, this.getWidth(), this.getHeight());
         final Graphics bufferedGraphics = bufferedImage.getGraphics();
         // Display generation:
-        final Color color = bufferedGraphics.getColor();
-        bufferedGraphics.setColor(Color.BLACK);
-        bufferedGraphics.drawString("Generation = " + this.generation, 10, 10);
-        bufferedGraphics.setColor(color);
-        this.track.paint(bufferedGraphics);
-        for(final Car car: this.cars) {
-            car.paint(bufferedGraphics);
+        if(this.generation !=null) {
+            paintGeneration(bufferedGraphics);
         }
-
+        if(this.track != null) {
+            this.track.paint(bufferedGraphics);
+        }
+        if(this.cars != null) {
+            for (final Car car : this.cars) {
+                car.paint(bufferedGraphics);
+            }
+        }
         graphics.drawImage(bufferedImage, 0, 0, null);
+    }
+
+    public void paintGeneration(final Graphics graphics) {
+        final Color color = graphics.getColor();
+        graphics.setColor(Color.BLACK);
+        graphics.drawString("Generation = " + this.generation, 10, 10);
+        graphics.setColor(color);
     }
 
 }

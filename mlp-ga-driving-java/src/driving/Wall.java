@@ -8,8 +8,8 @@ import java.awt.*;
 public class Wall extends StaticObject implements Paintable {
 
     private static final Color WALL_COLOR = Color.BLACK;
-    public static final float WALL_X_SIZE = Screen.X_SIZE / 36;
-    public static final float WALL_Y_SIZE = Screen.Y_SIZE / 24;
+    public static final float WALL_X_SIZE = Screen.X_SIZE / 36; // 20
+    public static final float WALL_Y_SIZE = Screen.Y_SIZE / 24; // 20
 
     public Wall(final float x, final float y) {
         super(x, y, WALL_X_SIZE, WALL_Y_SIZE);
