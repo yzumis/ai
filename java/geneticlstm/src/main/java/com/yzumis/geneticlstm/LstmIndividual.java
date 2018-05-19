@@ -1,7 +1,9 @@
-package com.yzumis.lstm;
+package com.yzumis.geneticlstm;
 
 import com.yzumis.genetic.Individual;
 import com.yzumis.genetic.Reproducible;
+import com.yzumis.lstm.Lstm;
+import com.yzumis.lstm.Vector;
 
 public class LstmIndividual extends com.yzumis.genetic.Individual<Lstm, String> {
 
@@ -19,12 +21,6 @@ public class LstmIndividual extends com.yzumis.genetic.Individual<Lstm, String> 
             if(predicted == expected) {
                 fitness++;
             }
-        }
-        if(fitness == 15 || fitness == 16 || fitness == 17 || fitness == 18) {
-            System.out.println("GREAT");
-        }
-        if(fitness == 19) {
-            System.out.println("AMAZING");
         }
         super.setFitness(fitness);
     }

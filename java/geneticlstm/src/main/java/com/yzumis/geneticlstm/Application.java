@@ -1,4 +1,4 @@
-package com.yzumis.lstm;
+package com.yzumis.geneticlstm;
 
 import com.yzumis.genetic.Population;
 
@@ -13,10 +13,14 @@ public class Application {
         final Population population = new Population(lstmIndividualFactory, POPULATION_SIZE, GOAL, MUTATION_RATE);
         while(true) {
             population.calculateFitness();
+            final LstmIndividual lstmIndividual = (LstmIndividual) population.pickBestIndividual();
+            if(lstmIndividual.getFitness() == 19) {
+                System.out.println("SUCCESS");
+            } else {
+                System.out.println("FAILURE = " + lstmIndividual.getFitness());
+            }
             population.reproduction();
         }
     }
-
-
 
 }

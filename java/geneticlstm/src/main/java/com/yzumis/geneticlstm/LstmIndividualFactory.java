@@ -1,6 +1,7 @@
-package com.yzumis.lstm;
+package com.yzumis.geneticlstm;
 
 import com.yzumis.genetic.IndividualFactory;
+import com.yzumis.lstm.Lstm;
 
 import java.util.ArrayList;
 import java.util.List;
