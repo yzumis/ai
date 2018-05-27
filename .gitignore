@@ -1,1 +1,2 @@
-java/geneticmlpimageclassifier/src/main/resources/cifar-10-batches-bin
+/java/geneticmlpimageclassifier/src/main/resources/cifar-10-batches-bin
+/java/geneticmlpimageclassifier/target/classes/cifar-10-batches-bin
