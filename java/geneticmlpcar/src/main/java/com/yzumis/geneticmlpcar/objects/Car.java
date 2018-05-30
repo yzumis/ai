@@ -103,7 +103,7 @@ public class Car extends MovableObject implements Paintable {
     }
 
     public static Car reproduce(final Car car1, final Car car2, final float mutationRate) {
-        final Mlp mlp = Mlp.reproduce(car1.mlp, car2.mlp, mutationRate);
+        final Mlp mlp = (Mlp)car1.mlp.reproduce(car2.mlp, mutationRate);
         return new Car(car1.track, mlp);
     }
 

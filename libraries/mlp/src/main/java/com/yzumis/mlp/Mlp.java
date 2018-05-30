@@ -1,12 +1,14 @@
 package com.yzumis.mlp;
 
+import com.yzumis.genetic.Reproducible;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Yzumi on 27/12/2017.
  */
-public class Mlp {
+public class Mlp implements Reproducible {
 
     private final List<List<Neuron>> neuronLayers;
 
@@ -59,16 +61,18 @@ public class Mlp {
         return ret;
     }
 
-    public static Mlp reproduce(final Mlp mlp1, final Mlp mlp2, final float mutationRate) {
+    @Override
+    public Reproducible reproduce(final Reproducible reproducible, final float mutationRate) {
         final List<List<Neuron>> childNeuronLayers = new ArrayList<>();
-        for(int i = 0; i < mlp1.neuronLayers.size(); i++) {
+        for(int i = 0; i < this.neuronLayers.size(); i++) {
             final List<Neuron> childNeuronLayer = new ArrayList<>();
-            for(int j = 0; j < mlp1.neuronLayers.get(i).size(); j++) {
-                final Neuron neuron = Neuron.reproduce(mlp1.neuronLayers.get(i).get(j), mlp2.neuronLayers.get(i).get(j), mutationRate);
+            for(int j = 0; j < this.neuronLayers.get(i).size(); j++) {
+                final Neuron neuron = Neuron.reproduce(this.neuronLayers.get(i).get(j), ((Mlp)reproducible).neuronLayers.get(i).get(j), mutationRate);
                 childNeuronLayer.add(neuron);
             }
             childNeuronLayers.add(childNeuronLayer);
         }
         return new Mlp(childNeuronLayers);
     }
+
 }
