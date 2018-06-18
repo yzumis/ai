@@ -1,0 +1,7 @@
+- Convolutional neural networks:
+	/ https://adeshpande3.github.io/adeshpande3.github.io/A-Beginner's-Guide-To-Understanding-Convolutional-Neural-Networks/
+	/ https://www.youtube.com/watch?v=FmpDIaiMIeA
+- Long short term memory:
+	/ https://www.youtube.com/watch?v=WCUNPb-5EYI
+- Perceptron, multilayer perceptron and genetic algorithms:
+	/ http://natureofcode.com/book/

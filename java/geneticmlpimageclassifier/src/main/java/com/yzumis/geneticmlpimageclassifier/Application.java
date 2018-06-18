@@ -9,8 +9,8 @@ public class Application {
     private static final float MUTATION_RATE = 0.2f;
 
     public static void main(final String[] args) {
-        final MlpIndividualFactory mlpIndividualFactory = new MlpIndividualFactory();
-        final Population population = new Population(mlpIndividualFactory, POPULATION_SIZE, null, MUTATION_RATE);
+        final ConvolutionalNeuralNetworkIndividualFactory convolutionalNeuralNetworkIndividualFactory = new ConvolutionalNeuralNetworkIndividualFactory();
+        final Population population = new Population(convolutionalNeuralNetworkIndividualFactory, POPULATION_SIZE, null, MUTATION_RATE);
 
         while (true) {
             population.calculateFitness();

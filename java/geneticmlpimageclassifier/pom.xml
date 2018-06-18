@@ -10,6 +10,7 @@
     <properties>
         <com.yzumis.mlp.version>1.0-SNAPSHOT</com.yzumis.mlp.version>
         <com.yzumis.genetic.version>1.0-SNAPSHOT</com.yzumis.genetic.version>
+        <com.yzumis.lstm.version>1.0-SNAPSHOT</com.yzumis.lstm.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -23,6 +24,11 @@
                 <artifactId>genetic</artifactId>
                 <version>${com.yzumis.genetic.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.yzumis</groupId>
+                <artifactId>lstm</artifactId>
+                <version>${com.yzumis.lstm.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <dependencies>
@@ -33,6 +39,10 @@
         <dependency>
             <groupId>com.yzumis</groupId>
             <artifactId>genetic</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.yzumis</groupId>
+            <artifactId>lstm</artifactId>
         </dependency>
     </dependencies>
     <build>
