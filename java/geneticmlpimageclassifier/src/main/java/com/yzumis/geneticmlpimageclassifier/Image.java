@@ -17,12 +17,16 @@ public class Image {
         this.imageType = ImageType.byteToImageType(imageBytes[0]);
         this.colors = new ArrayList<>();
         for(int i = 0; i < 1024; i++) {
-            final int red = imageBytes[i + 1] + 128; // 128 needs to be added as the range of byte is [-128, 127]
-            final int green = imageBytes[i + 1 + 1024] + 128;
-            final int blue = imageBytes[i + 1 + 2048] + 128;
+            final int red = byteToInt(imageBytes[i + 1]);
+            final int green = byteToInt(imageBytes[i + 1 + 1024]);
+            final int blue = byteToInt(imageBytes[i + 1 + 2048]);
             final Color color = new Color(red, green, blue);
             this.colors.add(color);
         }
+    }
+
+    private int byteToInt(final byte b) {
+        return b & 0xFF;
     }
 
     public Input2D toInput2D() {

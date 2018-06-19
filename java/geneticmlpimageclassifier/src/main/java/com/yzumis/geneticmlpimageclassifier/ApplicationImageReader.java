@@ -37,9 +37,7 @@ public class ApplicationImageReader extends JFrame {
                     final int green = (int) greenMatrix.getValue(i, j);
                     final int blue = (int) blueMatrix.getValue(i, j);
 
-                    final double col = (redMatrix.getValue(i, j) + greenMatrix.getValue(i, j) + blueMatrix.getValue(i, j)) / 3.0;
-
-                    final Color color = new Color((int) col, (int) col, (int) col);
+                    final Color color = new Color(red, green, blue);
                     graphics.setColor(color);
                     graphics.drawLine(i, j, i, j);
                 }
