@@ -23,7 +23,7 @@ public class ConvolutionalNeuralNetworkIndividual extends Individual<Convolution
             Image image;
             while ((image = cifarReader.readImage()) != null) {
                 final ConvolutionalNeuralNetwork convolutionalNeuralNetwork = (ConvolutionalNeuralNetwork)this.getReproducible();
-                final Vector output = convolutionalNeuralNetwork.calculateOutputs(image.toInput2D());
+                final Vector output = convolutionalNeuralNetwork.calculateOutputs(image.toNormalizedInput2D());
                 final ImageType imageType = calculateImageType(output);
                 // System.out.println("imageType = " + imageType);
                 // System.out.println("image.getImageType() = " + image.getImageType());

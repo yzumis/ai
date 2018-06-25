@@ -21,7 +21,7 @@ public class ConvReluPooling2DNeuron implements Input2DFilter, Reproducible {
     public ConvReluPooling2DNeuron(final int filterSize) {
         final Convolutional2DFilter convolutional2DFilter = new Convolutional2DFilter(filterSize);
         final Relu2DFilter relu2DFilter = new Relu2DFilter();
-        final MaxPooling2DFilter maxPooling2DFilter = new MaxPooling2DFilter(3, 3);
+        final MaxPooling2DFilter maxPooling2DFilter = new MaxPooling2DFilter(filterSize, filterSize);
         this.input2DFilters = new ArrayList<>();
         this.input2DFilters.add(convolutional2DFilter);
         this.input2DFilters.add(relu2DFilter);

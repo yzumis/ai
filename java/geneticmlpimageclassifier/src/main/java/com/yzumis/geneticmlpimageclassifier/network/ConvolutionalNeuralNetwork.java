@@ -51,10 +51,10 @@ public class ConvolutionalNeuralNetwork implements Reproducible {
             currentInputs = currentOutputs;
         }
 
-        final Vector vector = new Vector();
+        Vector vector = new Vector();
         for(final Input2D output2D: currentOutputs) {
             final Vector currentOutputVector = output2D.toVector();
-            vector.concatenate(currentOutputVector);
+            vector = vector.concatenate(currentOutputVector);
 
         }
         return new Vector(this.mlp.calculateOutputs(vector.toList()));

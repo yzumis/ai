@@ -50,6 +50,31 @@ public class Image {
         return new Input2D(levels);
     }
 
+    public Input2D toNormalizedInput2D() {
+        final Matrix redMatrix = new Matrix(32, 32);
+        final Matrix greenMatrix = new Matrix(32, 32);
+        final Matrix blueMatrix = new Matrix(32, 32);
+
+        for(int i = 0; i < colors.size(); i++) {
+            final Color color = colors.get(i);
+            final int width = calculateWidth(i);
+            final int height = calculateHeight(i);
+            redMatrix.setValue(width, height, normalizedValue(color.getRed()));
+            greenMatrix.setValue(width, height, normalizedValue(color.getGreen()));
+            blueMatrix.setValue(width, height, normalizedValue(color.getBlue()));
+        }
+
+        final List<Matrix> levels = new ArrayList<>();
+        levels.add(redMatrix);
+        levels.add(greenMatrix);
+        levels.add(blueMatrix);
+        return new Input2D(levels);
+    }
+
+    public float normalizedValue(final int color) {
+        return (float)color / 255f;
+    }
+
     private final int calculateWidth(final int value) {
         return value % 32;
     }

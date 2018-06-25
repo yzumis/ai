@@ -45,7 +45,7 @@ public class ApplicationImageReader extends JFrame {
         }
     }
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(final String[] args) throws IOException, InterruptedException {
         final ApplicationImageReader applicationImageReader = new ApplicationImageReader();
 
         final CifarReader cifarReader = new CifarReader(NUMBER_OF_IMAGES);
