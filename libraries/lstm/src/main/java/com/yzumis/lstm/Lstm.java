@@ -64,10 +64,10 @@ public class Lstm implements Reproducible {
     @Override
     public Reproducible reproduce(Reproducible reproducible, float mutationRate) {
         final Lstm lstm = (Lstm) reproducible;
-        final Mlp childselectMlp = Mlp.reproduce(this.selectMlp, lstm.selectMlp, mutationRate);
-        final Mlp childForgetMlp = Mlp.reproduce(this.forgetMlp, lstm.forgetMlp, mutationRate);
-        final Mlp childIgnoreMlp = Mlp.reproduce(this.ignoreMlp, lstm.ignoreMlp, mutationRate);
-        final Mlp childPredictionMlp = Mlp.reproduce(this.predictionMlp, lstm.predictionMlp, mutationRate);
+        final Mlp childselectMlp = (Mlp) this.selectMlp.reproduce(lstm.selectMlp, mutationRate);
+        final Mlp childForgetMlp = (Mlp) this.forgetMlp.reproduce(forgetMlp, mutationRate);
+        final Mlp childIgnoreMlp = (Mlp) this.ignoreMlp.reproduce(ignoreMlp, mutationRate);
+        final Mlp childPredictionMlp = (Mlp) this.predictionMlp.reproduce(lstm.predictionMlp, mutationRate);
         return new Lstm(this.numberOfInputs, this.numberOfOutputs, childselectMlp, childForgetMlp, childIgnoreMlp, childPredictionMlp);
     }
 
