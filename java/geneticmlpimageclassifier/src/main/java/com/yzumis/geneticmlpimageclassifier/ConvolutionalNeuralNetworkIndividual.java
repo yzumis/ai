@@ -4,7 +4,6 @@ import com.yzumis.genetic.Individual;
 import com.yzumis.genetic.Reproducible;
 import com.yzumis.geneticmlpimageclassifier.network.ConvolutionalNeuralNetwork;
 import com.yzumis.lstm.Vector;
-import com.yzumis.mlp.Mlp;
 
 import java.io.IOException;
 import java.util.List;
