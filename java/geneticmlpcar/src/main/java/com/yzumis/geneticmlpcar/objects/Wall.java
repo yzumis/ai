@@ -10,10 +10,10 @@ import java.awt.*;
 public class Wall extends StaticObject implements Paintable {
 
     private static final Image WALL_IMAGE = ImageUtil.loadImage("Wall.png");
-    public static final float WALL_X_SIZE = Screen.X_SIZE / 36; // 20
-    public static final float WALL_Y_SIZE = Screen.Y_SIZE / 24; // 20
+    public static final double WALL_X_SIZE = Screen.X_SIZE / 36; // 20
+    public static final double WALL_Y_SIZE = Screen.Y_SIZE / 24; // 20
 
-    public Wall(final float x, final float y) {
+    public Wall(final double x, final double y) {
         super(x, y, WALL_X_SIZE, WALL_Y_SIZE);
     }
 

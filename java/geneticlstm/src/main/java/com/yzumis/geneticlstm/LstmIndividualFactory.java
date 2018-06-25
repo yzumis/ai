@@ -9,7 +9,7 @@ import java.util.List;
 public class LstmIndividualFactory implements IndividualFactory {
 
     @Override
-    public <G> com.yzumis.genetic.Individual createIndividual(final float mutationRate, final G goal) {
+    public <G> com.yzumis.genetic.Individual createIndividual(final double mutationRate, final G goal) {
         final List<Integer> mlpNeuronsPerLayer = new ArrayList<>();
         mlpNeuronsPerLayer.add(6);
         mlpNeuronsPerLayer.add(3);

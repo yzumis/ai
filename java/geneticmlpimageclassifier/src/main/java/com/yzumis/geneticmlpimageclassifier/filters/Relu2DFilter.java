@@ -22,7 +22,7 @@ public class Relu2DFilter implements Input2DFilter {
         final Matrix ret = new Matrix(level.getWidth(), level.getHeigth());
         for(int i = 0; i < level.getWidth(); i++) {
             for(int j = 0; j < level.getHeigth(); j++) {
-                final float value = level.getValue(i, j);
+                final double value = level.getValue(i, j);
                 if(value < 0) {
                     ret.setValue(i, j,0);
                 } else {

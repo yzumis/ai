@@ -11,31 +11,31 @@ import java.util.List;
  */
 public abstract class StaticObject {
 
-    protected final float x;
-    protected final float y;
-    protected final float xSize;
-    protected final float ySize;
+    protected final double x;
+    protected final double y;
+    protected final double xSize;
+    protected final double ySize;
 
-    public StaticObject(final float x, final float y, final float xSize, final float ySize) {
+    public StaticObject(final double x, final double y, final double xSize, final double ySize) {
         this.x = x;
         this.y = y;
         this.xSize = xSize;
         this.ySize = ySize;
     }
 
-    public float getX() {
+    public double getX() {
         return x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
-    public float getxSize() {
+    public double getxSize() {
         return xSize;
     }
 
-    public float getySize() {
+    public double getySize() {
         return ySize;
     }
 

@@ -77,49 +77,49 @@ public class Segment implements Paintable {
         }
     }
 
-    private float xk() {
+    private double xk() {
         return this.originPoint.getX();
     }
 
-    private float yk() {
+    private double yk() {
         return this.originPoint.getY();
     }
 
-    private float findX(float yk) {
-        final float x0 = this.originPoint.getX();
-        final float y0 = this.originPoint.getY();
-        final float x1 = this.destinationPoint.getX();
-        final float y1 = this.destinationPoint.getY();
+    private double findX(double yk) {
+        final double x0 = this.originPoint.getX();
+        final double y0 = this.originPoint.getY();
+        final double x1 = this.destinationPoint.getX();
+        final double y1 = this.destinationPoint.getY();
         return (yk - y0) * (x1 - x0) / (y1- y0) + x0;
     }
 
-    private float findY(float xk){
-        final float x0 = this.originPoint.getX();
-        final float y0 = this.originPoint.getY();
-        final float x1 = this.destinationPoint.getX();
-        final float y1 = this.destinationPoint.getY();
+    private double findY(double xk){
+        final double x0 = this.originPoint.getX();
+        final double y0 = this.originPoint.getY();
+        final double x1 = this.destinationPoint.getX();
+        final double y1 = this.destinationPoint.getY();
         return (xk - x0) * (y1 - y0) / (x1- x0) + y0;
     }
 
     private Point2d findImpactPointNonParallelAxis(final Segment segment) {
-        final float x1 = this.originPoint.getX();
-        final float y1 = this.originPoint.getY();
-        final float x2 = this.destinationPoint.getX();
-        final float y2 = this.destinationPoint.getY();
-        final float x1p = segment.originPoint.getX();
-        final float y1p = segment.originPoint.getY();
-        final float x2p = segment.destinationPoint.getX();
-        final float y2p = segment.destinationPoint.getY();
-        final float yNumerator = y1*x2*(y2p-y1p)-x1*y2*(y2p-y1p)-y1p*x2p*(y2-y1)+x1p*y2p*(y2-y1);
-        final float xNumerator = x1*y2*(x2p-x1p)-y1*x2*(x2p-x1p)-x1p*y2p*(x2-x1)+y1p*x2p*(x2-x1);
-        final float yDenominator = (x2-x1)*(y2p-y1p)-(x2p-x1p)*(y2-y1);
-        final float xDenominator = (y2-y1)*(x2p-x1p)-(y2p-y1p)*(x2-x1);
+        final double x1 = this.originPoint.getX();
+        final double y1 = this.originPoint.getY();
+        final double x2 = this.destinationPoint.getX();
+        final double y2 = this.destinationPoint.getY();
+        final double x1p = segment.originPoint.getX();
+        final double y1p = segment.originPoint.getY();
+        final double x2p = segment.destinationPoint.getX();
+        final double y2p = segment.destinationPoint.getY();
+        final double yNumerator = y1*x2*(y2p-y1p)-x1*y2*(y2p-y1p)-y1p*x2p*(y2-y1)+x1p*y2p*(y2-y1);
+        final double xNumerator = x1*y2*(x2p-x1p)-y1*x2*(x2p-x1p)-x1p*y2p*(x2-x1)+y1p*x2p*(x2-x1);
+        final double yDenominator = (x2-x1)*(y2p-y1p)-(x2p-x1p)*(y2-y1);
+        final double xDenominator = (y2-y1)*(x2p-x1p)-(y2p-y1p)*(x2-x1);
         final Point2d ret;
         if((xDenominator == 0) || (yDenominator == 0)) {
             ret = null;
         } else {
-            final float x = xNumerator / xDenominator;
-            final float y = yNumerator / yDenominator;
+            final double x = xNumerator / xDenominator;
+            final double y = yNumerator / yDenominator;
             final Point2d point = new Point2d(x, y);
             if(this.inSegment(point)) {
                 ret = point;
@@ -144,7 +144,7 @@ public class Segment implements Paintable {
         return xInSegment && yInSegment;
     }
 
-    private boolean between(final float number, float numberO, float numberD) {
+    private boolean between(final double number, double numberO, double numberD) {
         final boolean ret;
         if(numberO < numberD) {
             ret = (number >= numberO && number <= numberD);

@@ -52,9 +52,9 @@ public class Population {
         return ret;
     }
 
-    public void reproduction(float mutationRate) {
+    public void reproduction(double mutationRate) {
         final List<Car> childCars = new ArrayList<>();
-        final float totalFitness = this.calculateTotalFitness();
+        final double totalFitness = this.calculateTotalFitness();
         for(int i = 0; i < this.populationSize; i++) {
             final Car car1 = this.pickBestCar();
             final Car car2 = this.pickRandomCar(totalFitness);
@@ -63,8 +63,8 @@ public class Population {
         this.cars = childCars;
     }
 
-    private float calculateTotalFitness() {
-        float ret = 0;
+    private double calculateTotalFitness() {
+        double ret = 0;
         for(final Car car: this.cars) {
             ret += car.calculateFitness();
         }
@@ -81,12 +81,12 @@ public class Population {
         return ret;
     }
 
-    private Car pickRandomCar(final float totalFitness) {
-        final float randomFloat = (float)Math.random();
-        float currentFitness = 0;
+    private Car pickRandomCar(final double totalFitness) {
+        final double randomDouble = Math.random();
+        double currentFitness = 0;
         for(final Car car: this.cars) {
             currentFitness += car.calculateFitness();
-            if(currentFitness / totalFitness > randomFloat) {
+            if(currentFitness / totalFitness > randomDouble) {
                 return car;
             }
         }

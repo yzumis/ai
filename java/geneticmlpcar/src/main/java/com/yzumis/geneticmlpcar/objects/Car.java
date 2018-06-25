@@ -26,13 +26,13 @@ public class Car extends MovableObject implements Paintable {
         NEURONS_PER_LAYER.add(1);
     }
 
-    public static final float CAR_X_SIZE = Screen.X_SIZE / 36 * 3 / 4; // 15
-    private static final float CAR_Y_SIZE = Screen.Y_SIZE / 24 / 2; // 10
+    public static final double CAR_X_SIZE = Screen.X_SIZE / 36 * 3 / 4; // 15
+    private static final double CAR_Y_SIZE = Screen.Y_SIZE / 24 / 2; // 10
 
-    public static final float CAR_X_ORIGIN = CAR_X_SIZE;
-    public static final float CAR_Y_ORIGIN = Screen.Y_SIZE / 2 - CAR_Y_SIZE / 2;
+    public static final double CAR_X_ORIGIN = CAR_X_SIZE;
+    public static final double CAR_Y_ORIGIN = Screen.Y_SIZE / 2 - CAR_Y_SIZE / 2;
 
-    public static final float CAR_X_VELOCITY = 1f;
+    public static final double CAR_X_VELOCITY = 1d;
 
     private final Track track;
     private final Sensor sensor1;
@@ -57,7 +57,7 @@ public class Car extends MovableObject implements Paintable {
 
     private void setupSensor1Position() {
         final Point2d sensorOrigin = new Point2d(this.x + this.xSize, this.y + this.ySize / 2);
-        final Point2d sensor1Destination = new Point2d(sensorOrigin.getX() + Sensor.SENSOR_LENGHT * (float)Math.cos(Math.PI  / 4), sensorOrigin.getY() + Sensor.SENSOR_LENGHT * (float)Math.sin(Math.PI  / 4));
+        final Point2d sensor1Destination = new Point2d(sensorOrigin.getX() + Sensor.SENSOR_LENGHT * Math.cos(Math.PI  / 4), sensorOrigin.getY() + Sensor.SENSOR_LENGHT * Math.sin(Math.PI  / 4));
         this.sensor1.setupPosition(sensorOrigin, sensor1Destination);
     }
 
@@ -69,7 +69,7 @@ public class Car extends MovableObject implements Paintable {
 
     private void setupSensor3Position() {
         final Point2d sensorOrigin = new Point2d(this.x + this.xSize, this.y + this.ySize / 2);
-        final Point2d sensor3Destination = new Point2d(sensorOrigin.getX() + Sensor.SENSOR_LENGHT * (float)Math.cos(7 * Math.PI  / 4), sensorOrigin.getY() + Sensor.SENSOR_LENGHT * (float)Math.sin(7 * Math.PI  / 4));
+        final Point2d sensor3Destination = new Point2d(sensorOrigin.getX() + Sensor.SENSOR_LENGHT * Math.cos(7 * Math.PI  / 4), sensorOrigin.getY() + Sensor.SENSOR_LENGHT * Math.sin(7 * Math.PI  / 4));
         this.sensor3.setupPosition(sensorOrigin, sensor3Destination);
     }
 
@@ -102,15 +102,15 @@ public class Car extends MovableObject implements Paintable {
         return alive;
     }
 
-    public static Car reproduce(final Car car1, final Car car2, final float mutationRate) {
+    public static Car reproduce(final Car car1, final Car car2, final double mutationRate) {
         final Mlp mlp = (Mlp)car1.mlp.reproduce(car2.mlp, mutationRate);
         return new Car(car1.track, mlp);
     }
 
     public void execute(final long currentTimeMillis) {
         if(this.alive) {
-            final List<Float> inputs = this.readInputValues();
-            final List<Float> output = this.mlp.calculateOutputs(inputs);
+            final List<Double> inputs = this.readInputValues();
+            final List<Double> output = this.mlp.calculateOutputs(inputs);
             super.yVelocity = output.get(0) - 0.5f; // Output is between 0 and 1. So for negative output is needed to substract 0.5
             this.updatePosition(currentTimeMillis);
             if (this.crashed()) {
@@ -127,8 +127,8 @@ public class Car extends MovableObject implements Paintable {
         this.setupSensor3Position();
     }
 
-    private List<Float> readInputValues() {
-        final List<Float> ret = new ArrayList<>();
+    private List<Double> readInputValues() {
+        final List<Double> ret = new ArrayList<>();
         ret.add(sensor1.calculateLecture());
         ret.add(sensor2.calculateLecture());
         ret.add(sensor3.calculateLecture());
@@ -151,7 +151,7 @@ public class Car extends MovableObject implements Paintable {
         return xCrash && yCrash;
     }
 
-    public float calculateFitness() {
+    public double calculateFitness() {
         return this.x / Screen.X_SIZE;
     }
 

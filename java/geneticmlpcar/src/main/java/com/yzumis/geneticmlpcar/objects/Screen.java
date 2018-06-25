@@ -10,8 +10,8 @@ import java.awt.image.BufferedImage;
  */
 public class Screen extends JFrame {
 
-    public static float X_SIZE = 720;
-    public static float Y_SIZE = 480;
+    public static double X_SIZE = 720;
+    public static double Y_SIZE = 480;
     private Background background = new Background();
     private Track track;
     private List<Car> cars;

@@ -39,13 +39,13 @@ public class Mlp implements Reproducible {
         return ret;
     }
 
-    public List<Float> calculateOutputs(final List<Float> inputs) {
+    public List<Double> calculateOutputs(final List<Double> inputs) {
         for(int i = 0; i < this.neuronLayers.size(); i++) {
             for(int j = 0; j < this.neuronLayers.get(i).size(); j++) {
                 if( i == 0) {
                     this.neuronLayers.get(i).get(j).calculateOutput(inputs);
                 } else {
-                    final List<Float> middleLayerInputs = this.getLayerOutputs(this.neuronLayers.get(i - 1));
+                    final List<Double> middleLayerInputs = this.getLayerOutputs(this.neuronLayers.get(i - 1));
                     this.neuronLayers.get(i).get(j).calculateOutput(middleLayerInputs);
                 }
             }
@@ -53,8 +53,8 @@ public class Mlp implements Reproducible {
         return this.getLayerOutputs(this.neuronLayers.get(this.neuronLayers.size() -1));
     }
 
-    private List<Float> getLayerOutputs(final List<Neuron> neuronLayer) {
-        final List<Float> ret = new ArrayList<>();
+    private List<Double> getLayerOutputs(final List<Neuron> neuronLayer) {
+        final List<Double> ret = new ArrayList<>();
         for(final Neuron neuron : neuronLayer) {
             ret.add(neuron.getOutput());
         }
@@ -62,7 +62,7 @@ public class Mlp implements Reproducible {
     }
 
     @Override
-    public Reproducible reproduce(final Reproducible reproducible, final float mutationRate) {
+    public Reproducible reproduce(final Reproducible reproducible, final double mutationRate) {
         final List<List<Neuron>> childNeuronLayers = new ArrayList<>();
         for(int i = 0; i < this.neuronLayers.size(); i++) {
             final List<Neuron> childNeuronLayer = new ArrayList<>();

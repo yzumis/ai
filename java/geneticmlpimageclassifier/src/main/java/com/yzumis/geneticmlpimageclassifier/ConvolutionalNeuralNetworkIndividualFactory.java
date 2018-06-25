@@ -13,7 +13,7 @@ import java.util.List;
 public class ConvolutionalNeuralNetworkIndividualFactory implements IndividualFactory {
 
     @Override
-    public <G> Individual createIndividual(final float mutationRate, final G goal) {
+    public <G> Individual createIndividual(final double mutationRate, final G goal) {
         final List<Integer> mlpNeuronsPerLayer = new ArrayList<>();
         mlpNeuronsPerLayer.add(108);
         mlpNeuronsPerLayer.add(8);

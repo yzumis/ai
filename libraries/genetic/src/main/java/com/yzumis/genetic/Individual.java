@@ -3,11 +3,11 @@ package com.yzumis.genetic;
 public abstract class Individual<T extends Reproducible, G> {
 
     private final G goal;
-    private final float mutationRate;
-    private float fitness;
+    private final double mutationRate;
+    private double fitness;
     private Reproducible reproducible;
 
-    public Individual(final Reproducible reproducible, final float mutationRate, final G goal) {
+    public Individual(final Reproducible reproducible, final double mutationRate, final G goal) {
         this.reproducible = reproducible;
         this.mutationRate = mutationRate;
         this.goal = goal;
@@ -16,13 +16,13 @@ public abstract class Individual<T extends Reproducible, G> {
 
     public abstract void calculateFitness();
 
-    protected void setFitness(final float fitness) {
+    protected void setFitness(final double fitness) {
         this.fitness = fitness;
     }
 
     public abstract Individual reproduce(final Individual individual);
 
-    public float getFitness() {
+    public double getFitness() {
         return fitness;
     }
 
@@ -30,7 +30,7 @@ public abstract class Individual<T extends Reproducible, G> {
         return goal;
     }
 
-    public float getMutationRate() {
+    public double getMutationRate() {
         return mutationRate;
     }
 

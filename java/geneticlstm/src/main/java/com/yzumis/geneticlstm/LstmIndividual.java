@@ -7,7 +7,7 @@ import com.yzumis.lstm.Vector;
 
 public class LstmIndividual extends com.yzumis.genetic.Individual<Lstm, String> {
 
-    public LstmIndividual(final Lstm lstm, final float mutationRate, final String goal) {
+    public LstmIndividual(final Lstm lstm, final double mutationRate, final String goal) {
         super(lstm, mutationRate, goal);
     }
 
@@ -32,9 +32,9 @@ public class LstmIndividual extends com.yzumis.genetic.Individual<Lstm, String> 
     }
 
     private char calculateCharacter(final Vector outputVector) {
-        final float vala = outputVector.toList().get(0);
-        final float valb = outputVector.toList().get(1);
-        final float valc = outputVector.toList().get(2);
+        final double vala = outputVector.toList().get(0);
+        final double valb = outputVector.toList().get(1);
+        final double valc = outputVector.toList().get(2);
         final char ret;
         if(vala > valb && vala > valc) {
             ret = 'a';
@@ -49,11 +49,11 @@ public class LstmIndividual extends com.yzumis.genetic.Individual<Lstm, String> 
     private Vector calculateVector(final char value) {
         final Vector ret;
         if(value == 'a') {
-            ret = new Vector(1f, 0f, 0f);
+            ret = new Vector(1d, 0d, 0d);
         } else if(value == 'b') {
-            ret = new Vector(0f, 1f, 0f);
+            ret = new Vector(0d, 1d, 0d);
         } else {
-            ret = new Vector(0f, 0f, 1f);
+            ret = new Vector(0d, 0d, 1d);
         }
         return ret;
     }

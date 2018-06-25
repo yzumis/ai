@@ -8,11 +8,11 @@ public class Population<G> {
 
     private List<Individual> individuals;
 
-    public Population(final IndividualFactory individualFactory, final int populationSize, final G goal, final float mutationRate) {
+    public Population(final IndividualFactory individualFactory, final int populationSize, final G goal, final double mutationRate) {
         this.individuals = initializePopulation(individualFactory, populationSize, goal, mutationRate);
     }
 
-    private List<Individual> initializePopulation(final IndividualFactory individualFactory, final int populationSize, final G goal, final float mutationRate) {
+    private List<Individual> initializePopulation(final IndividualFactory individualFactory, final int populationSize, final G goal, final double mutationRate) {
         final List<Individual> ret = new ArrayList<>();
         for(int i = 0; i < populationSize; i++) {
             final List<Integer> mlpNeuronsPerLayer = new ArrayList<>();

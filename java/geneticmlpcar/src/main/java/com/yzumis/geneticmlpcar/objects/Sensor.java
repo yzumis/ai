@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class Sensor implements Paintable {
 
-    public static final float SENSOR_LENGHT = 3 * Car.CAR_X_SIZE;
+    public static final double SENSOR_LENGHT = 3 * Car.CAR_X_SIZE;
     private static final Color SENSOR_COLOR = Color.YELLOW;
 
     private Segment segment;
@@ -25,16 +25,16 @@ public class Sensor implements Paintable {
         this.segment = new Segment(origin, destination);
     }
 
-    public float calculateLecture() {
+    public double calculateLecture() {
         final List<Segment> trackSegments = this.track.getSegments();
         final List<Point2d> impactPoints = this.segment.findImpactPoints(trackSegments);
         return this.findShortestDistanceToPoints(impactPoints);
     }
 
-    private float findShortestDistanceToPoints(final List<Point2d> points) {
-        float ret = SENSOR_LENGHT;
+    private double findShortestDistanceToPoints(final List<Point2d> points) {
+        double ret = SENSOR_LENGHT;
         for(final Point2d point: points) {
-            final float distanceToPoint = this.segment.getOriginPoint().calculateDistanceToPoint(point);
+            final double distanceToPoint = this.segment.getOriginPoint().calculateDistanceToPoint(point);
             if(distanceToPoint < ret) {
                 ret = distanceToPoint;
             }
@@ -50,9 +50,9 @@ public class Sensor implements Paintable {
 
     private Point2d findShortestImpactPoint(final List<Point2d> points) {
         Point2d ret = null;
-        float shortestDistanceToPoint = SENSOR_LENGHT;
+        double shortestDistanceToPoint = SENSOR_LENGHT;
         for(final Point2d point: points) {
-            final float distanceToPoint = this.segment.getOriginPoint().calculateDistanceToPoint(point);
+            final double distanceToPoint = this.segment.getOriginPoint().calculateDistanceToPoint(point);
             if(distanceToPoint < shortestDistanceToPoint) {
                 shortestDistanceToPoint = distanceToPoint;
                 ret = point;

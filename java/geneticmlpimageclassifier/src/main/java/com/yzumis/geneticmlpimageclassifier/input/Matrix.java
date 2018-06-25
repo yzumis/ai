@@ -4,30 +4,30 @@ import com.yzumis.genetic.Reproducible;
 
 public class Matrix implements Reproducible {
 
-    private final float[][] values;
+    private final double[][] values;
 
-    public Matrix(float[][] values) {
+    public Matrix(double[][] values) {
         this.values = values;
     }
 
     public Matrix(final int width, final int height) {
-        this(new float[width][height]);
+        this(new double[width][height]);
     }
 
     public Matrix(final int matrixSize) {
         this(matrixSize, matrixSize);
         for(int i = 0; i < matrixSize; i++) {
             for(int j = 0; j < matrixSize; j++) {
-                this.values[i][j] = (float)Math.random();
+                this.values[i][j] = Math.random();
             }
         }
     }
 
-    public void setValue(final int width, final int height, final float value) {
+    public void setValue(final int width, final int height, final double value) {
         this.values[width][height] = value;
     }
 
-    public float getValue(final int width, final int height) {
+    public double getValue(final int width, final int height) {
         return this.values[width][height];
     }
 
@@ -45,10 +45,10 @@ public class Matrix implements Reproducible {
         return outOfBoundsWidth || outOfBoundsHeight;
     }
 
-    public float multiplyValuePerValueAndAdd(final Matrix matrix) {
+    public double multiplyValuePerValueAndAdd(final Matrix matrix) {
         assert this.getWidth() == matrix.getWidth();
         assert this.getHeigth() == matrix.getHeigth();
-        float ret = 0;
+        double ret = 0;
         for(int i = 0; i < this.getWidth(); i++) {
             for(int j = 0; j < this.getHeigth(); j++) {
                 ret += this.getValue(i, j) * matrix.getValue(i, j);
@@ -58,22 +58,22 @@ public class Matrix implements Reproducible {
     }
 
     @Override
-    public Reproducible reproduce(final Reproducible reproducible, final float mutationRate) {
+    public Reproducible reproduce(final Reproducible reproducible, final double mutationRate) {
         final Matrix matrix = (Matrix) reproducible;
         final Matrix ret = new Matrix(this.getWidth(), this.getHeigth());
         for(int i = 0; i < this.getWidth(); i++) {
             for(int j = 0; j < this.getHeigth(); j++) {
-                final float value = calculateValue(this.getValue(i, j), matrix.getValue(i, j), mutationRate);
+                final double value = calculateValue(this.getValue(i, j), matrix.getValue(i, j), mutationRate);
                 ret.setValue(i, j, value);
             }
         }
         return ret;
     }
 
-    private float calculateValue(final float valueA, final float valueB, final float mutationRate) {
-        final float ret;
+    private double calculateValue(final double valueA, final double valueB, final double mutationRate) {
+        final double ret;
         if(Math.random() < mutationRate) {
-            ret = (float) Math.random();
+            ret = Math.random();
         } else {
             if (Math.random() < 0.5D) {
                 ret = valueA;

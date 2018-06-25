@@ -6,7 +6,7 @@ import com.yzumis.genetic.Population;
 public class Application {
 
     private static final int POPULATION_SIZE = 20;
-    private static final float MUTATION_RATE = 0.2f;
+    private static final double MUTATION_RATE = 0.2f;
 
     public static void main(final String[] args) {
         final ConvolutionalNeuralNetworkIndividualFactory convolutionalNeuralNetworkIndividualFactory = new ConvolutionalNeuralNetworkIndividualFactory();

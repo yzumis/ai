@@ -30,7 +30,7 @@ public class ConvReluPooling2DNeuron implements Input2DFilter, Reproducible {
 
 
     @Override
-    public Reproducible reproduce(final Reproducible reproducible, final float mutationRate) {
+    public Reproducible reproduce(final Reproducible reproducible, final double mutationRate) {
         final List<Input2DFilter> input2DFiltersChild = new ArrayList<>();
         final ConvReluPooling2DNeuron convReluPooling2DNeuron = (ConvReluPooling2DNeuron) reproducible;
         for(int i = 0; i < this.input2DFilters.size(); i++) {

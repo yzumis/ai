@@ -71,8 +71,8 @@ public class Image {
         return new Input2D(levels);
     }
 
-    public float normalizedValue(final int color) {
-        return (float)color / 255f;
+    public double normalizedValue(final int color) {
+        return color / 255d;
     }
 
     private final int calculateWidth(final int value) {

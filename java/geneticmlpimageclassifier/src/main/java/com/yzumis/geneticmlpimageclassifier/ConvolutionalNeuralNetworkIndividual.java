@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ConvolutionalNeuralNetworkIndividual extends Individual<ConvolutionalNeuralNetwork, Object> {
 
-    public ConvolutionalNeuralNetworkIndividual(final ConvolutionalNeuralNetwork convolutionalNeuralNetwork, final float mutationRate, final Object goal) {
+    public ConvolutionalNeuralNetworkIndividual(final ConvolutionalNeuralNetwork convolutionalNeuralNetwork, final double mutationRate, final Object goal) {
         super(convolutionalNeuralNetwork, mutationRate, goal);
     }
 
@@ -31,7 +31,7 @@ public class ConvolutionalNeuralNetworkIndividual extends Individual<Convolution
                     fitness++;
                 }
             }
-            setFitness((float) fitness / (float) numberOfImages);
+            setFitness((double) fitness / (double) numberOfImages);
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
@@ -39,7 +39,7 @@ public class ConvolutionalNeuralNetworkIndividual extends Individual<Convolution
 
     private ImageType calculateImageType(final Vector output) {
         int maxIndex = 0;
-        final List<Float> outputList = output.toList();
+        final List<Double> outputList = output.toList();
         // System.out.println("outputList = " + outputList);
         for (int i = 0; i < outputList.size(); i++) {
             if(outputList.get(i) >= outputList.get(maxIndex)) {

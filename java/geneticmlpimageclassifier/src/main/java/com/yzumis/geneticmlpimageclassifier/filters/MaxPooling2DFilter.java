@@ -32,21 +32,21 @@ public class MaxPooling2DFilter implements Input2DFilter {
         final Matrix ret = new Matrix(newWidth, newHeight);
         for(int i = 0; i < newWidth; i++) {
             for(int j = 0; j < newHeight; j++) {
-                final float value = calculateWindowMaximumValue(level, i, j);
+                final double value = calculateWindowMaximumValue(level, i, j);
                 ret.setValue(i, j, value);
             }
         }
         return ret;
     }
 
-    private float calculateWindowMaximumValue(final Matrix level, final int width, final int height) {
-        float ret = 0;
+    private double calculateWindowMaximumValue(final Matrix level, final int width, final int height) {
+        double ret = 0;
         for(int i = 0; i < this.windowSize; i++) {
             for(int j = 0; j < this.windowSize; j++) {
                 final int levelWidth = width + i;
                 final int levelHeight = height + j;
                 if(!level.outOfBounds(levelWidth, levelHeight)) {
-                    final float value = level.getValue(levelWidth, levelHeight);
+                    final double value = level.getValue(levelWidth, levelHeight);
                     ret = Math.max(ret, value);
                 }
             }

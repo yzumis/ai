@@ -8,9 +8,9 @@ import java.util.List;
  */
 public class Neuron {
 
-    private final List<Float> weights;
-    private final float bias;
-    private float output;
+    private final List<Double> weights;
+    private final double bias;
+    private double output;
 
     public Neuron(final int numberOfconnections) {
         this.weights = new ArrayList<>();
@@ -20,36 +20,36 @@ public class Neuron {
         this.bias = this.generateRandomWeight();
     }
 
-    public Neuron(final List<Float> weights, final float bias) {
+    public Neuron(final List<Double> weights, final double bias) {
         this.weights = weights;
         this.bias = bias;
     }
 
-    private float generateRandomWeight() {
-        return (float) Math.random();
+    private double generateRandomWeight() {
+        return Math.random();
     }
 
-    public void calculateOutput(final List<Float> inputs) {
-        final float weightedInput = this.calculateWeightedInput(inputs) + this.bias;
-        this.output = 1 / (1 + (float)Math.exp(-weightedInput));
+    public void calculateOutput(final List<Double> inputs) {
+        final double weightedInput = this.calculateWeightedInput(inputs) + this.bias;
+        this.output = 1.0 / (1.0 + Math.exp(-weightedInput));
     }
 
-    private float calculateWeightedInput(final List<Float> inputs) {
-        float ret = 0;
+    private double calculateWeightedInput(final List<Double> inputs) {
+        double ret = 0;
         for(int i = 0; i < inputs.size(); i++) {
             ret += this.weights.get(i) * inputs.get(i);
         }
         return ret;
     }
 
-    public float getOutput() {
+    public double getOutput() {
         return output;
     }
 
-    public static Neuron reproduce(final Neuron neuron1, final Neuron neuron2, final float mutationRate) {
-        final List<Float> childWeights = new ArrayList<>();
+    public static Neuron reproduce(final Neuron neuron1, final Neuron neuron2, final double mutationRate) {
+        final List<Double> childWeights = new ArrayList<>();
         for(int i = 0; i < neuron1.weights.size(); i++) {
-            float childWeight;
+            double childWeight;
             if(Math.random() < 0.5) {
                 childWeight = neuron1.weights.get(i);
             } else {
@@ -58,7 +58,7 @@ public class Neuron {
             childWeight = Neuron.randomDeltaMutation(childWeight, mutationRate);
             childWeights.add(childWeight);
         }
-        float bias;
+        double bias;
         if(Math.random() < 0.5) {
             bias = neuron1.bias;
         } else {
@@ -68,10 +68,10 @@ public class Neuron {
         return new Neuron(childWeights, bias);
     }
 
-    private static float randomDeltaMutation(final float value, final float mutationRate) {
-        final float deltaValue;
+    private static double randomDeltaMutation(final double value, final double mutationRate) {
+        final double deltaValue;
         if(Math.random() < mutationRate) {
-            deltaValue = 2 * (float) Math.random() - 1;
+            deltaValue = 2 * Math.random() - 1;
         } else {
             deltaValue = 0;
         }

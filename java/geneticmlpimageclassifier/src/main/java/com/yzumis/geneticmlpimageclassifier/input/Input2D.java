@@ -17,11 +17,11 @@ public class Input2D {
         final int levelsWidth = this.levels.get(0).getWidth();
         final int levelsHeight = this.levels.get(0).getHeigth();
         final int levelsDepth = this.levels.size();
-        final List<Float> inputValues = new ArrayList<>();
+        final List<Double> inputValues = new ArrayList<>();
         for(int i = 0; i < levelsWidth; i++) {
             for(int j = 0; j < levelsHeight; j++) {
                 for(int k = 0; k < levelsDepth; k++) {
-                    final float value = this.levels.get(k).getValue(i, j);
+                    final double value = this.levels.get(k).getValue(i, j);
                     inputValues.add(value);
                 }
             }

@@ -79,14 +79,14 @@ public class ConvolutionalNeuralNetwork implements Reproducible {
     }
 
     @Override
-    public Reproducible reproduce(final Reproducible reproducible, final float mutationRate) {
+    public Reproducible reproduce(final Reproducible reproducible, final double mutationRate) {
         final ConvolutionalNeuralNetwork convolutionalNeuralNetwork = (ConvolutionalNeuralNetwork) reproducible;
         final List<List<ConvReluPooling2DNeuron>> childNeuronLayers = calculateChildNeuronLayers(this.neuronLayers, convolutionalNeuralNetwork.neuronLayers, mutationRate);
         final Mlp childMlp = (Mlp) this.mlp.reproduce(convolutionalNeuralNetwork.mlp, mutationRate);
         return new ConvolutionalNeuralNetwork(childNeuronLayers, childMlp);
     }
 
-    private List<List<ConvReluPooling2DNeuron>> calculateChildNeuronLayers(final List<List<ConvReluPooling2DNeuron>> neuronLayersA, final List<List<ConvReluPooling2DNeuron>> neuronLayersB, final float mutationRate) {
+    private List<List<ConvReluPooling2DNeuron>> calculateChildNeuronLayers(final List<List<ConvReluPooling2DNeuron>> neuronLayersA, final List<List<ConvReluPooling2DNeuron>> neuronLayersB, final double mutationRate) {
         final List<List<ConvReluPooling2DNeuron>> ret = new ArrayList<>();
         for(int i = 0; i < neuronLayers.size(); i++) {
             final List<ConvReluPooling2DNeuron> childNeuronLayer = calculateChildNeuronLayer(neuronLayersA.get(i), neuronLayersB.get(i), mutationRate);
@@ -95,7 +95,7 @@ public class ConvolutionalNeuralNetwork implements Reproducible {
         return ret;
     }
 
-    private List<ConvReluPooling2DNeuron> calculateChildNeuronLayer(final List<ConvReluPooling2DNeuron> neuronLayerA, final List<ConvReluPooling2DNeuron> neuronLayerB, final float mutationRate) {
+    private List<ConvReluPooling2DNeuron> calculateChildNeuronLayer(final List<ConvReluPooling2DNeuron> neuronLayerA, final List<ConvReluPooling2DNeuron> neuronLayerB, final double mutationRate) {
         final List<ConvReluPooling2DNeuron> ret = new ArrayList<>();
         for(int i = 0; i < neuronLayerA.size(); i++) {
             final ConvReluPooling2DNeuron childConvReluPooling2DNeuron = (ConvReluPooling2DNeuron) neuronLayerA.get(i).reproduce(neuronLayerB.get(i), mutationRate);

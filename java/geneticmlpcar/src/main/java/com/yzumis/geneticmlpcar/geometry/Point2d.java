@@ -11,24 +11,24 @@ public class Point2d implements Paintable {
 
     private static final Color POINT2D_COLOR = Color.GREEN;
 
-    private final float x;
-    private final float y;
+    private final double x;
+    private final double y;
 
-    public Point2d(final float x, final float y) {
+    public Point2d(final double x, final double y) {
         this.x = x;
         this.y = y;
     }
 
-    public float getX() {
+    public double getX() {
         return x;
     }
 
-    public float getY() {
+    public double getY() {
         return y;
     }
 
-    public Float calculateDistanceToPoint(final Point2d point) {
-        return (float) Math.sqrt( Math.pow(this.x - point.x, 2) + Math.pow(this.y - point.y, 2));
+    public Double calculateDistanceToPoint(final Point2d point) {
+        return Math.sqrt( Math.pow(this.x - point.x, 2) + Math.pow(this.y - point.y, 2));
     }
 
     @Override

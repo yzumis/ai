@@ -62,7 +62,7 @@ public class Lstm implements Reproducible {
     }
 
     @Override
-    public Reproducible reproduce(Reproducible reproducible, float mutationRate) {
+    public Reproducible reproduce(Reproducible reproducible, double mutationRate) {
         final Lstm lstm = (Lstm) reproducible;
         final Mlp childselectMlp = (Mlp) this.selectMlp.reproduce(lstm.selectMlp, mutationRate);
         final Mlp childForgetMlp = (Mlp) this.forgetMlp.reproduce(forgetMlp, mutationRate);

@@ -5,7 +5,7 @@ import com.yzumis.genetic.Population;
 public class Application {
 
     private static final int POPULATION_SIZE = 20;
-    private static final float MUTATION_RATE = 0.2f;
+    private static final double MUTATION_RATE = 0.2f;
     private static final String GOAL = "abacabacabacabacabac";
 
     public static void main(final String[] args) {

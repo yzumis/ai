@@ -37,14 +37,14 @@ public class Convolutional2DFilter implements Reproducible, Input2DFilter {
         final Matrix ret = new Matrix(level.getWidth(), level.getHeigth());
         for(int i = 0; i < level.getWidth(); i++) {
             for(int j = 0; j < level.getHeigth(); j++) {
-                final float value = calculateConvolutionalValue(level, i, j);
+                final double value = calculateConvolutionalValue(level, i, j);
                 ret.setValue(i, j,value);
             }
         }
         return ret;
     }
 
-    private float calculateConvolutionalValue(final Matrix level, final int width, final int height) {
+    private double calculateConvolutionalValue(final Matrix level, final int width, final int height) {
         final Matrix subLevel = new Matrix(filterSize, filterSize);
         final int windowGap = -filterSize / 2;
         for(int i = 0; i < filterSize; i++) {
@@ -52,7 +52,7 @@ public class Convolutional2DFilter implements Reproducible, Input2DFilter {
                 final int levelWidth = i + windowGap;
                 final int levelHeight = j + windowGap;
                 if (!level.outOfBounds(levelWidth, levelHeight)) {
-                    final float value = level.getValue(levelWidth, levelHeight);
+                    final double value = level.getValue(levelWidth, levelHeight);
                     subLevel.setValue(i, j, value);
                 }
             }
@@ -61,7 +61,7 @@ public class Convolutional2DFilter implements Reproducible, Input2DFilter {
     }
 
     @Override
-    public Reproducible reproduce(Reproducible reproducible, float mutationRate) {
+    public Reproducible reproduce(Reproducible reproducible, double mutationRate) {
         final Convolutional2DFilter convolutional2DFilter = (Convolutional2DFilter) reproducible;
         final Matrix childFilterValues = (Matrix) this.filterValues.reproduce(convolutional2DFilter.filterValues, mutationRate);
         return new Convolutional2DFilter(this.filterSize, childFilterValues);
