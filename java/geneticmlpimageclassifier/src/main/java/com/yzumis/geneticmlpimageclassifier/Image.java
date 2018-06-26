@@ -51,23 +51,18 @@ public class Image {
     }
 
     public Input2D toNormalizedInput2D() {
-        final Matrix redMatrix = new Matrix(32, 32);
-        final Matrix greenMatrix = new Matrix(32, 32);
-        final Matrix blueMatrix = new Matrix(32, 32);
+        final Matrix blackAndWhiteMatrix = new Matrix(32, 32);
 
         for(int i = 0; i < colors.size(); i++) {
             final Color color = colors.get(i);
             final int width = calculateWidth(i);
             final int height = calculateHeight(i);
-            redMatrix.setValue(width, height, normalizedValue(color.getRed()));
-            greenMatrix.setValue(width, height, normalizedValue(color.getGreen()));
-            blueMatrix.setValue(width, height, normalizedValue(color.getBlue()));
+            final double blackAndWhiteColor = color.getRed() + color.getGreen() + color.getBlue() / 3d;
+            blackAndWhiteMatrix.setValue(width, height, normalizedValue((int) blackAndWhiteColor));
         }
 
         final List<Matrix> levels = new ArrayList<>();
-        levels.add(redMatrix);
-        levels.add(greenMatrix);
-        levels.add(blueMatrix);
+        levels.add(blackAndWhiteMatrix);
         return new Input2D(levels);
     }
 

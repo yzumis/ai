@@ -31,8 +31,7 @@ public class Neuron {
 
     public void calculateOutput(final List<Double> inputs) {
         final double weightedInput = this.calculateWeightedInput(inputs) + this.bias;
-        final double normalizedWeightedInput = weightedInput / inputs.size(); // This is needed when the number of inputs is large as the functions tends to 1
-        this.output = 1.0 / (1.0 + Math.exp(-normalizedWeightedInput));
+        this.output = 1.0 / (1.0 + Math.exp(-weightedInput));
     }
 
     private double calculateWeightedInput(final List<Double> inputs) {

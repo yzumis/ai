@@ -15,9 +15,9 @@ public class ConvolutionalNeuralNetworkIndividualFactory implements IndividualFa
     @Override
     public <G> Individual createIndividual(final double mutationRate, final G goal) {
         final List<Integer> mlpNeuronsPerLayer = new ArrayList<>();
-        mlpNeuronsPerLayer.add(108);
+        mlpNeuronsPerLayer.add(36);
         mlpNeuronsPerLayer.add(8);
-        final Mlp mlp = new Mlp(108, mlpNeuronsPerLayer);
+        final Mlp mlp = new Mlp(36, mlpNeuronsPerLayer);
         final List<Integer> convolutionalNeuralNetworkNeuronsPerLayer = new ArrayList<>();
         convolutionalNeuralNetworkNeuronsPerLayer.add(3);
         convolutionalNeuralNetworkNeuronsPerLayer.add(3);
