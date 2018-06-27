@@ -1,4 +1,4 @@
-# IA
+# AI
 Some artificial intelligence tests in java and javascript
 
 It includes:
@@ -12,3 +12,4 @@ It includes:
         - mlp-ga --> multi-layer perceptron trained using a genetic algorithm which solves the XOR problem.
         - genetic_car --> A self-driving car which uses a multi-layer perceptron trained using a genetic algorithm
         - lstm --> Long Short Term Memory recurrent neural network trained using a genetic algorithm which solves a simple character patern
+- Others: contains some experiments non related to artificial intelligence
