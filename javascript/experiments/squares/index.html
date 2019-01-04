@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	</head>	
+	<body>
+		<canvas id="worldCanvas" width="600" height="600"></canvas>
+		<script>
+			
+			// Constants
+			
+			const X_SIZE = 600;
+			const Y_SIZE = 600;
+			const X_SQUARE_NUMBER = 20;
+			const Y_SQUARE_NUMBER = 20;
+			const X_SQUARE_SIZE = X_SIZE / X_SQUARE_NUMBER;
+			const Y_SQUARE_SIZE = Y_SIZE / Y_SQUARE_NUMBER;
+			const TIMEOUT = 20;
+			
+			// Variables
+			var positions;
+			var color;
+			
+			// Method execution:
+			
+			initialize();
+			play();
+			
+			// Method declaration
+			
+			function initialize() {
+				positions = [];
+				positions.push(-3 * Y_SQUARE_SIZE);
+				positions.push(0);
+				positions.push(-Y_SQUARE_SIZE);
+				positions.push(-2 * Y_SQUARE_SIZE);
+				positions.push(-2 * Y_SQUARE_SIZE);
+				positions.push(-3 * Y_SQUARE_SIZE);
+				positions.push(0);
+				positions.push(-5 * Y_SQUARE_SIZE);
+				positions.push(-Y_SQUARE_SIZE);
+				positions.push(-3 * Y_SQUARE_SIZE);
+				positions.push(0);
+				positions.push(-Y_SQUARE_SIZE);
+				positions.push(-2 * Y_SQUARE_SIZE);
+				positions.push(0);
+				positions.push(-7 * Y_SQUARE_SIZE);
+				positions.push(-Y_SQUARE_SIZE);
+				positions.push(-3 * Y_SQUARE_SIZE);
+				positions.push(-3 * Y_SQUARE_SIZE);
+				positions.push(-1 * Y_SQUARE_SIZE);
+				positions.push(0);
+				
+				colors = [];
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				colors.push(randomColor());
+				
+				var canvas = document.getElementById('worldCanvas');
+				var context = canvas.getContext('2d');
+				drawBackground(context);
+			};
+			
+			function randomColor() {
+				var randomRed = Math.random() * 255;
+				var randomGreen = Math.random() * 255;
+				var randomBlue = Math.random() * 255;
+				return "rgb(" + randomRed + ", " + randomGreen + ", " + randomBlue + ")";
+				// return 'red';
+			};
+			
+			function play() {
+				draw();
+				move();
+				setTimeout(play, TIMEOUT);
+			};
+			
+			function sleep(ms) {
+				return new Promise(resolve => setTimeout(resolve, ms));
+			};
+			
+			function draw() {
+				var canvas = document.getElementById('worldCanvas');
+				var context = canvas.getContext('2d');
+				for(var i = 0; i < X_SQUARE_NUMBER; i++) {
+					if (positions[i] > 0) {
+						drawRectangle(context, colors[i], i * X_SQUARE_SIZE, positions[i], X_SQUARE_SIZE - 1, 1);
+					}
+				}
+			};
+			
+			function drawRectangle(context, color, x, y, xSize, ySize) {
+				context.beginPath();
+				context.rect(x, y, xSize, ySize);
+				context.fillStyle = color;
+				context.fill();
+				context.lineWidth = 1;
+				context.strokeStyle = color;
+				context.stroke();
+			}
+			
+			function drawBackground(context) {
+				drawRectangle(context, 'black', 0, 0, X_SIZE, Y_SIZE);
+			};
+			
+			function move() {
+				for(var i = 0; i < X_SQUARE_NUMBER; i++) {
+					if(positions[i] < Y_SIZE) {
+						positions[i]++;
+						if(positions[i] % Y_SQUARE_SIZE == 0) {
+							colors[i] = randomColor();
+						}
+					}
+				}
+			};
+			
+		</script>
+	</body>
+</html>
