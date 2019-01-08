@@ -1,4 +1,4 @@
-# IA
+# AI
 
 This project includes some artificial intelligence code in both Java and JavaScript. It also includes some random experiments.
 
