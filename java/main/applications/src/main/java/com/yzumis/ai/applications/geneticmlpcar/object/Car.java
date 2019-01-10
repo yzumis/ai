@@ -2,7 +2,10 @@ package com.yzumis.ai.applications.geneticmlpcar.object;
 
 import com.yzumis.ai.applications.geneticmlpcar.geometry.Point2d;
 import com.yzumis.ai.applications.geneticmlpcar.util.ImageUtil;
+import com.yzumis.ai.commonneuron.BaseNeuronFactory;
+import com.yzumis.ai.commonneuron.Vector;
 import com.yzumis.ai.mlp.Mlp;
+import com.yzumis.ai.neuron.NeuronFactory;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -49,7 +52,8 @@ public class Car extends MovableObject implements Paintable {
         this.setupSensor2Position();
         this.setupSensor3Position();
         this.alive = true;
-        this.mlp = new Mlp(NUMBER_OF_INPUTS, NEURONS_PER_LAYER);
+        final BaseNeuronFactory baseNeuronFactory = new NeuronFactory();
+        this.mlp = new Mlp(NUMBER_OF_INPUTS, NEURONS_PER_LAYER, baseNeuronFactory);
     }
 
     private void setupSensor1Position() {
@@ -106,9 +110,9 @@ public class Car extends MovableObject implements Paintable {
 
     public void execute(final long currentTimeMillis) {
         if(this.alive) {
-            final java.util.List<Double> inputs = this.readInputValues();
-            final java.util.List<Double> output = this.mlp.calculateOutputs(inputs);
-            super.yVelocity = output.get(0) - 0.5f; // Output is between 0 and 1. So for negative output is needed to substract 0.5
+            final Vector inputs = this.readInputValues();
+            final Vector output = this.mlp.calculateOutputs(inputs);
+            super.yVelocity = output.toList().get(0) - 0.5f; // Output is between 0 and 1. So for negative output is needed to substract 0.5
             this.updatePosition(currentTimeMillis);
             if (this.crashed()) {
                 this.alive = false;
@@ -124,11 +128,8 @@ public class Car extends MovableObject implements Paintable {
         this.setupSensor3Position();
     }
 
-    private java.util.List<Double> readInputValues() {
-        final List<Double> ret = new ArrayList<>();
-        ret.add(sensor1.calculateLecture());
-        ret.add(sensor2.calculateLecture());
-        ret.add(sensor3.calculateLecture());
+    private Vector readInputValues() {
+        final Vector ret = new Vector(sensor1.calculateLecture(), sensor2.calculateLecture(), sensor3.calculateLecture());
         return ret;
     }
 

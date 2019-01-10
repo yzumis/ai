@@ -3,9 +3,9 @@ package com.yzumis.ai.applications.convolutionalgeneticmlpimageclassifier;
 import com.yzumis.ai.applications.convolutionalgeneticmlpimageclassifier.image.Image;
 import com.yzumis.ai.applications.convolutionalgeneticmlpimageclassifier.image.ImageType;
 import com.yzumis.ai.applications.convolutionalgeneticmlpimageclassifier.network.ConvolutionalNeuralNetwork;
+import com.yzumis.ai.commonneuron.Vector;
 import com.yzumis.ai.genetic.Individual;
 import com.yzumis.ai.genetic.Reproducible;
-import com.yzumis.ai.lstm.Vector;
 
 import java.io.IOException;
 import java.util.List;

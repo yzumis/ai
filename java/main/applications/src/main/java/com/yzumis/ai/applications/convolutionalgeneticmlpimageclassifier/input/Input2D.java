@@ -1,6 +1,6 @@
 package com.yzumis.ai.applications.convolutionalgeneticmlpimageclassifier.input;
 
-import com.yzumis.ai.lstm.Vector;
+import com.yzumis.ai.commonneuron.Vector;
 
 import java.util.ArrayList;
 import java.util.List;

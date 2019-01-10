@@ -1,16 +1,20 @@
 package com.yzumis.ai.neuron;
 
+import com.yzumis.ai.commonneuron.BaseNeuron;
+import com.yzumis.ai.commonneuron.Vector;
+import com.yzumis.ai.genetic.Reproducible;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by Yzumi on 27/12/2017.
  */
-public class Neuron {
+public class Neuron implements BaseNeuron {
 
     private final List<Double> weights;
     private final double bias;
-    private double output;
+    private Vector output;
 
     public Neuron(final int numberOfconnections) {
         this.weights = new ArrayList<>();
@@ -29,40 +33,46 @@ public class Neuron {
         return Math.random();
     }
 
-    public void calculateOutput(final List<Double> inputs) {
-        final double weightedInput = this.calculateWeightedInput(inputs) + this.bias;
-        this.output = 1.0 / (1.0 + Math.exp(-weightedInput));
+    @Override
+    public void calculateOutput(final Vector input) {
+        final double weightedInput = this.calculateWeightedInput(input) + this.bias;
+        this.output = new Vector(1.0 / (1.0 + Math.exp(-weightedInput)));
     }
 
-    private double calculateWeightedInput(final List<Double> inputs) {
+    private double calculateWeightedInput(final Vector input) {
         double ret = 0;
-        for(int i = 0; i < inputs.size(); i++) {
-            ret += this.weights.get(i) * inputs.get(i);
+        final List<Double> inputList = input.toList();
+        for(int i = 0; i < inputList.size(); i++) {
+            ret += this.weights.get(i) * inputList.get(i);
         }
         return ret;
     }
 
-    public double getOutput() {
+    @Override
+    public Vector getOutput() {
         return output;
     }
 
-    public static Neuron reproduce(final Neuron neuron1, final Neuron neuron2, final double mutationRate) {
+
+    @Override
+    public Reproducible reproduce(final Reproducible reproducible, final double mutationRate) {
+        final Neuron neuron = ((Neuron)reproducible);
         final List<Double> childWeights = new ArrayList<>();
-        for(int i = 0; i < neuron1.weights.size(); i++) {
+        for(int i = 0; i < this.weights.size(); i++) {
             double childWeight;
             if(Math.random() < 0.5) {
-                childWeight = neuron1.weights.get(i);
+                childWeight = this.weights.get(i);
             } else {
-                childWeight = neuron2.weights.get(i);
+                childWeight = neuron.weights.get(i);
             }
             childWeight = Neuron.randomDeltaMutation(childWeight, mutationRate);
             childWeights.add(childWeight);
         }
         double bias;
         if(Math.random() < 0.5) {
-            bias = neuron1.bias;
+            bias = this.bias;
         } else {
-            bias = neuron2.bias;
+            bias = neuron.bias;
         }
         bias = Neuron.randomDeltaMutation(bias, mutationRate);
         return new Neuron(childWeights, bias);

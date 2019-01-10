@@ -1,4 +1,4 @@
-package com.yzumis.ai.lstm;
+package com.yzumis.ai.commonneuron;
 
 import org.apache.commons.lang.ArrayUtils;
 

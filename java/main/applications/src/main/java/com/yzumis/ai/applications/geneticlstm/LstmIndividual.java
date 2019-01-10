@@ -1,9 +1,9 @@
 package com.yzumis.ai.applications.geneticlstm;
 
+import com.yzumis.ai.commonneuron.Vector;
 import com.yzumis.ai.genetic.Individual;
 import com.yzumis.ai.genetic.Reproducible;
 import com.yzumis.ai.lstm.Lstm;
-import com.yzumis.ai.lstm.Vector;
 
 
 public class LstmIndividual extends Individual<Lstm, String> {
@@ -16,7 +16,9 @@ public class LstmIndividual extends Individual<Lstm, String> {
         float fitness = 0;
         for(int i = 0; i < super.getGoal().length() - 1; i++) {
             final Vector inputVector = calculateVector(super.getGoal().charAt(i));
-            final Vector outputVector = ((Lstm)getReproducible()).calculateOutput(inputVector);
+            final Lstm lstm = ((Lstm)getReproducible());
+            lstm.calculateOutput(inputVector);
+            final Vector outputVector = lstm.getOutput();
             final char predicted = calculateCharacter(outputVector);
             final char expected = super.getGoal().charAt(i + 1);
             if(predicted == expected) {

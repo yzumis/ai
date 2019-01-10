@@ -1,8 +1,8 @@
 package com.yzumis.ai.applications.convolutionalgeneticmlpimageclassifier.network;
 
 import com.yzumis.ai.applications.convolutionalgeneticmlpimageclassifier.input.Input2D;
+import com.yzumis.ai.commonneuron.Vector;
 import com.yzumis.ai.genetic.Reproducible;
-import com.yzumis.ai.lstm.Vector;
 import com.yzumis.ai.mlp.Mlp;
 
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class ConvolutionalNeuralNetwork implements Reproducible {
             vector = vector.concatenate(currentOutputVector);
 
         }
-        return new Vector(this.mlp.calculateOutputs(vector.toList()));
+        return this.mlp.calculateOutputs(vector);
     }
 
     private List<Input2D> calculateNeuronLayerOutpus(final List<ConvReluPooling2DNeuron> neuronLayer, final List<Input2D> inputs2D) {
