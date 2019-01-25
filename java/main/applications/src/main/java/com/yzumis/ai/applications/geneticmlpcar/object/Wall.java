@@ -1,5 +1,7 @@
 package com.yzumis.ai.applications.geneticmlpcar.object;
 
+import com.yzumis.ai.applications.common.screen.Paintable;
+import com.yzumis.ai.applications.common.screen.Screen;
 import com.yzumis.ai.applications.geneticmlpcar.util.ImageUtil;
 
 import java.awt.*;

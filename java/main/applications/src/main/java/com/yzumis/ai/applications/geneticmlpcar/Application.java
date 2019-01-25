@@ -1,7 +1,7 @@
 package com.yzumis.ai.applications.geneticmlpcar;
 
 import com.yzumis.ai.applications.geneticmlpcar.genetic.Population;
-import com.yzumis.ai.applications.geneticmlpcar.object.Screen;
+import com.yzumis.ai.applications.common.screen.Screen;
 import com.yzumis.ai.applications.geneticmlpcar.object.Track;
 
 public class Application {

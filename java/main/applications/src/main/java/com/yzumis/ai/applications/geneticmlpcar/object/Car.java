@@ -1,5 +1,7 @@
 package com.yzumis.ai.applications.geneticmlpcar.object;
 
+import com.yzumis.ai.applications.common.screen.Paintable;
+import com.yzumis.ai.applications.common.screen.Screen;
 import com.yzumis.ai.applications.geneticmlpcar.geometry.Point2d;
 import com.yzumis.ai.applications.geneticmlpcar.util.ImageUtil;
 import com.yzumis.ai.commonneuron.BaseNeuronFactory;
@@ -9,7 +11,6 @@ import com.yzumis.ai.neuron.NeuronFactory;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.List;
 
 public class Car extends MovableObject implements Paintable {
 
@@ -22,7 +23,7 @@ public class Car extends MovableObject implements Paintable {
 
     static {
         NEURONS_PER_LAYER.add(3);
-        NEURONS_PER_LAYER.add(4);
+        NEURONS_PER_LAYER.add(3);
         NEURONS_PER_LAYER.add(1);
     }
 

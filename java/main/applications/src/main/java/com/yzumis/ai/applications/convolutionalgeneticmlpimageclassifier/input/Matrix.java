@@ -6,7 +6,7 @@ public class Matrix implements Reproducible {
 
     private final double[][] values;
 
-    public Matrix(double[][] values) {
+    public Matrix(final double[][] values) {
         this.values = values;
     }
 

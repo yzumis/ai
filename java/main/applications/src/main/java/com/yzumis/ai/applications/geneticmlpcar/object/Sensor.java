@@ -1,5 +1,6 @@
 package com.yzumis.ai.applications.geneticmlpcar.object;
 
+import com.yzumis.ai.applications.common.screen.Paintable;
 import com.yzumis.ai.applications.geneticmlpcar.geometry.Point2d;
 import com.yzumis.ai.applications.geneticmlpcar.geometry.Segment;
 

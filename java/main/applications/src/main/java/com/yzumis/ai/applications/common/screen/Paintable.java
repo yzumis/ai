@@ -1,4 +1,4 @@
-package com.yzumis.ai.applications.geneticmlpcar.object;
+package com.yzumis.ai.applications.common.screen;
 
 import java.awt.*;
 

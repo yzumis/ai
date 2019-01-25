@@ -1,6 +1,6 @@
 package com.yzumis.ai.applications.geneticmlpcar.geometry;
 
-import com.yzumis.ai.applications.geneticmlpcar.object.Paintable;
+import com.yzumis.ai.applications.common.screen.Paintable;
 
 import java.awt.*;
 import java.util.ArrayList;

@@ -1,4 +1,9 @@
-package com.yzumis.ai.applications.geneticmlpcar.object;
+package com.yzumis.ai.applications.common.screen;
+
+import com.yzumis.ai.applications.common.screen.Paintable;
+import com.yzumis.ai.applications.geneticmlpcar.object.Background;
+import com.yzumis.ai.applications.geneticmlpcar.object.Car;
+import com.yzumis.ai.applications.geneticmlpcar.object.Track;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,8 +15,7 @@ public class Screen extends JFrame {
     public static double X_SIZE = 720;
     public static double Y_SIZE = 480;
     private Background background = new Background();
-    private Track track;
-    private List<Car> cars;
+    private List<Paintable> paintables;
     private Integer generation;
 
     public Screen() {
@@ -21,9 +25,8 @@ public class Screen extends JFrame {
         this.setVisible(true);
     }
 
-    public void setupScreen(final Track track, final List<Car> cars, final int generation) {
-        this.track = track;
-        this.cars = cars;
+    public void setupScreen(final List<Paintable> paintables, final int generation) {
+        this.paintables = paintables;
         this.generation = generation;
     }
 
@@ -33,17 +36,14 @@ public class Screen extends JFrame {
         bufferedImage.getGraphics().fillRect(0, 0, this.getWidth(), this.getHeight());
         final Graphics bufferedGraphics = bufferedImage.getGraphics();
         this.background.paint(bufferedGraphics);
+        if(this.paintables != null) {
+            for(final Paintable paintable: this.paintables) {
+                paintable.paint(bufferedGraphics);
+            }
+        }
         // Display generation:
         if(this.generation !=null) {
             paintGeneration(bufferedGraphics);
-        }
-        if(this.track != null) {
-            this.track.paint(bufferedGraphics);
-        }
-        if(this.cars != null) {
-            for (final Car car : this.cars) {
-                car.paint(bufferedGraphics);
-            }
         }
         graphics.drawImage(bufferedImage, 0, 0, null);
     }

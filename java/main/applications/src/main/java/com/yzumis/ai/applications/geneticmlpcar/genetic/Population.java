@@ -1,7 +1,8 @@
 package com.yzumis.ai.applications.geneticmlpcar.genetic;
 
+import com.yzumis.ai.applications.common.screen.Paintable;
 import com.yzumis.ai.applications.geneticmlpcar.object.Car;
-import com.yzumis.ai.applications.geneticmlpcar.object.Screen;
+import com.yzumis.ai.applications.common.screen.Screen;
 import com.yzumis.ai.applications.geneticmlpcar.object.Track;
 
 import java.util.ArrayList;
@@ -25,12 +26,22 @@ public class Population {
     }
 
     public void calculateFitness(final int generation) throws InterruptedException {
-        this.screen.setupScreen(track, cars, generation);
+        final List<Paintable> paintables = calculatePaintables();
+        this.screen.setupScreen(paintables, generation);
         while(existCarAlive()) {
             Thread.sleep((long)(1000f / 24f));
             executeCars(System.currentTimeMillis());
             this.screen.repaint();
         }
+    }
+
+    private List<Paintable> calculatePaintables() {
+        final List<Paintable> ret = new ArrayList<>();
+        ret.add(this.track);
+        for(final Car car: this.cars) {
+            ret.add(car);
+        }
+        return ret;
     }
 
     private void executeCars(final long currentTimeMillis) {
@@ -49,7 +60,7 @@ public class Population {
         return ret;
     }
 
-    public void reproduction(double mutationRate) {
+    public void reproduction(final double mutationRate) {
         final List<Car> childCars = new ArrayList<>();
         final double totalFitness = this.calculateTotalFitness();
         for(int i = 0; i < this.populationSize; i++) {
