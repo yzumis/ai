@@ -12,6 +12,7 @@ On the artificial intelligence Java part in the main project you will find:
 	- Some code examples:
 		- geneticlstm --> A long short term memory neuron trained using a genetic algorithm which can be used to predict a text pattern
 		- geneticmlpcar --> A simple multi-layer perceptron 2D car which is trained using a genetic algorithm to drive inside a circuit
+			- A video of a random execution can be found at: https://youtu.be/gB7yPUtvSwI
 		- [WORK IN PROGRESS] convolutionalgeneticmlpimageclassifier --> An experiment to classify cifar images using a convolutional network trained with a genetic algorithm
 
 In Javascript the most interesting artificial intelligence examples are:
