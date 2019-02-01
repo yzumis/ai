@@ -1,9 +1,6 @@
 package com.yzumis.ai.applications.common.screen;
 
-import com.yzumis.ai.applications.common.screen.Paintable;
 import com.yzumis.ai.applications.geneticmlpcar.object.Background;
-import com.yzumis.ai.applications.geneticmlpcar.object.Car;
-import com.yzumis.ai.applications.geneticmlpcar.object.Track;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,14 +9,13 @@ import java.util.List;
 
 public class Screen extends JFrame {
 
-    public static double X_SIZE = 720;
-    public static double Y_SIZE = 480;
-    private Background background = new Background();
+    private final Background background;
     private List<Paintable> paintables;
     private Integer generation;
 
-    public Screen() {
-        this.setSize((int) X_SIZE, (int) Y_SIZE);
+    public Screen(final int xSize, final int ySize) {
+        this.background = new Background(this.getX(), this.getY());
+        this.setSize(xSize, ySize);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setUndecorated(true);
         this.setVisible(true);
@@ -53,6 +49,16 @@ public class Screen extends JFrame {
         graphics.setColor(Color.BLACK);
         graphics.drawString("Generation = " + this.generation, 10, 10);
         graphics.setColor(color);
+    }
+
+    @Override
+    public int getX() {
+        return super.getX();
+    }
+
+    @Override
+    public int getY() {
+        return super.getY();
     }
 
 }

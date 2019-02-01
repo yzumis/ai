@@ -2,6 +2,7 @@ package com.yzumis.ai.applications.geneticmlpcar.object;
 
 import com.yzumis.ai.applications.common.screen.Paintable;
 import com.yzumis.ai.applications.common.screen.Screen;
+import com.yzumis.ai.applications.geneticmlpcar.Application;
 import com.yzumis.ai.applications.geneticmlpcar.geometry.Point2d;
 import com.yzumis.ai.applications.geneticmlpcar.util.ImageUtil;
 import com.yzumis.ai.commonneuron.BaseNeuronFactory;
@@ -27,11 +28,11 @@ public class Car extends MovableObject implements Paintable {
         NEURONS_PER_LAYER.add(1);
     }
 
-    public static final double CAR_X_SIZE = Screen.X_SIZE / 36 * 3 / 4; // 15
-    private static final double CAR_Y_SIZE = Screen.Y_SIZE / 24 / 2; // 10
+    public static final double CAR_X_SIZE = Application.X_SIZE / 36 * 3 / 4; // 15
+    private static final double CAR_Y_SIZE = Application.Y_SIZE / 24 / 2; // 10
 
     public static final double CAR_X_ORIGIN = CAR_X_SIZE;
-    public static final double CAR_Y_ORIGIN = Screen.Y_SIZE / 2 - CAR_Y_SIZE / 2;
+    public static final double CAR_Y_ORIGIN = Application.Y_SIZE / 2 - CAR_Y_SIZE / 2;
 
     public static final double CAR_X_VELOCITY = 1d;
 
@@ -151,7 +152,7 @@ public class Car extends MovableObject implements Paintable {
     }
 
     public double calculateFitness() {
-        return this.x / Screen.X_SIZE;
+        return this.x / Application.X_SIZE;
     }
 
 }

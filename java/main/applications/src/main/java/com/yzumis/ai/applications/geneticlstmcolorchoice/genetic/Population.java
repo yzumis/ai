@@ -3,6 +3,7 @@ package com.yzumis.ai.applications.geneticlstmcolorchoice.genetic;
 import com.yzumis.ai.applications.common.screen.Paintable;
 import com.yzumis.ai.applications.common.screen.Screen;
 import com.yzumis.ai.applications.geneticlstmcolorchoice.object.ColorCharacter;
+import com.yzumis.ai.applications.geneticlstmcolorchoice.object.Goal;
 import com.yzumis.ai.applications.geneticlstmcolorchoice.object.Scenario;
 
 import java.util.ArrayList;
@@ -14,23 +15,25 @@ public class Population {
     private final Screen screen;
     private final int populationSize;
     private final Scenario scenario;
+    private final Goal goal;
     private List<ColorCharacter> colorCharacters;
 
-    public Population(final Screen screen, final int populationSize, final Scenario scenario) {
+    public Population(final Screen screen, final int populationSize, final Scenario scenario, final Goal goal) {
         this.screen = screen;
         this.populationSize = populationSize;
         this.scenario = scenario;
+        this.goal = goal;
         this.colorCharacters = new ArrayList<>();
         for(int i = 0; i < populationSize; i++) {
-            this.colorCharacters.add(new ColorCharacter(scenario));
+            this.colorCharacters.add(new ColorCharacter(scenario, goal));
         }
     }
 
     public void calculateFitness(final int generation) throws InterruptedException {
         final List<Paintable> paintables = calculatePaintables();
         this.screen.setupScreen(paintables, generation);
+        this.screen.repaint();
         while(existColorCharacterAlive()) {
-            // Thread.sleep(100);
             executeColorCharacters();
             this.scenario.execute(this.colorCharacters);
             this.screen.repaint();
@@ -43,6 +46,7 @@ public class Population {
         for(final ColorCharacter colorCharacter: this.colorCharacters) {
             ret.add(colorCharacter);
         }
+        ret.add(goal);
         return ret;
     }
 
