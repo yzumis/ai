@@ -81,9 +81,13 @@ public class Scenario implements Paintable {
         }
     }
 
+    public void execute(final ColorCharacter colorCharacter) {
+        processColorCharacter(colorCharacter);
+    }
+
     private void processColorCharacter(final ColorCharacter colorCharacter) {
         final Input input = this.getInput(colorCharacter.getPositionX(), colorCharacter.getPositionY());
-        if(input.equals(Input.RED) || input.equals(Input.GREEN) || input.equals(Input.GREEN)) {
+        if(input.equals(Input.RED) || input.equals(Input.GREEN) || input.equals(Input.BLUE)) {
             values[colorCharacter.getPositionX()][colorCharacter.getPositionY()] = Input.EMPTY;
             generateRandomValue(input, values);
         }

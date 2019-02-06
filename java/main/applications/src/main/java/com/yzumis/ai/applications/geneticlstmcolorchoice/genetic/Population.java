@@ -18,6 +18,15 @@ public class Population {
     private final Goal goal;
     private List<ColorCharacter> colorCharacters;
 
+    public Population(final Screen screen, final ColorCharacter colorCharacter, final Scenario scenario, final Goal goal) {
+        this.screen = screen;
+        this.populationSize = 1;
+        this.scenario = scenario;
+        this.goal = goal;
+        this.colorCharacters = new ArrayList<>();
+        this.colorCharacters.add(colorCharacter);
+    }
+
     public Population(final Screen screen, final int populationSize, final Scenario scenario, final Goal goal) {
         this.screen = screen;
         this.populationSize = populationSize;
@@ -33,11 +42,31 @@ public class Population {
         final List<Paintable> paintables = calculatePaintables();
         this.screen.setupScreen(paintables, generation);
         this.screen.repaint();
+        // Population execution
+        /*
         while(existColorCharacterAlive()) {
+            if(this.populationSize == 1) {
+                Thread.sleep(200);
+            }
             executeColorCharacters();
             this.scenario.execute(this.colorCharacters);
             this.screen.repaint();
         }
+        */
+        // Individual execution
+        for(final ColorCharacter colorCharacter: this.colorCharacters) {
+            this.goal.recalculate();
+            this.scenario.recalculate();
+            while (colorCharacter.isAlive()) {
+                if(this.populationSize == 1) {
+                    Thread.sleep(100);
+                }
+                colorCharacter.execute();
+                this.scenario.execute(colorCharacter);
+                this.screen.repaint();
+            }
+        }
+
     }
 
     private List<Paintable> calculatePaintables() {
