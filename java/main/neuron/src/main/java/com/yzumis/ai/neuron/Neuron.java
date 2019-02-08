@@ -6,6 +6,7 @@ import com.yzumis.ai.genetic.Reproducible;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by Yzumi on 27/12/2017.
@@ -30,7 +31,7 @@ public class Neuron implements BaseNeuron {
     }
 
     private double generateRandomWeight() {
-        return Math.random();
+        return ThreadLocalRandom.current().nextDouble(-1, 1);
     }
 
     @Override
@@ -65,7 +66,7 @@ public class Neuron implements BaseNeuron {
             } else {
                 childWeight = neuron.weights.get(i);
             }
-            childWeight = Neuron.randomDeltaMutation(childWeight, mutationRate);
+            childWeight = this.randomDeltaMutation(childWeight, mutationRate);
             childWeights.add(childWeight);
         }
         double bias;
@@ -74,14 +75,14 @@ public class Neuron implements BaseNeuron {
         } else {
             bias = neuron.bias;
         }
-        bias = Neuron.randomDeltaMutation(bias, mutationRate);
+        bias = this.randomDeltaMutation(bias, mutationRate);
         return new Neuron(childWeights, bias);
     }
 
-    private static double randomDeltaMutation(final double value, final double mutationRate) {
+    private double randomDeltaMutation(final double value, final double mutationRate) {
         final double deltaValue;
         if(Math.random() < mutationRate) {
-            deltaValue = 2 * Math.random() - 1;
+            deltaValue = ThreadLocalRandom.current().nextDouble(-1, 1);
         } else {
             deltaValue = 0;
         }

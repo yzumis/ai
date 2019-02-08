@@ -29,7 +29,7 @@ public class Population {
         final List<Paintable> paintables = calculatePaintables();
         this.screen.setupScreen(paintables, generation);
         while(existCarAlive()) {
-            Thread.sleep((long)(1000f / 24f));
+            Thread.sleep((long)(1000d / 48d));
             executeCars(System.currentTimeMillis());
             this.screen.repaint();
         }

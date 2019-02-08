@@ -104,7 +104,7 @@ public class Population {
         for(int i = 0; i < this.populationSize - 1; i++) {
             final ColorCharacter colorCharacter1 = this.pickRandomColorCharacter(totalFitness);
             final ColorCharacter colorCharacter2 = this.pickTotallyRandomColorCharacter(totalFitness);
-            final ColorCharacter childColorCharacter = (ColorCharacter) bestColorCharacter.reproduce(colorCharacter1, mutationRate);
+            final ColorCharacter childColorCharacter = (ColorCharacter) bestColorCharacter.reproduce(colorCharacter2, mutationRate);
             childColorCharacters.add(childColorCharacter);
         }
         this.colorCharacters = childColorCharacters;

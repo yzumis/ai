@@ -32,7 +32,6 @@ public class ColorCharacter implements Reproducible, Paintable {
 
     static {
         MLP_NEURONS_PER_LAYER.add(30);
-        MLP_NEURONS_PER_LAYER.add(5);
         MLP_NEURONS_PER_LAYER.add(4);
     }
 
@@ -139,14 +138,15 @@ public class ColorCharacter implements Reproducible, Paintable {
         if(input.equals(Input.VOID)) {
              this.live = -1;
         } else if(input.equals(Input.EMPTY)) {
-            this.fitness+= 0.1;
+            this.fitness+= 1;
+        } else if(input.equals(Input.BLUE)){
+            this.live = -1;
         } else if(input.equals(inputGoal)) {
-            this.fitness+= 10;
-            this.live += 10;
-        } else {
-            if(this.fitness > 0) {
-                this.fitness -= 1;
-            }
+            this.fitness+= 1;
+            this.live+= 10;
+        }  else {
+            this.fitness-= 1;
+            this.live-= 10;
         }
         if(this.live <= 0d) {
             this.alive = false;
