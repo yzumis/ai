@@ -22,6 +22,7 @@ public class Population {
         this.screen = screen;
         this.populationSize = 1;
         this.scenario = scenario;
+        this.scenario.recalculate();
         this.goal = goal;
         this.colorCharacters = new ArrayList<>();
         this.colorCharacters.add(colorCharacter);
@@ -58,7 +59,7 @@ public class Population {
             this.goal.recalculate();
             this.scenario.recalculate();
             while (colorCharacter.isAlive()) {
-                if(generation % 100 == 0) {
+                if(populationSize == 1) {
                     Thread.sleep(100);
                 }
                 colorCharacter.execute();
