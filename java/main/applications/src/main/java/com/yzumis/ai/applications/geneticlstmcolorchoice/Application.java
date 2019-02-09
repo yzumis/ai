@@ -27,11 +27,6 @@ public class Application {
             final double fitness = population.pickBestColorCharacter().getFitness();
             System.out.println("Best individual fitness = " + fitness);
             population.reproduction(MUTATION_RATE);
-            if(i % 100 == 0) {
-                final ColorCharacter bestColorCharacterClone = new ColorCharacter(population.pickBestColorCharacter());
-                final Population populatioBestIndividual = new Population(screen, bestColorCharacterClone, scenario, goal);
-                populatioBestIndividual.calculateFitness(i);
-            }
         }
     }
 

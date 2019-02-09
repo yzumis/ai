@@ -58,7 +58,7 @@ public class Population {
             this.goal.recalculate();
             this.scenario.recalculate();
             while (colorCharacter.isAlive()) {
-                if(this.populationSize == 1) {
+                if(generation % 100 == 0) {
                     Thread.sleep(100);
                 }
                 colorCharacter.execute();

@@ -31,7 +31,7 @@ public class ColorCharacter implements Reproducible, Paintable {
     }
 
     static {
-        MLP_NEURONS_PER_LAYER.add(30);
+        MLP_NEURONS_PER_LAYER.add(5);
         MLP_NEURONS_PER_LAYER.add(4);
     }
 
