@@ -9,11 +9,11 @@ import com.yzumis.ai.applications.geneticlstmcolorchoice.object.Scenario;
 public class Application {
 
     private static final int NUMBER_OF_GENERATIONS = 100000000;
-    private static final int POPULATION_SIZE = 200;
+    private static final int POPULATION_SIZE = 100;
 
     public static final int X_SIZE = 700;
     public static final int Y_SIZE = 700;
-    private static final double MUTATION_RATE = 0.25f;
+    private static final double MUTATION_RATE = 0.3f;
 
     public static void main(final String[] args) throws InterruptedException {
         final Goal goal = new Goal();
@@ -25,7 +25,8 @@ public class Application {
             scenario.recalculate();
             population.calculateFitness(i);
             final double fitness = population.pickBestColorCharacter().getFitness();
-            System.out.println("Best individual fitness = " + fitness);
+            System.out.print("Generation = " + i + " ");
+            System.out.println("Best fitness = " + fitness);
             population.reproduction(MUTATION_RATE);
             if(i % 100 == 0) {
                 final ColorCharacter bestColorCharacterClone = new ColorCharacter(population.pickBestColorCharacter());

@@ -72,4 +72,8 @@ public class Vector {
         return Arrays.asList(this.values);
     }
 
+    public double get(final int index) {
+        return this.values[index];
+    }
+
 }

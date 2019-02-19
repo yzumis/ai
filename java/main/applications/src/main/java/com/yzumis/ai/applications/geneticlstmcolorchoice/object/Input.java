@@ -33,7 +33,7 @@ public enum Input {
                 throw new IllegalStateException();
         }
         return ret;
-    };
+    }
 
     public Color toColor() {
         final Color ret;
@@ -56,4 +56,5 @@ public enum Input {
         return ret;
 
     }
+
 }
