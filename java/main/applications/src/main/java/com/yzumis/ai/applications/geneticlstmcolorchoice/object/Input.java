@@ -57,4 +57,20 @@ public enum Input {
 
     }
 
+    public static Input fromVector(final Vector vector) {
+        final Input ret;
+        if (vector.get(0) > vector.get(1) && vector.get(0) > vector.get(2) && vector.get(0) > vector.get(3) && vector.get(0) > vector.get(4)) {
+            ret = BLUE;
+        } else if(vector.get(1) > vector.get(0) && vector.get(1) > vector.get(2) && vector.get(1) > vector.get(3) && vector.get(1) > vector.get(4)) {
+            ret = GREEN;
+        } else if(vector.get(2) > vector.get(0) && vector.get(2) > vector.get(1) && vector.get(2) > vector.get(3) && vector.get(2) > vector.get(4)) {
+            ret = RED;
+        } else if(vector.get(3) > vector.get(0) && vector.get(3) > vector.get(1) && vector.get(3) > vector.get(2) && vector.get(3) > vector.get(4)) {
+            ret = EMPTY;
+        } else {
+            ret = VOID;
+        }
+        return ret;
+    }
+
 }

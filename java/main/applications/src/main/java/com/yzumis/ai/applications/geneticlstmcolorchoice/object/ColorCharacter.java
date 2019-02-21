@@ -99,16 +99,18 @@ public class ColorCharacter implements Reproducible, Paintable {
             final Vector lstmInputs = this.scenario.getInput(this.positionX, this.positionY).toVector();
             this.lstm.calculateOutput(lstmInputs);
             final Vector lstmOutputs = this.lstm.getOutput();
+            final Input lstmOutputsToInput = Input.fromVector(lstmOutputs);
+            final Vector lstmOutputsToInputVector = lstmOutputsToInput.toVector();
 
             final Input inputLeft = this.scenario.getInput(this.positionX - 1, this.positionY);
             final Input inputDown = this.scenario.getInput(this.positionX, this.positionY - 1);
             final Input inputUp = this.scenario.getInput(this.positionX, this.positionY + 1);
             final Input inputRight = this.scenario.getInput(this.positionX + 1, this.positionY);
 
-            final Vector inputLeftGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputs.concatenate(inputLeft.toVector()));
-            final Vector inputDownGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputs.concatenate(inputDown.toVector()));
-            final Vector inputUpGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputs.concatenate(inputUp.toVector()));
-            final Vector inputRightGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputs.concatenate(inputRight.toVector()));
+            final Vector inputLeftGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputsToInputVector.concatenate(inputLeft.toVector()));
+            final Vector inputDownGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputsToInputVector.concatenate(inputDown.toVector()));
+            final Vector inputUpGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputsToInputVector.concatenate(inputUp.toVector()));
+            final Vector inputRightGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputsToInputVector.concatenate(inputRight.toVector()));
 
             final Vector inputLeftEmptyDetectorOutputs = this.mlpGoalDetector.calculateOutputs(inputLeft.toVector());
             final Vector inputDownEmptyDetectorOutputs = this.mlpGoalDetector.calculateOutputs(inputDown.toVector());
