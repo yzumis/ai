@@ -1,11 +1,13 @@
 package com.yzumis.talk.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
-import com.yzumis.talk.model.User;
+import com.yzumis.talk.model.user.User;
 
-public interface UserRepository extends CrudRepository<User, String> {
+public interface UserRepository extends MongoRepository<User, String> {
 
-    void login(User user);
+    @Query("{username: ?0, password: ?1 }")
+    User login(final String username, final String password);
 
 }

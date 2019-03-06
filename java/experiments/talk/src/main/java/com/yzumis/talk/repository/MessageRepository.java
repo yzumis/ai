@@ -1,11 +1,15 @@
 package com.yzumis.talk.repository;
 
-import org.springframework.data.repository.CrudRepository;
+import java.util.List;
 
-import com.yzumis.talk.model.Message;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
-public interface MessageRepository extends CrudRepository<Message, String> {
+import com.yzumis.talk.model.message.Message;
 
-    void findByUserSenderIdAndUserReceiverId(final Message message);
+public interface MessageRepository extends MongoRepository<Message, String> {
+
+    @Query("{userSenderId: ?0, userReceiverId: ?1 }")
+    List<Message> findByUserSenderIdAndUserReceiverId(final String userSenderId, final String userReceiverId);
 
 }
