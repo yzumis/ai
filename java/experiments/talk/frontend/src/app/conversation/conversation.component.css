@@ -1,0 +1,9 @@
+.left-mat-card {
+    margin: 3px;
+    max-width:90%;
+}
+.right-mat-card {
+    margin: 3px;
+    max-width:90%;
+    text-align: left;
+}
