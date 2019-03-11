@@ -1,6 +1,5 @@
 package com.yzumis.ai.applications.geneticlstmcolorchoice.object;
 
-import com.sun.org.apache.xalan.internal.xsltc.cmdline.getopt.GetOptsException;
 import com.yzumis.ai.applications.common.screen.Paintable;
 import com.yzumis.ai.commonneuron.BaseNeuronFactory;
 import com.yzumis.ai.commonneuron.Vector;

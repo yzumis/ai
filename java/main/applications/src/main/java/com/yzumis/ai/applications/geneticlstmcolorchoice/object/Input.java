@@ -3,6 +3,7 @@ package com.yzumis.ai.applications.geneticlstmcolorchoice.object;
 import com.yzumis.ai.commonneuron.Vector;
 
 import java.awt.*;
+import java.util.Random;
 
 public enum Input {
     VOID,
@@ -73,4 +74,20 @@ public enum Input {
         return ret;
     }
 
+    public static Input random() {
+        final Input ret;
+        final double randomDouble = Math.random();
+        if(randomDouble < 0.2) {
+            ret = BLUE;
+        } else if(randomDouble < 0.4) {
+            ret = GREEN;
+        } else if(randomDouble < 0.6) {
+            ret = RED;
+        } else if(randomDouble < 0.8) {
+            ret = EMPTY;
+        } else {
+            ret = VOID;
+        }
+        return ret;
+    }
 }

@@ -98,15 +98,22 @@ public class Population {
 
     public void reproduction(final double mutationRate) {
         final List<ColorCharacter> childColorCharacters = new ArrayList<>();
-        final double totalFitness = this.calculateTotalFitness();
-        final ColorCharacter bestColorCharacter = this.pickBestColorCharacter();
-        final ColorCharacter bestColorCharacterChild = new ColorCharacter(bestColorCharacter);
-        childColorCharacters.add(bestColorCharacterChild);
-        for(int i = 0; i < this.populationSize - 1; i++) {
-            final ColorCharacter colorCharacter1 = this.pickRandomColorCharacter(totalFitness);
-            final ColorCharacter colorCharacter2 = this.pickTotallyRandomColorCharacter(totalFitness);
-            final ColorCharacter childColorCharacter = (ColorCharacter) bestColorCharacter.reproduce(colorCharacter2, mutationRate);
-            childColorCharacters.add(childColorCharacter);
+        if(populationSize == 1) {
+            final ColorCharacter bestColorCharacter = this.pickBestColorCharacter();
+            final ColorCharacter bestColorCharacterChild = new ColorCharacter(bestColorCharacter);
+            childColorCharacters.add(bestColorCharacterChild);
+        } else {
+            final double totalFitness = this.calculateTotalFitness();
+            final ColorCharacter bestColorCharacter = this.pickBestColorCharacter();
+            final ColorCharacter bestColorCharacterChild = new ColorCharacter(bestColorCharacter);
+            childColorCharacters.add(bestColorCharacterChild);
+            for (int i = 0; i < this.populationSize - 1; i++) {
+                final ColorCharacter colorCharacter1 = this.pickRandomColorCharacter(totalFitness);
+                final ColorCharacter colorCharacter2 = this.pickTotallyRandomColorCharacter(totalFitness);
+                final ColorCharacter childColorCharacter = (ColorCharacter) bestColorCharacter.reproduce(colorCharacter2, mutationRate);
+                childColorCharacters.add(childColorCharacter);
+            }
+
         }
         this.colorCharacters = childColorCharacters;
     }

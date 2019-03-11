@@ -35,6 +35,10 @@ public class Lstm implements BaseNeuron {
         this.lastForgetResult = new Vector(numberOfOutputs);
     }
 
+    public Lstm(final Lstm lstm) {
+        this(lstm.numberOfInputs, lstm.numberOfOutputs, lstm.selectMlp, lstm.forgetMlp, lstm.ignoreMlp, lstm.predictionMlp);
+    }
+
     private Lstm(final int numberOfInputs, final int numberOfOutputs, final Mlp selectMlp, final Mlp forgetMlp, final Mlp ignoreMlp, final Mlp predictionMlp) {
         this.numberOfInputs = numberOfInputs;
         this.numberOfOutputs = numberOfOutputs;

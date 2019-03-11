@@ -76,4 +76,8 @@ public class Vector {
         return this.values[index];
     }
 
+    public int size() {
+        return this.values.length;
+    }
+
 }
