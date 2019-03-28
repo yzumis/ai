@@ -1,8 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule} from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatListModule, MatTabsModule, MatCardModule, MatBadgeModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatListModule, MatTabsModule, MatCardModule, MatBadgeModule, MatGridListModule, MatIconModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -24,6 +25,7 @@ import { ContactsComponent } from './contacts/contacts.component';
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     NoopAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
@@ -34,6 +36,8 @@ import { ContactsComponent } from './contacts/contacts.component';
     MatTabsModule,
     MatCardModule,
     MatBadgeModule,
+    MatGridListModule,
+    MatIconModule,
     AppRoutingModule
   ],
   providers: [],

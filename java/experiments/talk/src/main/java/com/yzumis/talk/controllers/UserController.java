@@ -2,6 +2,8 @@ package com.yzumis.talk.controllers;
 
 import java.util.List;
 
+import com.yzumis.talk.model.user.UserRegister;
+import com.yzumis.talk.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,22 +18,16 @@ import com.yzumis.talk.repository.UserRepository;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
+    UserService userService;
 
-    @RequestMapping(method= RequestMethod.POST, value="/users/getAll")
-    public List<User> getAll() {
-        return userRepository.findAll();
-    }
-
-    @RequestMapping(method= RequestMethod.POST, value="/users/save")
-    public User save(@RequestBody final User user) {
-        userRepository.save(user);
-        return user;
+    @RequestMapping(method= RequestMethod.POST, value="/users/register")
+    public User register(@RequestBody final UserRegister userRegister) {
+        return userService.register(userRegister);
     }
 
     @RequestMapping(method= RequestMethod.POST, value="/users/login")
     public User login(@RequestBody final UserLogin userLogin) {
-        return userRepository.login(userLogin.getUsername(), userLogin.getPassword());
+        return userService.login(userLogin);
     }
 
 }

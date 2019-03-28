@@ -1,0 +1,32 @@
+<mat-form-field class="input-mat-form-field">
+    <input type="text" placeholder="Search contact" [(ngModel)]="value" matInput>
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+        <mat-icon>close</mat-icon>
+    </button>
+</mat-form-field>
+<mat-list>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <span class="span-pointer" matLine> Contact A </span>
+        <button mat-icon-button>
+            <mat-icon>clear</mat-icon>
+        </button>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item style="box-sizing: border-box; border-color: #3f51b5;border-style: solid;">
+        <div matLine>
+            <span matBadge="5" matBadgeOverlap="false" matBadgeColor="accent">Contact C</span>
+        </div>
+        <button style="text-align:right;" mat-icon-button>
+            <mat-icon>clear</mat-icon>
+        </button>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>
+        <span class="span-pointer" matLine> Contact A </span>
+        <button mat-icon-button>
+            <mat-icon>add</mat-icon>
+        </button>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+</mat-list>

@@ -1,21 +1,28 @@
 package com.yzumis.talk.model.user;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "users")
+import javax.persistence.Entity;
+
+@Entity
 public class User {
 
     @Id
-    private String id;
+    private Integer id;
     private String username;
     private String password;
+    private String token;
 
-    public String getId() {
+    public User(final UserRegister userRegister) {
+        this.username = userRegister.getUsername();
+        this.password = userRegister.getPassword();
+    }
+
+    public Integer getId() {
         return id;
     }
 
-    public void setId(final String id) {
+    public void setId(final Integer id) {
         this.id = id;
     }
 
@@ -35,4 +42,11 @@ public class User {
         this.password = password;
     }
 
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
+    }
 }
