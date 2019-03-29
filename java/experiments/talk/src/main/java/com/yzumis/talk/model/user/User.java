@@ -1,29 +1,35 @@
 package com.yzumis.talk.model.user;
 
-import org.springframework.data.annotation.Id;
-
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-@Entity
+
+@Entity(name = "user")
 public class User {
 
     @Id
-    private Integer id;
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private Integer iduser;
     private String username;
     private String password;
     private String token;
+
+    public User() {
+    }
 
     public User(final UserRegister userRegister) {
         this.username = userRegister.getUsername();
         this.password = userRegister.getPassword();
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getIduser() {
+        return iduser;
     }
 
-    public void setId(final Integer id) {
-        this.id = id;
+    public void setIduser(Integer iduser) {
+        this.iduser = iduser;
     }
 
     public String getUsername() {
@@ -49,4 +55,5 @@ public class User {
     public void setToken(String token) {
         this.token = token;
     }
+
 }
