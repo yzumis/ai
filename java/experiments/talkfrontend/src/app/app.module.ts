@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatListModule, MatTabsModule, MatCardModule, MatBadgeModule, MatGridListModule, MatIconModule } from '@angular/material';
 
+import { HttpClientModule } from '@angular/common/http';
+
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { LoginScreenComponent } from './login-screen/login-screen.component';
@@ -38,7 +40,8 @@ import { ContactsComponent } from './contacts/contacts.component';
     MatBadgeModule,
     MatGridListModule,
     MatIconModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

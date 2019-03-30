@@ -42,6 +42,7 @@ public class UserService {
             tokenService.generateToken(iduser);
             final Optional<User> optionalUser = userRepository.findById(iduser);
             ret = optionalUser.get();
+            ret.setPassword(null);
         }
         return ret;
     }

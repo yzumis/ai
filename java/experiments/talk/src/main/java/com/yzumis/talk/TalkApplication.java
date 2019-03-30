@@ -10,7 +10,7 @@ import com.yzumis.talk.configuration.SwaggerConfiguration;
 @Import(SwaggerConfiguration.class)
 public class TalkApplication {
 
-	public static void main(String[] args) {
+	public static void main(final String[] args) {
 		SpringApplication.run(TalkApplication.class, args);
 	}
 
