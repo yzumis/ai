@@ -1,6 +1,6 @@
 <mat-form-field class="input-mat-form-field">
-    <input type="text" placeholder="Search contact" [(ngModel)]="value" matInput>
-    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="value=''">
+    <input type="text" placeholder="Search contact" [(ngModel)]="usernameFilter" (change)="userContacts(usernameFilter)" matInput>
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="usernameFilter=''">
         <mat-icon>close</mat-icon>
     </button>
 </mat-form-field>

@@ -1,18 +1,14 @@
-export class User {
+export class UserContact {
     private _iduser: number;
     private _username: string;
-    private _token: string;
+    private _contact: boolean;
 
-    constructor(iduser: number, username: string, token: string) {
+    constructor(iduser: number, username: string, contact: boolean) {
         this._iduser = iduser;
         this._username = username;
-        this._token = token;
+        this._contact = contact;
     }
 
-    get iduser(): number {
-        return this._iduser;
-    }
-    
     set iduser(iduser: number) {
         this._iduser = iduser;
     }
@@ -21,8 +17,8 @@ export class User {
         this._username = username;
     }
 
-    set token(token: string) {
-        this._token = token;
+    set contact(contact: boolean) {
+        this._contact = contact;
     }
 
 }

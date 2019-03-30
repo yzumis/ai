@@ -8,6 +8,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.util.List;
 
 public interface UserRepository extends CrudRepository<User, Integer> {
 
@@ -24,5 +25,20 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("UPDATE user SET token = :token WHERE iduser = :iduser")
     @Modifying
     void updateTokenById(@Param("iduser") final Integer iduser, @Param("token") final String token);
+
+    @Query("SELECT" +
+            " u " +
+            "FROM" +
+            " user_has_user_as_contact uhuc " +
+            " INNER JOIN user u ON u.iduser = uhuc.user_iduser_contact "+
+            "WHERE" +
+            " uhuc.user_iduser = :iduser" +
+            " AND u.username LIKE CONCAT('%',:usernameFilter,'%')" +
+            "ORDER BY" +
+            " u.username")
+    List<User> selectUserContactsByIdUserAndUsernameFilter(@Param("iduser") final Integer iduser, @Param("usernameFilter") final String usernameFilter);
+
+    @Query("SELECT u FROM user u WHERE u.username LIKE CONCAT('%',:usernameFilter,'%') ORDER BY u.username")
+    List<User> selectUsersByUsernameFilter(@Param("usernameFilter") final String usernameFilter);
 
 }

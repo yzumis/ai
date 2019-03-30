@@ -3,13 +3,17 @@ package com.yzumis.talk.services;
 import com.yzumis.talk.expception.IncorrectUserOrPasswordException;
 import com.yzumis.talk.expception.UserAlreadyRegisteredException;
 import com.yzumis.talk.model.user.User;
+import com.yzumis.talk.model.user.UserContact;
 import com.yzumis.talk.model.user.UserLogin;
 import com.yzumis.talk.model.user.UserRegister;
 import com.yzumis.talk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Service
 public class UserService {
@@ -47,4 +51,12 @@ public class UserService {
         return ret;
     }
 
+    public List<UserContact> users(final Integer iduser, final String usernameFilter) {
+        final List<UserContact> ret = new ArrayList<>();
+        final List<User> contactList = userRepository.selectUserContactsByIdUserAndUsernameFilter(iduser, usernameFilter);
+        final List<User> nonContactList = userRepository.selectUsersByUsernameFilter(usernameFilter);
+        contactList.stream().forEach(user -> ret.add(new UserContact(user, true)));
+        nonContactList.stream().forEach(user -> ret.add(new UserContact(user, false)));
+        return ret;
+    }
 }
