@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams , HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 import { Server } from './../../constants/server';
 import { UserRegister } from './../../model/user/user-register';
 import { User } from './../../model/user/user';
 import { UserLogin } from './../../model/user/user-login';
+import { UserContact } from './../../model/user/user-contact';
 import { AuthenticationService } from './../authentication/authentication.service';
 
 
@@ -37,11 +39,11 @@ export class UserService {
 
   login(userLogin: UserLogin) {
     console.log("login: "+ userLogin.username + " " + userLogin.password);
-    this.httpClient.post(Server.SERVER_BASE_PATH + UserService.LOGIN_PATH, userLogin).subscribe(
-      data => {
-        this.authenticationService.user = new User(data['iduser'], data['username'], data['token']);        
+    this.httpClient.post<User>(Server.SERVER_BASE_PATH + UserService.LOGIN_PATH, userLogin).subscribe(
+      user  => {
+        console.log("POST login request succeded " + JSON.stringify(user));
+        this.authenticationService.user = user;        
         this.router.navigateByUrl('/mainScreen');
-        console.log("POST login request succeded" + JSON.stringify(data));
       },
       error => {
         console.log("POST login request failed");
@@ -49,19 +51,12 @@ export class UserService {
     );
   }
 
-  userContacts(iduser: number, usernameFilter: string) {
+  userContacts(iduser: number, usernameFilter: string): Observable<UserContact[]> {
     console.log("userContacts: "+ iduser + " " + usernameFilter);
     var httpParams: HttpParams = new HttpParams()
     .append("iduser", String(iduser))
     .append("usernameFilter", usernameFilter);
-    this.httpClient.get(Server.SERVER_BASE_PATH + UserService.USER_CONTACTS_PATH, { params: httpParams }).subscribe(
-      data => {
-        console.log("GET userContacts request succeded" +  + JSON.stringify(data));
-      },
-      error => {
-        console.log("GET userContacts request failed");
-      }
-    );
+    return this.httpClient.get<UserContact[]>(Server.SERVER_BASE_PATH + UserService.USER_CONTACTS_PATH, { params: httpParams });
   }
 
 }

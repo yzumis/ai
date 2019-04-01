@@ -9,14 +9,26 @@ export class UserContact {
         this._contact = contact;
     }
 
+    get iduser(): number {
+        return this._iduser;
+    }
+
     set iduser(iduser: number) {
         this._iduser = iduser;
+    }
+
+    get username(): string {
+        return this._username;
     }
 
     set username(username: string) {
         this._username = username;
     }
 
+    get contact(): boolean {
+        return this._contact;
+    }
+    
     set contact(contact: boolean) {
         this._contact = contact;
     }
