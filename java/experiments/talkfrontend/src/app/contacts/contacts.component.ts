@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from './../service/user/user.service';
+import { UserHasUserAsContactService } from './../service/user-contact/user-has-user-as-contact.service';
 import { AuthenticationService } from './../service/authentication/authentication.service'
 import { UserContact } from './../model/user/user-contact';
+import { UserHasUserAsContact } from './../model/user-has-user-as-contact/user-has-user-as-contact';
 
 @Component({
   selector: 'app-contacts',
@@ -13,12 +15,20 @@ export class ContactsComponent implements OnInit {
 
   public userContactArray: UserContact[] = [];
 
-  constructor(private userService: UserService, private authenticationService: AuthenticationService) {
-    this.usernameFilter = "";
+  constructor(
+    private userService: UserService,
+    private authenticationService: AuthenticationService,
+    private userHasUserAsContactService: UserHasUserAsContactService
+  ) {
   }
 
   ngOnInit() {
-    this.userContacts("");
+    this.clearUserNameFilter();
+  }
+
+  clearUserNameFilter() {
+    this.usernameFilter = "";
+    this.userContacts(this.usernameFilter);
   }
 
   userContacts(usernameFilter: string) {
@@ -34,5 +44,33 @@ export class ContactsComponent implements OnInit {
     );
   }
 
+  deleteContact(contactIduser: number) {
+    var iduser = this.authenticationService.user.iduser;
+    var userHasUserAsContact: UserHasUserAsContact = new UserHasUserAsContact(iduser, contactIduser);
+    this.userHasUserAsContactService.deleteContact(userHasUserAsContact).subscribe(
+      data => {
+        console.log("POST deleteContact request succeded");
+        this.userContacts(this.usernameFilter);
+      },
+      error => {
+        console.log("POST deleteContact request failed");
+      }
+    );
+  }
+
+  saveContact(contactIduser: number) {
+    var iduser = this.authenticationService.user.iduser;
+    var userHasUserAsContact: UserHasUserAsContact = new UserHasUserAsContact(iduser, contactIduser);
+    this.userHasUserAsContactService.saveContact(userHasUserAsContact).subscribe(
+      data => {
+        console.log("POST saveContact request succeded");
+        this.userContacts(this.usernameFilter);
+      },
+      error => {
+        console.log("POST saveContact request failed");
+      }
+    );
+    
+  }
 
 }

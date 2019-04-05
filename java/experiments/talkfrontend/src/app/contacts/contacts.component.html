@@ -1,6 +1,6 @@
 <mat-form-field class="input-mat-form-field">
     <input type="text" placeholder="Search contact" [(ngModel)]="usernameFilter" (input)="userContacts(usernameFilter)" matInput>
-    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="usernameFilter=''">
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="clearUserNameFilter()">
         <mat-icon>close</mat-icon>
     </button>
 </mat-form-field>
@@ -9,12 +9,19 @@
     <div *ngFor="let userContact of userContactArray">
         <mat-list-item>
             <span class="span-pointer" matLine>{{userContact.username}}</span>
-            <button mat-icon-button>
-                <mat-icon *ngIf="userContact.contact; else add">clear</mat-icon>
-                <ng-template #add>
-                <mat-icon>add</mat-icon>
-                </ng-template>
+            <button *ngIf="userContact.contact; else saveButton" (click)="deleteContact(userContact.iduser)" color="accent" mat-flat-button="" class="mat-flat-button mat-accent">
+                <span class="mat-button-wrapper">Delete</span>
+                <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                <div class="mat-button-focus-overlay"></div>
             </button>
+            <ng-template #saveButton>
+                <button (click)="saveContact(userContact.iduser)" color="primary" mat-flat-button="" class="mat-flat-button mat-primary">
+                    <span class="mat-button-wrapper">Add</span>
+                    <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                    <div class="mat-button-focus-overlay"></div>
+                </button>
+            </ng-template>
+            
         </mat-list-item>
         <mat-divider></mat-divider>
     </div>
