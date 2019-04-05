@@ -56,7 +56,15 @@ public class UserService {
         final List<User> contactList = userRepository.selectUserContactsByIdUserAndUsernameFilter(iduser, usernameFilter);
         final List<User> nonContactList = userRepository.selectUsersByUsernameFilter(usernameFilter);
         contactList.stream().forEach(user -> ret.add(new UserContact(user, true)));
-        nonContactList.stream().forEach(user -> ret.add(new UserContact(user, false)));
+        nonContactList
+                .stream()
+                .filter(user -> !this.idUserInUserContactList(user.getIduser(), contactList))
+                .forEach(user -> ret.add(new UserContact(user, false)));
         return ret;
     }
+
+    private boolean idUserInUserContactList(final Integer iduser, final List<User> contactList) {
+        return contactList.stream().anyMatch(user -> user.getIduser() == iduser);
+    }
+
 }
