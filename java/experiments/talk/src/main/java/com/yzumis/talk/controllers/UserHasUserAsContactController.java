@@ -15,7 +15,7 @@ public class UserHasUserAsContactController {
     private UserHasUserAsContactService userHasUserAsContactService;
 
     @RequestMapping(method= RequestMethod.POST, value="/userhasuserascontact/save")
-    public void register(@RequestBody final UserHasUserAsContact userHasUserAsContact) {
+    public void save(@RequestBody final UserHasUserAsContact userHasUserAsContact) {
         userHasUserAsContactService.save(userHasUserAsContact);
     }
 

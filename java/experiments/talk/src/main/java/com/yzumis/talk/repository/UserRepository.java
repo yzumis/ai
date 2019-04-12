@@ -26,6 +26,11 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Modifying
     void updateTokenById(@Param("iduser") final Integer iduser, @Param("token") final String token);
 
+    @Transactional
+    @Query("UPDATE user SET main_conversation_idconversation = :main_conversation_idconversation WHERE iduser = :iduser")
+    @Modifying
+    void updateMainConversationIdConversationById(@Param("iduser") final Integer iduser, @Param("main_conversation_idconversation") final Integer main_conversation_idconversation);
+
     @Query("SELECT" +
             " u " +
             "FROM" +

@@ -15,6 +15,7 @@ public class User {
     private String username;
     private String password;
     private String token;
+    private Integer main_conversation_idconversation;
 
     public User() {
     }
@@ -54,6 +55,14 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public Integer getMain_conversation_idconversation() {
+        return main_conversation_idconversation;
+    }
+
+    public void setMain_conversation_id_conversation(Integer main_conversation_idconversation) {
+        this.main_conversation_idconversation = main_conversation_idconversation;
     }
 
 }

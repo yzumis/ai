@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 @Entity(name = "user_has_user_as_contact")
 @IdClass(UserHasUserAsContactId.class)
-public class UserHasUserAsContact implements Serializable {
+public class UserHasUserAsContact {
 
     private static final long serialVersionUID = 1L;
 

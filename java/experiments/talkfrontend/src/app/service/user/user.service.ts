@@ -19,6 +19,7 @@ export class UserService {
   private static readonly REGISTER_PATH: string = "/users/register";
   private static readonly LOGIN_PATH: string = "/users/login";
   private static readonly USER_CONTACTS_PATH: string = "/users";
+  private static readonly MAIN_CONVERSATION_BY_ID_USER_PATH: string = "/users/mainconversationbyiduser";
 
   constructor(private httpClient: HttpClient,
     private authenticationService: AuthenticationService,
@@ -57,6 +58,13 @@ export class UserService {
     .append("iduser", String(iduser))
     .append("usernameFilter", usernameFilter);
     return this.httpClient.get<UserContact[]>(Server.SERVER_BASE_PATH + UserService.USER_CONTACTS_PATH, { params: httpParams });
+  }
+
+  mainConversationByIdUser(idUser: number): Observable<number> {
+    console.log("mainConversationByIdUser: "+ idUser);
+    var httpParams: HttpParams = new HttpParams()
+    .append("idUser", String(idUser));
+    return this.httpClient.get<number>(Server.SERVER_BASE_PATH + UserService.MAIN_CONVERSATION_BY_ID_USER_PATH, { params: httpParams });
   }
 
 }

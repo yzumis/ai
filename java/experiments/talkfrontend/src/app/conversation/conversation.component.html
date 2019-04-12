@@ -1,38 +1,13 @@
-<div>
-  <mat-card class="left-mat-card">Simple card</mat-card>
-</div>
-<div>
-  <mat-card class="left-mat-card">Simple card</mat-card>
-</div>
-<div align="right" >
-  <mat-card class="right-mat-card">Simple card</mat-card>
-</div>
-<div align="right" >
-  <mat-card class="right-mat-card">Simple card with a long long very very long very very very very very very very long text but very very very very very very very long long long</mat-card>
-</div>
-<div>
-  <mat-card class="left-mat-card">Simple card</mat-card>
-</div>
-<div>
-  <mat-card class="left-mat-card">Simple card</mat-card>
-</div>
-<div align="right" >
-  <mat-card class="right-mat-card">Simple card</mat-card>
-</div>
-<div align="right" >
-  <mat-card class="right-mat-card">Simple card with a long long very very long very very very very very very very long text but very very very very very very very long long long</mat-card>
-</div>
-<div>
-  <mat-card class="left-mat-card">Simple card</mat-card>
-</div>
-<div>
-  <mat-card class="left-mat-card">Simple card</mat-card>
-</div>
-<div align="right" >
-  <mat-card class="right-mat-card">Simple card</mat-card>
-</div>
-<div align="right" class="last-div" >
-  <mat-card class="right-mat-card">Simple card with a long long very very long very very very very very very very long text but very very very very very very very long long long</mat-card>
+
+<div *ngFor="let message of messages">
+  <div *ngIf="idUser !== message.user_iduser; else otherUser">
+    <mat-card class="left-mat-card">{{message.text}}</mat-card>
+  </div>
+  <ng-template #otherUser>
+    <div align="right" >
+      <mat-card class="right-mat-card">{{message.text}}</mat-card>
+    </div>
+  </ng-template>
 </div>
 <div class="input-div">
     <mat-divider></mat-divider>
@@ -40,11 +15,11 @@
     <mat-grid-list cols="10" rowHeight="60px">
       <mat-grid-tile colspan="8" rowspan="1">
         <mat-form-field class="input-text">
-          <input class="input-text" matInput placeholder="Message">
+          <input #message class="input-text" matInput placeholder="Message">
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile colspan="2" rowspan="1">
-        <button class="input-button" mat-button>Send</button>    
+        <button (click)="saveMessage(message.value)" class="input-button" mat-button>Send</button>    
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card>

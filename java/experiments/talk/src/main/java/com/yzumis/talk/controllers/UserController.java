@@ -37,4 +37,9 @@ public class UserController {
         return userService.login(userLogin);
     }
 
+    @RequestMapping(method= RequestMethod.GET, value="/users/mainconversationbyiduser")
+    public Integer mainConversationIdByIdUser(@RequestParam(name="idUser") final Integer idUser) {
+        return userService.mainConversationByIdUser(idUser);
+    }
+
 }

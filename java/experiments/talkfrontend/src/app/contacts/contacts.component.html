@@ -8,12 +8,14 @@
     <mat-divider></mat-divider>
     <div *ngFor="let userContact of userContactArray">
         <mat-list-item>
-            <span class="span-pointer" matLine>{{userContact.username}}</span>
-            <button *ngIf="userContact.contact; else saveButton" (click)="deleteContact(userContact.iduser)" color="accent" mat-flat-button="" class="mat-flat-button mat-accent">
-                <span class="mat-button-wrapper">Delete</span>
-                <div class="mat-button-ripple mat-ripple" matripple=""></div>
-                <div class="mat-button-focus-overlay"></div>
-            </button>
+            <span (click)="saveConversation(userContact.contact, userContact.iduser)" class="span-pointer" matLine>{{userContact.username}}</span>
+            <div *ngIf="userContact.contact; else saveButton" layout="row">
+                <button (click)="deleteContact(userContact.iduser)" color="accent" mat-flat-button="" class="mat-flat-button mat-accent">
+                    <span class="mat-button-wrapper">Delete</span>
+                    <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                    <div class="mat-button-focus-overlay"></div>
+                </button>
+            </div>
             <ng-template #saveButton>
                 <button (click)="saveContact(userContact.iduser)" color="primary" mat-flat-button="" class="mat-flat-button mat-primary">
                     <span class="mat-button-wrapper">Add</span>
@@ -21,17 +23,7 @@
                     <div class="mat-button-focus-overlay"></div>
                 </button>
             </ng-template>
-            
         </mat-list-item>
         <mat-divider></mat-divider>
     </div>
-    <mat-list-item style="box-sizing: border-box; border-color: #3f51b5;border-style: solid;">
-        <div matLine>
-            <span matBadge="5" matBadgeOverlap="false" matBadgeColor="accent">Contact C</span>
-        </div>
-        <button style="text-align:right;" mat-icon-button>
-            <mat-icon>clear</mat-icon>
-        </button>
-    </mat-list-item>
-    <mat-divider></mat-divider>
 </mat-list>

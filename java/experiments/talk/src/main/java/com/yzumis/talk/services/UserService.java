@@ -10,6 +10,7 @@ import com.yzumis.talk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,10 +20,10 @@ import java.util.function.Consumer;
 public class UserService {
 
     @Autowired
-    TokenService tokenService;
+    private TokenService tokenService;
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     public void register(final UserRegister userRegister) throws UserAlreadyRegisteredException {
         final User user = new User(userRegister);
@@ -65,6 +66,21 @@ public class UserService {
 
     private boolean idUserInUserContactList(final Integer iduser, final List<User> contactList) {
         return contactList.stream().anyMatch(user -> user.getIduser() == iduser);
+    }
+
+    public Integer mainConversationByIdUser(final Integer idUser) {
+        final Integer ret;
+        final Optional<User> userOptional = userRepository.findById(idUser);
+        if(userOptional.isPresent()) {
+            ret = userOptional.get().getMain_conversation_idconversation();
+        } else {
+            ret = null;
+        }
+        return ret;
+    }
+
+    public void updateMainConversationIdConversationById(final Integer idUser, final Integer idConversation) {
+        userRepository.updateMainConversationIdConversationById(idUser, idConversation);
     }
 
 }
