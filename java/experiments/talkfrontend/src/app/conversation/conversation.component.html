@@ -15,11 +15,11 @@
     <mat-grid-list cols="10" rowHeight="60px">
       <mat-grid-tile colspan="8" rowspan="1">
         <mat-form-field class="input-text">
-          <input #message class="input-text" matInput placeholder="Message">
+          <input #message (change)="saveMessage(message.value); message.value='';" class="input-text" matInput placeholder="Message">
         </mat-form-field>
       </mat-grid-tile>
       <mat-grid-tile colspan="2" rowspan="1">
-        <button (click)="saveMessage(message.value)" class="input-button" mat-button>Send</button>    
+        <button (click)="saveMessage(message.value); message.value='';" class="input-button" mat-button>Send</button>    
       </mat-grid-tile>
     </mat-grid-list>
   </mat-card>

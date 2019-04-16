@@ -8,7 +8,10 @@
     <mat-divider></mat-divider>
     <div *ngFor="let userContact of userContactArray">
         <mat-list-item>
-            <span (click)="saveConversation(userContact.contact, userContact.iduser)" class="span-pointer" matLine>{{userContact.username}}</span>
+            <span *ngIf="userContact.contact; else noActionUsername" (click)="saveConversation(userContact.contact, userContact.iduser)" class="span-pointer" matLine>{{userContact.username}}</span>
+            <ng-template #noActionUsername>
+              <span matLine>{{userContact.username}}</span>
+            </ng-template>
             <div *ngIf="userContact.contact; else saveButton" layout="row">
                 <button (click)="deleteContact(userContact.iduser)" color="accent" mat-flat-button="" class="mat-flat-button mat-accent">
                     <span class="mat-button-wrapper">Delete</span>

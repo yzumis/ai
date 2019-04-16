@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { UserService } from './../service/user/user.service';
+import { AuthenticationService } from './../service/authentication/authentication.service';
+import { ConversationService } from './../service/conversation/conversation.service';
 
 @Component({
   selector: 'app-main-screen',
@@ -11,20 +13,38 @@ import { UserService } from './../service/user/user.service';
 export class MainScreenComponent implements OnInit {
 
   selectedTab: number;
+  conversationTabDisabled;
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private userService: UserService
-  ) { }
+    private userService: UserService,
+    private authenticationService: AuthenticationService,
+    private conversationService: ConversationService
+  ) {
+  }
 
   ngOnInit() {
-    var idUser: number;
+    this.loadScreen();
+    this.conversationService.getConversationChangedObservable().subscribe(
+      () => {
+        console.log("Conversation changed event received")
+        this.loadScreen();
+      }
+    );
+  }
+
+  private loadScreen() {
+    var idUser = this.authenticationService.user.iduser;
     this.userService.mainConversationByIdUser(idUser).subscribe(
       idConversation => {
-        if(typeof idConversation !== 'undefined') {
+        if(idConversation !== null) {
+          console.log("flag 1")
           this.selectedTab = 0;
+          this.conversationTabDisabled = false;
         } else {
+          console.log("flag 2")
           this.selectedTab = 1;
+          this.conversationTabDisabled = true;
         }
       }
     )

@@ -22,18 +22,22 @@ public class ConversationService {
     private UserService userService;
 
     public void save(final ConversationCreate conversationCreate) {
-        final Optional<Integer> idConversation = conversationRepository.selectIdConversationByIdUserAndIdUserContact(conversationCreate.getIdUser(), conversationCreate.getIdUserContact());
-        if(!idConversation.isPresent()) {
-            saveNewConversation(conversationCreate);
+        final Optional<Integer> idConversationOptional = conversationRepository.selectIdConversationByIdUserAndIdUserContact(conversationCreate.getIdUser(), conversationCreate.getIdUserContact());
+        final Integer idConversation;
+        if(idConversationOptional.isPresent()) {
+            idConversation = idConversationOptional.get();
+        } else {
+            idConversation = saveNewConversation(conversationCreate);
         }
-        userService.updateMainConversationIdConversationById(conversationCreate.getIdUser(), idConversation.get());
+        userService.updateMainConversationIdConversationById(conversationCreate.getIdUser(), idConversation);
     }
 
-    private void saveNewConversation(final ConversationCreate conversationCreate) {
+    private Integer saveNewConversation(final ConversationCreate conversationCreate) {
         final Conversation conversation = new Conversation();
         final Conversation savedConversation = conversationRepository.save(conversation);
         saveUserHasConversation(conversationCreate.getIdUser(), savedConversation.getIdconversation());
         saveUserHasConversation(conversationCreate.getIdUserContact(), savedConversation.getIdconversation());
+        return savedConversation.getIdconversation();
     }
 
     private void saveUserHasConversation(final Integer idUser, final Integer idConversation) {

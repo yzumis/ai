@@ -59,7 +59,7 @@ export class UserService {
     .append("usernameFilter", usernameFilter);
     return this.httpClient.get<UserContact[]>(Server.SERVER_BASE_PATH + UserService.USER_CONTACTS_PATH, { params: httpParams });
   }
-
+re
   mainConversationByIdUser(idUser: number): Observable<number> {
     console.log("mainConversationByIdUser: "+ idUser);
     var httpParams: HttpParams = new HttpParams()

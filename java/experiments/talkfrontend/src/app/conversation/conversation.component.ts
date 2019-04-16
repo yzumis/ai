@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+import { Observable } from 'rxjs';
+import 'rxjs/add/observable/interval';
+
 import { AuthenticationService } from './../service/authentication/authentication.service';
 import { UserService } from './../service/user/user.service';
 import { MessageService } from './../service/message/message.service';
@@ -19,26 +22,41 @@ export class ConversationComponent implements OnInit {
     private messageService: MessageService
   ) { }
 
+  private readonly READ_MESSAGES_MILLISECONDS_INTERVAL: number = 1000;
   idUser:number;
   idConversation: number;
   messages: Message[];
+  subscription: any;
 
   ngOnInit() {
     this.obtainUserMessages();
+    this.createObtainUserMessagesScheduler(this.READ_MESSAGES_MILLISECONDS_INTERVAL);
   }
 
   obtainUserMessages() {
     this.idUser = this.authenticationService.user.iduser;
     this.userService.mainConversationByIdUser(this.idUser).subscribe(
       idConversation => {
-        this.idConversation = idConversation;
-        this.messageService.messagesByIdConversation(idConversation).subscribe(
-          messages => {
-            this.messages = messages;
-          }
-        )
+        if(idConversation != null) {
+          this.idConversation = idConversation;
+          this.messageService.messagesByIdConversation(idConversation).subscribe(
+            messages => {
+              this.messages = messages;
+            }
+          )
+        }
       }
     )
+  }
+
+  createObtainUserMessagesScheduler(interval: number) {
+    Observable.interval(interval) .subscribe(
+      data =>
+      {
+        console.log('createObtainUserMessagesScheduler');
+        this.obtainUserMessages();
+      }
+    );
   }
 
   saveMessage(text: string) {

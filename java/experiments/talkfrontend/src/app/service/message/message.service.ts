@@ -28,7 +28,7 @@ export class MessageService {
   }
 
   messagesByIdConversation(idConversation: number): Observable<Message[]> {
-    console.log("save");
+    console.log("messagesByIdConversation");
     var httpParams: HttpParams = new HttpParams()
     .append("idConversation", String(idConversation))
     return this.httpClient.get<Message[]>(Server.SERVER_BASE_PATH + MessageService.CONVERSATION_PATH, { params: httpParams });

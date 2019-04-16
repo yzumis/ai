@@ -3,7 +3,7 @@ import { NgModule} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import {NoopAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatListModule, MatTabsModule, MatCardModule, MatBadgeModule, MatGridListModule, MatIconModule } from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatFormFieldModule, MatInputModule, MatRippleModule, MatListModule, MatTabsModule, MatCardModule, MatBadgeModule, MatGridListModule, MatIconModule, MatSnackBarModule } from '@angular/material';
 
 import { HttpClientModule } from '@angular/common/http';
 
@@ -40,6 +40,7 @@ import { ContactsComponent } from './contacts/contacts.component';
     MatBadgeModule,
     MatGridListModule,
     MatIconModule,
+    MatSnackBarModule,
     AppRoutingModule,
     HttpClientModule
   ],
