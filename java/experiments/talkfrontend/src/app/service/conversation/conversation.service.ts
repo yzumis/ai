@@ -6,6 +6,7 @@ import { Observable, Subscriber, Subject } from 'rxjs'
 import { Server } from './../../constants/server';
 import { ConversationCreate } from './../../model/conversation/conversation-create';
 import { AuthenticationService } from './../authentication/authentication.service';
+import { LightNotificationService } from './../light-notification/light-notification.service';
 
 
 @Injectable({
@@ -19,7 +20,8 @@ export class ConversationService implements OnInit {
 
   constructor(private httpClient: HttpClient,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private lightNotificationService: LightNotificationService
   ) {
     this.conversationChangedSubject = new Subject<any>();
   }
@@ -28,15 +30,12 @@ export class ConversationService implements OnInit {
   }
 
   save(conversationCreate: ConversationCreate) {
-    console.log("save: "+ conversationCreate.idUser + " " + conversationCreate.idUserContact);
     this.httpClient.post(Server.SERVER_BASE_PATH + ConversationService.SAVE_PATH, conversationCreate).subscribe(
       data => {
-        console.log("POST save request succeded");
         this.changeConversation();
-        // this.router.navigate(['/mainScreen'], { queryParams: { refresh: 'true' } });
       },
       error => {
-        console.log("POST save request failed");
+        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_CONVERSTION_CREATE_ERROR);
       }
     );
   }

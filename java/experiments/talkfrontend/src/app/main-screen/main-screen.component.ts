@@ -27,7 +27,6 @@ export class MainScreenComponent implements OnInit {
     this.loadScreen();
     this.conversationService.getConversationChangedObservable().subscribe(
       () => {
-        console.log("Conversation changed event received")
         this.loadScreen();
       }
     );
@@ -38,11 +37,9 @@ export class MainScreenComponent implements OnInit {
     this.userService.mainConversationByIdUser(idUser).subscribe(
       idConversation => {
         if(idConversation !== null) {
-          console.log("flag 1")
           this.selectedTab = 0;
           this.conversationTabDisabled = false;
         } else {
-          console.log("flag 2")
           this.selectedTab = 1;
           this.conversationTabDisabled = true;
         }

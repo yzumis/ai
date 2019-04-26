@@ -6,6 +6,8 @@ import 'rxjs/add/observable/interval';
 import { AuthenticationService } from './../service/authentication/authentication.service';
 import { UserService } from './../service/user/user.service';
 import { MessageService } from './../service/message/message.service';
+import { LightNotificationService } from './../service/light-notification/light-notification.service';
+
 import { Message } from './../model/message/message/message';
 import { MessageCreate } from './../model/message/message-create/message-create';
 
@@ -19,7 +21,8 @@ export class ConversationComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private userService: UserService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private lightNotificationService: LightNotificationService
   ) { }
 
   private readonly READ_MESSAGES_MILLISECONDS_INTERVAL: number = 1000;
@@ -45,6 +48,9 @@ export class ConversationComponent implements OnInit {
             }
           )
         }
+      },
+      error => {
+        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_OBTAIN_MAIN_CONVERSATION_BY_ID_USER_ERROR);
       }
     )
   }
@@ -53,8 +59,11 @@ export class ConversationComponent implements OnInit {
     Observable.interval(interval) .subscribe(
       data =>
       {
-        console.log('createObtainUserMessagesScheduler');
         this.obtainUserMessages();
+      },
+      error =>
+      {
+        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_OBTAIN_MESSAGES_ERROR);
       }
     );
   }
@@ -64,6 +73,9 @@ export class ConversationComponent implements OnInit {
     this.messageService.save(messageCreate).subscribe(
       data => {
         this.obtainUserMessages();
+      },
+      error => {
+        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_SAVE_MESSAGE_ERROR);
       }
     )
   }

@@ -23,12 +23,10 @@ export class MessageService {
   ) { }
 
   save(messageCreate: MessageCreate): Observable<any> {
-    console.log("save");
     return this.httpClient.post(Server.SERVER_BASE_PATH + MessageService.SAVE_PATH, messageCreate);
   }
 
   messagesByIdConversation(idConversation: number): Observable<Message[]> {
-    console.log("messagesByIdConversation");
     var httpParams: HttpParams = new HttpParams()
     .append("idConversation", String(idConversation))
     return this.httpClient.get<Message[]>(Server.SERVER_BASE_PATH + MessageService.CONVERSATION_PATH, { params: httpParams });

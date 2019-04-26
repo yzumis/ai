@@ -9,6 +9,9 @@ import { User } from './../../model/user/user';
 import { UserLogin } from './../../model/user/user-login';
 import { UserContact } from './../../model/user/user-contact';
 import { AuthenticationService } from './../authentication/authentication.service';
+import { LightNotificationService } from './../light-notification/light-notification.service';
+import { LightNotification } from './../../model/light-notification/light-notification';
+import { LightNotificationLevel } from './../../model/light-notification/level/light-notification-level';
 
 
 @Injectable({
@@ -23,37 +26,33 @@ export class UserService {
 
   constructor(private httpClient: HttpClient,
     private authenticationService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private lightNotificationService: LightNotificationService,
   ) { }
 
   register(userRegister: UserRegister) {
-    console.log("register: "+ userRegister.username + " " + userRegister.password);
     this.httpClient.post(Server.SERVER_BASE_PATH + UserService.REGISTER_PATH, userRegister).subscribe(
       data => {
-        console.log("POST register request succeded");
       },
       error => {
-        console.log("POST register request failed");
+        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_REGISTER_ERROR);
       }
     );
   }
 
   login(userLogin: UserLogin) {
-    console.log("login: "+ userLogin.username + " " + userLogin.password);
     this.httpClient.post<User>(Server.SERVER_BASE_PATH + UserService.LOGIN_PATH, userLogin).subscribe(
       user  => {
-        console.log("POST login request succeded " + JSON.stringify(user));
         this.authenticationService.user = user;        
         this.router.navigateByUrl('/mainScreen');
       },
       error => {
-        console.log("POST login request failed");
+        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_LOGIN_ERROR);
       }
     );
   }
 
   userContacts(iduser: number, usernameFilter: string): Observable<UserContact[]> {
-    console.log("userContacts: "+ iduser + " " + usernameFilter);
     var httpParams: HttpParams = new HttpParams()
     .append("iduser", String(iduser))
     .append("usernameFilter", usernameFilter);
@@ -61,7 +60,6 @@ export class UserService {
   }
 re
   mainConversationByIdUser(idUser: number): Observable<number> {
-    console.log("mainConversationByIdUser: "+ idUser);
     var httpParams: HttpParams = new HttpParams()
     .append("idUser", String(idUser));
     return this.httpClient.get<number>(Server.SERVER_BASE_PATH + UserService.MAIN_CONVERSATION_BY_ID_USER_PATH, { params: httpParams });

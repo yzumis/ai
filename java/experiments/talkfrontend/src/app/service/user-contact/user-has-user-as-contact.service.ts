@@ -16,12 +16,10 @@ export class UserHasUserAsContactService {
   constructor(private httpClient: HttpClient) { }
 
   saveContact(userHasUserAsContact: UserHasUserAsContact): Observable<any> {
-    console.log("saveContact: "+ userHasUserAsContact.user_iduser + " " + userHasUserAsContact.user_iduser_contact);
     return this.httpClient.post(Server.SERVER_BASE_PATH + UserHasUserAsContactService.SAVE_PATH, userHasUserAsContact);
   }
 
   deleteContact(userHasUserAsContact: UserHasUserAsContact): Observable<any> {
-    console.log("deleteContact: "+ userHasUserAsContact.user_iduser + " " + userHasUserAsContact.user_iduser_contact);
     return this.httpClient.post(Server.SERVER_BASE_PATH + UserHasUserAsContactService.DELETE_PATH, userHasUserAsContact);
   }
   
