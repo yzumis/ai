@@ -1,5 +1,6 @@
 package com.yzumis.talk.services;
 
+import com.yzumis.talk.exception.AuthenticationException;
 import com.yzumis.talk.repository.UserRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,8 +19,10 @@ public class TokenService {
         userRepository.updateTokenById(iduser, token);
     }
 
-    public boolean isTokenValid(final Integer iduser, final String token) {
-        return iduser == userRepository.selectIduserByToken(token);
+    public void checkTokenValid(final Integer iduser, final String token) {
+        if (iduser != userRepository.selectIduserByToken(token)) {
+            throw new AuthenticationException();
+        }
     }
 
 }

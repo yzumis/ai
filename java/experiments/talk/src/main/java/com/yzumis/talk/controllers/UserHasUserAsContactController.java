@@ -1,12 +1,10 @@
 package com.yzumis.talk.controllers;
 
 import com.yzumis.talk.model.userhasuserascontact.UserHasUserAsContact;
+import com.yzumis.talk.services.TokenService;
 import com.yzumis.talk.services.UserHasUserAsContactService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class UserHasUserAsContactController {
@@ -14,13 +12,22 @@ public class UserHasUserAsContactController {
     @Autowired
     private UserHasUserAsContactService userHasUserAsContactService;
 
+    @Autowired
+    private TokenService tokenService;
+
     @RequestMapping(method= RequestMethod.POST, value="/userhasuserascontact/save")
-    public void save(@RequestBody final UserHasUserAsContact userHasUserAsContact) {
+    public void save(
+            @RequestHeader(name="token") final String token,
+            @RequestBody final UserHasUserAsContact userHasUserAsContact) {
+        tokenService.checkTokenValid(userHasUserAsContact.getUser_iduser(), token);
         userHasUserAsContactService.save(userHasUserAsContact);
     }
 
     @RequestMapping(method= RequestMethod.POST, value="/userhasuserascontact/delete")
-    public void delete(@RequestBody final UserHasUserAsContact userHasUserAsContact) {
+    public void delete(
+            @RequestHeader(name="token") final String token,
+            @RequestBody final UserHasUserAsContact userHasUserAsContact) {
+        tokenService.checkTokenValid(userHasUserAsContact.getUser_iduser(), token);
         userHasUserAsContactService.delete(userHasUserAsContact);
     }
 

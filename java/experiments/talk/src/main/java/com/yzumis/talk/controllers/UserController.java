@@ -1,9 +1,10 @@
 package com.yzumis.talk.controllers;
 
-import com.yzumis.talk.expception.IncorrectUserOrPasswordException;
-import com.yzumis.talk.expception.UserAlreadyRegisteredException;
+import com.yzumis.talk.exception.IncorrectUserOrPasswordException;
+import com.yzumis.talk.exception.UserAlreadyRegisteredException;
 import com.yzumis.talk.model.user.UserContact;
 import com.yzumis.talk.model.user.UserRegister;
+import com.yzumis.talk.services.TokenService;
 import com.yzumis.talk.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -17,13 +18,18 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+
+    @Autowired
+    private TokenService tokenService;
 
     @RequestMapping(method= RequestMethod.GET, value="/users")
     public List<UserContact> users(
+            @RequestHeader(name="token") final String token,
             @RequestParam(name="iduser") final Integer iduser,
             @RequestParam(name="usernameFilter", required=false, defaultValue="") final String usernameFilter
     ) {
+        tokenService.checkTokenValid(iduser, token);
         return userService.users(iduser, usernameFilter);
     }
 
@@ -38,7 +44,11 @@ public class UserController {
     }
 
     @RequestMapping(method= RequestMethod.GET, value="/users/mainconversationbyiduser")
-    public Integer mainConversationIdByIdUser(@RequestParam(name="idUser") final Integer idUser) {
+    public Integer mainConversationIdByIdUser(
+            @RequestHeader(name="token") final String token,
+            @RequestParam(name="idUser") final Integer idUser
+    ) {
+        tokenService.checkTokenValid(idUser, token);
         return userService.mainConversationByIdUser(idUser);
     }
 

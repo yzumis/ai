@@ -1,7 +1,7 @@
 package com.yzumis.talk.services;
 
-import com.yzumis.talk.expception.IncorrectUserOrPasswordException;
-import com.yzumis.talk.expception.UserAlreadyRegisteredException;
+import com.yzumis.talk.exception.IncorrectUserOrPasswordException;
+import com.yzumis.talk.exception.UserAlreadyRegisteredException;
 import com.yzumis.talk.model.user.User;
 import com.yzumis.talk.model.user.UserContact;
 import com.yzumis.talk.model.user.UserLogin;
@@ -10,11 +10,9 @@ import com.yzumis.talk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.function.Consumer;
 
 @Service
 public class UserService {

@@ -16,7 +16,7 @@ export class LightNotificationService implements OnInit {
     public static readonly LIGHT_NOTIFICATION_SAVE_MESSAGE_ERROR: LightNotification = new LightNotification("Saving message error", LightNotificationLevel.ERROR);
     public static readonly LIGHT_NOTIFICATION_OBTAIN_MESSAGES_ERROR: LightNotification = new LightNotification("Obtain messages error", LightNotificationLevel.ERROR);
     public static readonly LIGHT_NOTIFICATION_CONVERSTION_CREATE_ERROR: LightNotification = new LightNotification("Create conversation error", LightNotificationLevel.ERROR);
-    public static readonly LIGHT_NOTIFICATION_OBTAIN_MAIN_CONVERSATION_BY_ID_USER_ERROR: LightNotification = new LightNotification("Obtain main converastion error", LightNotificationLevel.ERROR);
+    public static readonly LIGHT_NOTIFICATION_OBTAIN_MAIN_CONVERSATION_BY_ID_USER_ERROR: LightNotification = new LightNotification("Obtain main conversation error", LightNotificationLevel.ERROR);
     public static readonly LIGHT_NOTIFICATION_AUTHENTICATION_GUARD_ERROR: LightNotification = new LightNotification("Not authenticated", LightNotificationLevel.ERROR);
     public static readonly LIGHT_NOTIFICATION_USER_CONTACTS_ERROR: LightNotification = new LightNotification("Obtain user contacts error", LightNotificationLevel.ERROR);
     public static readonly LIGHT_NOTIFICATION_DELETE_CONTACT_ERROR: LightNotification = new LightNotification("Delete contact error", LightNotificationLevel.ERROR);    

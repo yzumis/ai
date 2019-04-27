@@ -1,5 +1,5 @@
 import { Injectable, OnInit } from '@angular/core';
-import { HttpClient, HttpParams , HttpHeaders} from '@angular/common/http';
+import { HttpClient, HttpParams, HttpHeaders} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, Subscriber, Subject } from 'rxjs'
 
@@ -30,7 +30,8 @@ export class ConversationService implements OnInit {
   }
 
   save(conversationCreate: ConversationCreate) {
-    this.httpClient.post(Server.SERVER_BASE_PATH + ConversationService.SAVE_PATH, conversationCreate).subscribe(
+    var httpHeaders: HttpHeaders = this.authenticationService.buildAuthenticationHttpHeaders();
+    this.httpClient.post(Server.SERVER_BASE_PATH + ConversationService.SAVE_PATH, conversationCreate, { headers: httpHeaders }).subscribe(
       data => {
         this.changeConversation();
       },

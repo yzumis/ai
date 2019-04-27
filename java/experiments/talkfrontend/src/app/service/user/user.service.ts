@@ -53,16 +53,18 @@ export class UserService {
   }
 
   userContacts(iduser: number, usernameFilter: string): Observable<UserContact[]> {
+    var httpHeaders: HttpHeaders = this.authenticationService.buildAuthenticationHttpHeaders();
     var httpParams: HttpParams = new HttpParams()
     .append("iduser", String(iduser))
     .append("usernameFilter", usernameFilter);
-    return this.httpClient.get<UserContact[]>(Server.SERVER_BASE_PATH + UserService.USER_CONTACTS_PATH, { params: httpParams });
+    return this.httpClient.get<UserContact[]>(Server.SERVER_BASE_PATH + UserService.USER_CONTACTS_PATH, { headers: httpHeaders, params: httpParams });
   }
-re
+
   mainConversationByIdUser(idUser: number): Observable<number> {
+    var httpHeaders: HttpHeaders = this.authenticationService.buildAuthenticationHttpHeaders();
     var httpParams: HttpParams = new HttpParams()
     .append("idUser", String(idUser));
-    return this.httpClient.get<number>(Server.SERVER_BASE_PATH + UserService.MAIN_CONVERSATION_BY_ID_USER_PATH, { params: httpParams });
+    return this.httpClient.get<number>(Server.SERVER_BASE_PATH + UserService.MAIN_CONVERSATION_BY_ID_USER_PATH, { headers: httpHeaders, params: httpParams });
   }
 
 }

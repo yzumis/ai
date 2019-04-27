@@ -1,3 +1,5 @@
+import { HttpHeaders } from '@angular/common/http';
+
 import { Injectable } from '@angular/core';
 import { User } from './../../model/user/user';
 
@@ -8,6 +10,10 @@ export class AuthenticationService {
 
   private _user: User;
 
+  constructor() {
+  }
+  
+  
   set user(user: User) {
     this._user = user;
   }
@@ -20,6 +26,14 @@ export class AuthenticationService {
     return this._user != null;
   }
 
-  constructor() { }
+  buildAuthenticationHttpHeaders(): HttpHeaders {
+    var ret: HttpHeaders = new HttpHeaders(
+      {
+        "token":
+        this.user.token
+      }
+    );
+    return ret;
+  }
 
 }
