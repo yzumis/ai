@@ -26,7 +26,7 @@ public interface MessageRepository extends CrudRepository<Message, MessageId> {
     @Query("DELETE FROM" +
             " message m " +
             "WHERE" +
-            " m.timestamp < current_timestamp - :deleteOldMessagesCreatedBeforeDays")
+            " m.timestamp < SUBDATE(current_timestamp, 7)")
     @Modifying
     void deleteOldMessages(@Param("deleteOldMessagesCreatedBeforeDays") final Integer deleteOldMessagesCreatedBeforeDays);
 
