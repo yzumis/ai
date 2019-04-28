@@ -69,15 +69,17 @@ export class ConversationComponent implements OnInit {
   }
 
   saveMessage(text: string) {
-    var messageCreate: MessageCreate = new MessageCreate(this.idConversation, this.idUser, text);
-    this.messageService.save(messageCreate).subscribe(
-      data => {
-        this.obtainUserMessages();
-      },
-      error => {
-        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_SAVE_MESSAGE_ERROR);
-      }
-    )
+    if(text !== "") {
+      var messageCreate: MessageCreate = new MessageCreate(this.idConversation, this.idUser, text);
+      this.messageService.save(messageCreate).subscribe(
+        data => {
+          this.obtainUserMessages();
+        },
+        error => {
+          this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_SAVE_MESSAGE_ERROR);
+        }
+      )
+    }
   }
 
 }

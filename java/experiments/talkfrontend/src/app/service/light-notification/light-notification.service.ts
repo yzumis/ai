@@ -12,6 +12,7 @@ import { LightNotificationLevel } from './../../model/light-notification/level/l
 export class LightNotificationService implements OnInit {
 
     public static readonly LIGHT_NOTIFICATION_REGISTER_ERROR: LightNotification = new LightNotification("User already registered", LightNotificationLevel.ERROR);
+    public static readonly LIGHT_NOTIFICATION_REGISTER_OK: LightNotification = new LightNotification("User properly registered", LightNotificationLevel.SUCCESS);
     public static readonly LIGHT_NOTIFICATION_LOGIN_ERROR: LightNotification = new LightNotification("Login error", LightNotificationLevel.ERROR);
     public static readonly LIGHT_NOTIFICATION_SAVE_MESSAGE_ERROR: LightNotification = new LightNotification("Saving message error", LightNotificationLevel.ERROR);
     public static readonly LIGHT_NOTIFICATION_OBTAIN_MESSAGES_ERROR: LightNotification = new LightNotification("Obtain messages error", LightNotificationLevel.ERROR);

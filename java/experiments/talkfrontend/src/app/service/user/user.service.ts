@@ -33,6 +33,7 @@ export class UserService {
   register(userRegister: UserRegister) {
     this.httpClient.post(Server.SERVER_BASE_PATH + UserService.REGISTER_PATH, userRegister).subscribe(
       data => {
+        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_REGISTER_OK);
       },
       error => {
         this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_REGISTER_ERROR);
