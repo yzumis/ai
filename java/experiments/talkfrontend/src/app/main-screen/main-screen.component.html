@@ -1,14 +1,11 @@
 <div class="div-for-mat-tab-group">
   <mat-tab-group mat-stretch-tabs class="stretched-tabs mat-elevation-z3" [(selectedIndex)]="selectedTab">
-    <mat-tab disabled="conversationTabDisabled" label="Conversation">
+    <mat-tab disabled="{{conversationTabDisabled}}" label="Conversation">
       <div class="div-mat-tab">
         <app-conversation></app-conversation>
       </div>
-    </mat-tab>  
-    <mat-tab>
-      <ng-template matTabLabel>
-        <span matBadge="5" matBadgeOverlap="false" matBadgeColor="accent">Contacts</span>
-      </ng-template>
+    </mat-tab>
+    <mat-tab label="Contacts">
       <div class="div-mat-tab">
         <app-contacts></app-contacts>
       </div>

@@ -13,7 +13,7 @@ import { ConversationService } from './../service/conversation/conversation.serv
 export class MainScreenComponent implements OnInit {
 
   selectedTab: number;
-  conversationTabDisabled;
+  conversationTabDisabled: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -37,9 +37,11 @@ export class MainScreenComponent implements OnInit {
     this.userService.mainConversationByIdUser(idUser).subscribe(
       idConversation => {
         if(idConversation !== null) {
+          console.log("flag1");
           this.selectedTab = 0;
           this.conversationTabDisabled = false;
         } else {
+          console.log("flag2");
           this.selectedTab = 1;
           this.conversationTabDisabled = true;
         }
