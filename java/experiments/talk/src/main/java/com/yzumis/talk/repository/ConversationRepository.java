@@ -20,5 +20,15 @@ public interface ConversationRepository extends CrudRepository<Conversation, Int
             " AND uhc2.user_iduser = :idUserContact ")
     Optional<Integer> selectIdConversationByIdUserAndIdUserContact(@Param("idUser") final Integer idUser, @Param("idUserContact") final Integer idUserContact);
 
+    @Query("SELECT" +
+            " u.username " +
+            "FROM" +
+            " user_has_conversation uhc " +
+            " INNER JOIN user u ON u.iduser = uhc.user_iduser " +
+            "WHERE" +
+            " uhc.conversation_idconversation = :idConversation " +
+            " AND uhc.user_iduser <> :idUser "
+    )
+    String usernameByIdUserAndIdConversation(@Param("idUser") final Integer idUser, @Param("idConversation") final Integer idConversation);
 }
 

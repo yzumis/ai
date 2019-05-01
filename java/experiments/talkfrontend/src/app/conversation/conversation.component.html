@@ -1,11 +1,11 @@
 
 <div *ngFor="let message of messages">
-  <div *ngIf="idUser !== message.user_iduser; else otherUser">
-    <mat-card class="left-mat-card">{{message.text}}</mat-card>
+  <div *ngIf="idUser !== message.user_iduser; else otherUser" align="right">
+    <mat-card class="right-mat-card">{{message.text}}</mat-card>
   </div>
   <ng-template #otherUser>
-    <div align="right" >
-      <mat-card class="right-mat-card">{{message.text}}</mat-card>
+    <div>
+      <mat-card class="left-mat-card">{{message.text}}</mat-card>
     </div>
   </ng-template>
 </div>

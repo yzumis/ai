@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from './../service/user/user.service';
 import { AuthenticationService } from './../service/authentication/authentication.service';
 import { ConversationService } from './../service/conversation/conversation.service';
+import { LightNotificationService } from './../service/light-notification/light-notification.service';
 
 @Component({
   selector: 'app-main-screen',
@@ -14,12 +15,14 @@ export class MainScreenComponent implements OnInit {
 
   selectedTab: number;
   conversationTabDisabled: boolean;
+  conversationTabText: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private userService: UserService,
     private authenticationService: AuthenticationService,
-    private conversationService: ConversationService
+    private conversationService: ConversationService,
+    private lightNotificationService: LightNotificationService
   ) {
   }
 
@@ -37,16 +40,30 @@ export class MainScreenComponent implements OnInit {
     this.userService.mainConversationByIdUser(idUser).subscribe(
       idConversation => {
         if(idConversation !== null) {
-          console.log("flag1");
           this.selectedTab = 0;
           this.conversationTabDisabled = false;
+          this.conversationService.usernameByIdUserAndIdConversation(idUser, idConversation).subscribe(
+            username => {
+              this.conversationTabText = "Conversation with " + username;
+            },
+            error => {
+              this.conversationTabText = "Conversation";
+              this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_USERNAME_BY_ID_USER_AND_ID_CONVERSATION_ERROR);
+            }
+          );
         } else {
-          console.log("flag2");
           this.selectedTab = 1;
           this.conversationTabDisabled = true;
+          this.conversationTabText = "Conversation";
         }
+      },
+      error => {
+        this.selectedTab = 1;
+        this.conversationTabDisabled = true;
+        this.conversationTabText = "Conversation";
+        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_OBTAIN_MAIN_CONVERSATION_BY_ID_USER_ERROR);
       }
-    )
+    );
   }
 
 }

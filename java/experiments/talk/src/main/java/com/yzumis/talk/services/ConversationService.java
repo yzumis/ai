@@ -45,4 +45,7 @@ public class ConversationService {
         userHasConversationService.save(userHasConversation);
     }
 
+    public String usernameByIdUserAndIdConversation(final Integer idUser, final Integer idConversation) {
+        return conversationRepository.usernameByIdUserAndIdConversation(idUser, idConversation);
+    }
 }

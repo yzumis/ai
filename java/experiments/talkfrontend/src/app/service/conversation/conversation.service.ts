@@ -15,6 +15,8 @@ import { LightNotificationService } from './../light-notification/light-notifica
 export class ConversationService implements OnInit {
 
   private static readonly SAVE_PATH: string = "/conversations/create";
+  private static readonly USERNAME_BY_ID_USER_AND_ID_CONVERSATION_PATH: string = "/conversations/usernamebyiduserandidconversation";
+
 
   private conversationChangedSubject: Subject<any>;
 
@@ -36,7 +38,7 @@ export class ConversationService implements OnInit {
         this.changeConversation();
       },
       error => {
-        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_CONVERSTION_CREATE_ERROR);
+        this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_CONVERSATION_CREATE_ERROR);
       }
     );
   }
@@ -47,6 +49,14 @@ export class ConversationService implements OnInit {
 
   changeConversation() {
     return this.conversationChangedSubject.next();
+  }
+
+  usernameByIdUserAndIdConversation(idUser: number, idConversation: number): Observable<string> {
+    var httpHeaders: HttpHeaders = this.authenticationService.buildAuthenticationHttpHeaders();
+    var httpParams: HttpParams = new HttpParams()
+    .append("idUser", String(idUser))
+    .append("idConversation", String(idConversation))
+    return this.httpClient.get<string>(Server.SERVER_BASE_PATH + ConversationService.USERNAME_BY_ID_USER_AND_ID_CONVERSATION_PATH, { headers: httpHeaders, params: httpParams, responseType: 'text' as 'json'} );
   }
 
 }

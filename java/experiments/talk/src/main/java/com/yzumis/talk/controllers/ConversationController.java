@@ -23,4 +23,14 @@ public class ConversationController {
         conversationService.save(conversationCreate);
     }
 
+    @RequestMapping(method= RequestMethod.GET, value="/conversations/usernamebyiduserandidconversation")
+    public String usernameByIdUserAndIdConversation(
+            @RequestHeader(name="token") final String token,
+            @RequestParam(name="idUser") final Integer idUser,
+            @RequestParam(name="idConversation") final Integer idConversation
+    ) {
+        tokenService.checkTokenValid(idUser, token);
+        return conversationService.usernameByIdUserAndIdConversation(idUser, idConversation);
+    }
+
 }

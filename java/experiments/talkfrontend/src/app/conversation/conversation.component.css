@@ -1,14 +1,16 @@
 .left-mat-card {
+    background: #8c97b6;
     margin: 3px;
-    max-width:90%;
+    max-width:85%;
 }
 .right-mat-card {
+    background: #ffa3c3;
     margin: 3px;
-    max-width:90%;
+    max-width:85%;
     text-align: left;
 }
 .last-div {
-    margin-bottom: 90px;
+    margin-bottom: 90px;    
 }
 .input-div {
     position: fixed;

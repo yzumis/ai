@@ -8,17 +8,19 @@
     <mat-divider></mat-divider>
     <div *ngFor="let userContact of userContactArray">
         <mat-list-item>
-            <span *ngIf="userContact.contact; else noActionUsername" (click)="saveConversation(userContact.contact, userContact.iduser)" class="span-pointer" matLine>{{userContact.username}}</span>
-            <ng-template #noActionUsername>
-              <span matLine>{{userContact.username}}</span>
-            </ng-template>
-            <div *ngIf="userContact.contact; else saveButton" layout="row">
+            <span matLine>{{userContact.username}}</span>
+            <ng-container *ngIf="userContact.contact; else saveButton" layout="row">
+                <button (click)="saveConversation(userContact.contact, userContact.iduser)" color="primary" mat-flat-button="" class="mat-flat-button mat-primary" style="margin-right: 5px;">
+                    <span class="mat-button-wrapper">Talk</span>
+                    <div class="mat-button-ripple mat-ripple" matripple=""></div>
+                    <div class="mat-button-focus-overlay"></div>
+                </button>
                 <button (click)="deleteContact(userContact.iduser)" color="accent" mat-flat-button="" class="mat-flat-button mat-accent">
                     <span class="mat-button-wrapper">Delete</span>
                     <div class="mat-button-ripple mat-ripple" matripple=""></div>
                     <div class="mat-button-focus-overlay"></div>
                 </button>
-            </div>
+            </ng-container>
             <ng-template #saveButton>
                 <button (click)="saveContact(userContact.iduser)" color="primary" mat-flat-button="" class="mat-flat-button mat-primary">
                     <span class="mat-button-wrapper">Add</span>
