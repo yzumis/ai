@@ -31,19 +31,4 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Modifying
     void updateMainConversationIdConversationById(@Param("iduser") final Integer iduser, @Param("main_conversation_idconversation") final Integer main_conversation_idconversation);
 
-    @Query("SELECT" +
-            " u " +
-            "FROM" +
-            " user_has_user_as_contact uhuc " +
-            " INNER JOIN user u ON u.iduser = uhuc.user_iduser_contact "+
-            "WHERE" +
-            " uhuc.user_iduser = :iduser" +
-            " AND u.username LIKE CONCAT('%',:usernameFilter,'%')" +
-            "ORDER BY" +
-            " u.username")
-    List<User> selectUserContactsByIdUserAndUsernameFilter(@Param("iduser") final Integer iduser, @Param("usernameFilter") final String usernameFilter);
-
-    @Query("SELECT u FROM user u WHERE u.username LIKE CONCAT('%',:usernameFilter,'%') ORDER BY u.username")
-    List<User> selectUsersByUsernameFilter(@Param("usernameFilter") final String usernameFilter);
-
 }

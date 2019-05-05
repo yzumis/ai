@@ -15,7 +15,7 @@ export class MainScreenComponent implements OnInit {
 
   selectedTab: number;
   conversationTabDisabled: boolean;
-  conversationTabText: string;
+  conversationTabUsername: string;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -44,23 +44,23 @@ export class MainScreenComponent implements OnInit {
           this.conversationTabDisabled = false;
           this.conversationService.usernameByIdUserAndIdConversation(idUser, idConversation).subscribe(
             username => {
-              this.conversationTabText = "Conversation with " + username;
+              this.conversationTabUsername = username;
             },
             error => {
-              this.conversationTabText = "Conversation";
+              this.conversationTabUsername = null;
               this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_USERNAME_BY_ID_USER_AND_ID_CONVERSATION_ERROR);
             }
           );
         } else {
           this.selectedTab = 1;
           this.conversationTabDisabled = true;
-          this.conversationTabText = "Conversation";
+          this.conversationTabUsername = null;
         }
       },
       error => {
         this.selectedTab = 1;
         this.conversationTabDisabled = true;
-        this.conversationTabText = "Conversation";
+        this.conversationTabUsername = null;
         this.lightNotificationService.addLightNotification(LightNotificationService.LIGHT_NOTIFICATION_OBTAIN_MAIN_CONVERSATION_BY_ID_USER_ERROR);
       }
     );

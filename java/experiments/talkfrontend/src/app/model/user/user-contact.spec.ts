@@ -1,7 +1,7 @@
 import { UserContact } from './user-contact';
 
-describe('User', () => {
+describe('UserContact', () => {
   it('should create an instance', () => {
-    expect(new UserContact(1, "username", true)).toBeTruthy();
+    expect(new UserContact(1, "username", true, true)).toBeTruthy();
   });
 });

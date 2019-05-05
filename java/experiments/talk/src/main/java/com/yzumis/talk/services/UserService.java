@@ -6,6 +6,7 @@ import com.yzumis.talk.model.user.User;
 import com.yzumis.talk.model.user.UserContact;
 import com.yzumis.talk.model.user.UserLogin;
 import com.yzumis.talk.model.user.UserRegister;
+import com.yzumis.talk.repository.UserContactRepository;
 import com.yzumis.talk.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserContactRepository userContactRepository;
 
     public void register(final UserRegister userRegister) throws UserAlreadyRegisteredException {
         final User user = new User(userRegister);
@@ -50,20 +54,9 @@ public class UserService {
         return ret;
     }
 
-    public List<UserContact> users(final Integer iduser, final String usernameFilter) {
-        final List<UserContact> ret = new ArrayList<>();
-        final List<User> contactList = userRepository.selectUserContactsByIdUserAndUsernameFilter(iduser, usernameFilter);
-        final List<User> nonContactList = userRepository.selectUsersByUsernameFilter(usernameFilter);
-        contactList.stream().forEach(user -> ret.add(new UserContact(user, true)));
-        nonContactList
-                .stream()
-                .filter(user -> !this.idUserInUserContactList(user.getIduser(), contactList))
-                .forEach(user -> ret.add(new UserContact(user, false)));
+    public List<UserContact> users(final Integer idUser, final String usernameFilter) {
+        final List<UserContact> ret = userContactRepository.selectUsersByUsernameFilter(idUser, usernameFilter);
         return ret;
-    }
-
-    private boolean idUserInUserContactList(final Integer iduser, final List<User> contactList) {
-        return contactList.stream().anyMatch(user -> user.getIduser() == iduser);
     }
 
     public Integer mainConversationByIdUser(final Integer idUser) {

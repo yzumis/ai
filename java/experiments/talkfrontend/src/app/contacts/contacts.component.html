@@ -8,9 +8,12 @@
     <mat-divider></mat-divider>
     <div *ngFor="let userContact of userContactArray">
         <mat-list-item>
-            <span matLine>{{userContact.username}}</span>
+            <div matLine>
+                <span>{{userContact.username}}</span>
+                <span *ngIf="userContact.pendingMessages" class="span-grey" matLine>You have pending messages</span>
+            </div>
             <ng-container *ngIf="userContact.contact; else saveButton" layout="row">
-                <button (click)="saveConversation(userContact.contact, userContact.iduser)" color="primary" mat-flat-button="" class="mat-flat-button mat-primary" style="margin-right: 5px;">
+                <button (click)="saveConversation(userContact.contact, userContact.iduser)" color="primary" mat-flat-button="" class="mat-flat-button mat-primary button-with-right-margin">
                     <span class="mat-button-wrapper">Talk</span>
                     <div class="mat-button-ripple mat-ripple" matripple=""></div>
                     <div class="mat-button-focus-overlay"></div>
