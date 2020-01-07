@@ -40,9 +40,11 @@ public class Population {
     }
 
     public void calculateFitness(final int generation) throws InterruptedException {
-        final List<Paintable> paintables = calculatePaintables();
-        this.screen.setupScreen(paintables, generation);
-        this.screen.repaint();
+        if(populationSize == 1) {
+            final List<Paintable> paintables = calculatePaintables();
+            this.screen.setupScreen(paintables, generation);
+            this.screen.repaint();
+        }
         // Population execution
         /*
         while(existColorCharacterAlive()) {
@@ -60,11 +62,13 @@ public class Population {
             this.scenario.recalculate();
             while (colorCharacter.isAlive()) {
                 if(populationSize == 1) {
-                    Thread.sleep(100);
+                    Thread.sleep(200);
                 }
                 colorCharacter.execute();
                 this.scenario.execute(colorCharacter);
-                this.screen.repaint();
+                if(populationSize == 1) {
+                    this.screen.repaint();
+                }
             }
         }
 

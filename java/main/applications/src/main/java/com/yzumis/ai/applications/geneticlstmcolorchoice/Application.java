@@ -17,7 +17,6 @@ import com.yzumis.ai.mlp.Mlp;
 
 public class Application {
 
-    private static final int NUMBER_OF_GENERATIONS = 100000000;
     private static final int POPULATION_SIZE = 100;
 
     public static final int X_SIZE = 700;
@@ -25,72 +24,33 @@ public class Application {
     private static final double MUTATION_RATE = 0.3f;
 
     public static void main(final String[] args) throws InterruptedException {
-        final GoalDetector goalDetector = calculateGoalDetector();
-        final EmptyDetector emptyDetector = calculateEmptyDetector();
-        final GoalMemory goalMemory = calculateGoalMemory();
         final Screen screen = new Screen(X_SIZE, Y_SIZE);
-        int iteration = 0;
-        while (true) {
-            Thread.sleep(500);
-            final Goal goal = new Goal();
-            final Scenario scenario = new Scenario(goal);
-            final ColorCharacter colorCharacter = new ColorCharacter(scenario, goal, new Lstm((Lstm) goalMemory.getReproducible()), (Mlp) goalDetector.getReproducible(), (Mlp) emptyDetector.getReproducible());
-            final Population population = new Population(screen, colorCharacter, scenario, goal);
+        final Goal goal = new Goal();
+        final Scenario scenario = new Scenario(goal);
+        int generation = 0;
+        while(true) {
+            final Population population = new Population(screen, POPULATION_SIZE, scenario, goal);
             goal.recalculate();
             scenario.recalculate();
-            population.calculateFitness(iteration);
-            final double fitness = population.pickBestColorCharacter().getFitness();
-            System.out.println("Iteration = " + iteration + " Best fitness = " + fitness);
-            iteration++;
+            population.calculateFitness(generation);
+            final ColorCharacter bestColorCharacter = population.pickBestColorCharacter();
+            final double fitness = bestColorCharacter.getFitness();
+            System.out.println("Generation = " + generation + " Best fitness = " + fitness);
+            if(generation % 100 == 0) {
+                final ColorCharacter colorCharacter = new ColorCharacter(bestColorCharacter);
+                executeColorCharacter(generation, screen, colorCharacter);
+            }
+            population.reproduction(MUTATION_RATE);
+            generation++;
         }
     }
 
-    private static GoalDetector calculateGoalDetector() {
-        final GoalDetectorFactory goalDetectorFactory = new GoalDetectorFactory();
-        final com.yzumis.ai.genetic.Population population = new com.yzumis.ai.genetic.Population(goalDetectorFactory, 100, 0.95, 0.3);
-        int iteration = 0;
-        GoalDetector ret = null;
-        while(ret == null || ret.getFitness() < 0.95) {
-            population.calculateFitness();
-            ret = (GoalDetector) population.pickBestIndividual();
-            final double fitness = ret.getFitness();
-            population.reproduction();
-            System.out.println("GoalDetector { iteration = " + iteration + ", fitness = " + fitness + " }");
-            iteration++;
-        }
-        return ret;
-    }
-
-    private static EmptyDetector calculateEmptyDetector() {
-        final EmptyDetectorFactory emptyDetectorFactory = new EmptyDetectorFactory();
-        final com.yzumis.ai.genetic.Population population = new com.yzumis.ai.genetic.Population(emptyDetectorFactory, 100, 0.95, 0.3);
-        int iteration = 0;
-        EmptyDetector ret = null;
-        while(ret == null || ret.getFitness() < 0.95) {
-            population.calculateFitness();
-            ret = (EmptyDetector) population.pickBestIndividual();
-            final double fitness = ret.getFitness();
-            population.reproduction();
-            System.out.println("EmptyDetector { iteration = " + iteration + ", fitness = " + fitness + " }");
-            iteration++;
-        }
-        return ret;
-    }
-
-    private static GoalMemory calculateGoalMemory() {
-        final GoalMemoryFactory goalMemoryFactory = new GoalMemoryFactory();
-        final com.yzumis.ai.genetic.Population population = new com.yzumis.ai.genetic.Population(goalMemoryFactory, 100, 0.95, 0.3);
-        int iteration = 0;
-        GoalMemory ret = null;
-        while(ret == null || ret.getFitness() < 0.95) {
-            population.calculateFitness();
-            ret = (GoalMemory) population.pickBestIndividual();
-            final double fitness = ret.getFitness();
-            population.reproduction();
-            System.out.println("GoalMemory { iteration = " + iteration + ", fitness = " + fitness + " }");
-            iteration++;
-        }
-        return ret;
+    private static void executeColorCharacter(final int generation, final Screen screen, final ColorCharacter colorCharacter) throws InterruptedException {
+        final Goal goal = new Goal();
+        final Scenario scenario = new Scenario(goal);
+        final Population population = new Population(screen, colorCharacter, scenario, goal);
+        population.calculateFitness(generation);
+        System.out.println(" Best fitness with new scenario and goal= " + population.pickBestColorCharacter().getFitness());
     }
 
 }
