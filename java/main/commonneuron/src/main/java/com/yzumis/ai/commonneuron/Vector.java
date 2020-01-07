@@ -80,4 +80,19 @@ public class Vector {
         return this.values.length;
     }
 
+    @Override
+    public String toString() {
+        final StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("[");
+        for(int i = 0; i < this.values.length; i++) {
+            stringBuilder.append(this.values[i]);
+            stringBuilder.append(",");
+        }
+        if(stringBuilder.lastIndexOf(",") != -1) {
+            stringBuilder.setLength(stringBuilder.length() - 1);
+        }
+        stringBuilder.append("]");
+        return stringBuilder.toString();
+    }
+
 }

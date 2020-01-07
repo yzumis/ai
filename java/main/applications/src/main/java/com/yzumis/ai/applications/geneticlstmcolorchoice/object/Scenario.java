@@ -68,7 +68,7 @@ public class Scenario implements Paintable {
         final Random random = new Random();
         final int xPosition = random.nextInt(X_SIZE);
         final int yPosition = random.nextInt(Y_SIZE);
-        if(((xPosition == 0) && (yPosition == 0)) || !inputs[xPosition][yPosition].equals(Input.EMPTY)) {
+        if(!inputs[xPosition][yPosition].equals(Input.EMPTY)) {
             generateRandomValue(input, inputs);
         } else {
             inputs[xPosition][yPosition] = input;

@@ -62,7 +62,7 @@ public class Population {
             this.scenario.recalculate();
             while (colorCharacter.isAlive()) {
                 if(populationSize == 1) {
-                    Thread.sleep(200);
+                    Thread.sleep(300);
                 }
                 colorCharacter.execute();
                 this.scenario.execute(colorCharacter);

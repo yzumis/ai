@@ -36,18 +36,16 @@ public class Application {
             final ColorCharacter bestColorCharacter = population.pickBestColorCharacter();
             final double fitness = bestColorCharacter.getFitness();
             System.out.println("Generation = " + generation + " Best fitness = " + fitness);
-            if(generation % 100 == 0) {
-                final ColorCharacter colorCharacter = new ColorCharacter(bestColorCharacter);
-                executeColorCharacter(generation, screen, colorCharacter);
+            if(generation % 1000 == 0) {
+                final ColorCharacter colorCharacter = new ColorCharacter(bestColorCharacter, true);
+                executeColorCharacter(generation, goal, scenario, screen, colorCharacter);
             }
             population.reproduction(MUTATION_RATE);
             generation++;
         }
     }
 
-    private static void executeColorCharacter(final int generation, final Screen screen, final ColorCharacter colorCharacter) throws InterruptedException {
-        final Goal goal = new Goal();
-        final Scenario scenario = new Scenario(goal);
+    private static void executeColorCharacter(final int generation, final Goal goal, final Scenario scenario, final Screen screen, final ColorCharacter colorCharacter) throws InterruptedException {
         final Population population = new Population(screen, colorCharacter, scenario, goal);
         population.calculateFitness(generation);
         System.out.println(" Best fitness with new scenario and goal= " + population.pickBestColorCharacter().getFitness());

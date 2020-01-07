@@ -47,6 +47,7 @@ public class ColorCharacter implements Reproducible, Paintable {
     private final Mlp mlpGoalDetector;
     private final Mlp mlpEmptyDetector;
     private final Lstm lstm;
+    private final boolean debug;
     private int positionX;
     private int positionY;
     private boolean alive;
@@ -54,19 +55,50 @@ public class ColorCharacter implements Reproducible, Paintable {
     private double fitness;
 
     public ColorCharacter(final Scenario scenario, final Goal goal) {
-        this.scenario = scenario;
-        this.goal = goal;
-        this.positionX = 0;
-        this.positionY = 0;
-        this.alive = true;
-        this.live = 100;
-        this.fitness = 0d;
-        this.lstm = new Lstm(10, 5, LSTM_MLP_NEURONS_PER_LAYER, LSTM_MLP_NEURONS_PER_LAYER, LSTM_MLP_NEURONS_PER_LAYER, LSTM_MLP_NEURONS_PER_LAYER, BASE_NEURON_FACTORY);
-        this.mlpGoalDetector = new Mlp(MLP_GOAL_DETECTOR_NUMBER_OF_INPUTS, MLP_GOAL_DETECTOR_NEURONS_PER_LAYER, BASE_NEURON_FACTORY);
-        this.mlpEmptyDetector = new Mlp(MLP_EMPTY_DETECTOR_NUMBER_OF_INPUTS, MLP_EMPTY_DETECTOR_NEURONS_PER_LAYER, BASE_NEURON_FACTORY);
+        this(
+            scenario,
+            goal,
+            new Lstm(
+                10,
+                5,
+                LSTM_MLP_NEURONS_PER_LAYER,
+                LSTM_MLP_NEURONS_PER_LAYER,
+                LSTM_MLP_NEURONS_PER_LAYER,
+                LSTM_MLP_NEURONS_PER_LAYER,
+                BASE_NEURON_FACTORY
+            ),
+            new Mlp(
+                MLP_GOAL_DETECTOR_NUMBER_OF_INPUTS,
+                MLP_GOAL_DETECTOR_NEURONS_PER_LAYER,
+                BASE_NEURON_FACTORY
+            ),
+            new Mlp(
+                MLP_EMPTY_DETECTOR_NUMBER_OF_INPUTS,
+                MLP_EMPTY_DETECTOR_NEURONS_PER_LAYER,
+                BASE_NEURON_FACTORY
+            )
+       );
+    }
+
+    public ColorCharacter(final ColorCharacter colorCharacter) {
+        this(colorCharacter, false);
+    }
+
+    public ColorCharacter(final ColorCharacter colorCharacter, final boolean debug) {
+        this(
+            colorCharacter.scenario,
+            colorCharacter.goal,
+            colorCharacter.lstm,
+            colorCharacter.mlpGoalDetector,
+            colorCharacter.mlpEmptyDetector,
+            debug
+        );
     }
 
     public ColorCharacter(final Scenario scenario, final Goal goal, final Lstm lstm, final Mlp mlpGoalDetector, final Mlp mlpEmptyDetector) {
+        this(scenario, goal, lstm, mlpGoalDetector, mlpEmptyDetector, false);
+    }
+    public ColorCharacter(final Scenario scenario, final Goal goal, final Lstm lstm, final Mlp mlpGoalDetector, final Mlp mlpEmptyDetector, final boolean debug) {
         this.scenario = scenario;
         this.goal = goal;
         this.positionX = 0;
@@ -77,19 +109,7 @@ public class ColorCharacter implements Reproducible, Paintable {
         this.lstm = lstm;
         this.mlpGoalDetector = mlpGoalDetector;
         this.mlpEmptyDetector = mlpEmptyDetector;
-    }
-
-    public ColorCharacter(final ColorCharacter colorCharacter) {
-        this.scenario = colorCharacter.scenario;
-        this.positionX = 0;
-        this.positionY = 0;
-        this.alive = true;
-        this.live = 100;
-        this.fitness = 0d;
-        this.goal = colorCharacter.goal;
-        this.lstm = colorCharacter.lstm;
-        this.mlpGoalDetector = colorCharacter.mlpGoalDetector;
-        this.mlpEmptyDetector = colorCharacter.mlpEmptyDetector;
+        this.debug = debug;
     }
 
 
@@ -116,8 +136,41 @@ public class ColorCharacter implements Reproducible, Paintable {
             final Vector inputUpEmptyDetectorOutputs = this.mlpGoalDetector.calculateOutputs(inputUp.toVector());
             final Vector inputRightEmptyDetectorOutputs = this.mlpGoalDetector.calculateOutputs(inputRight.toVector());
 
+            if(this.debug) {
+                System.out.println("########################################");
+                System.out.println("Goal = " + this.goal.getInput());
+                System.out.println("Input lstm = " + Input.fromVector(lstmInputs));
+                System.out.println("Input left = " + inputLeft);
+                System.out.println("Input down = " + inputDown);
+                System.out.println("Input up = " + inputUp);
+                System.out.println("Input right = " + inputRight);
+                System.out.println("Lstm output = " + Input.fromVector(this.lstm.getOutput()));
+                System.out.println("Goal detector left output = " + inputLeftGoalDetectorOutputs);
+                System.out.println("Goal detector down output = " + inputDownGoalDetectorOutputs);
+                System.out.println("Goal detector up output = " + inputUpGoalDetectorOutputs);
+                System.out.println("Goal detector right output = " + inputRightGoalDetectorOutputs);
+                System.out.println("Empty detector left output = " + inputLeftEmptyDetectorOutputs);
+                System.out.println("Empty detector down output = " + inputDownEmptyDetectorOutputs);
+                System.out.println("Empty detector up output = " + inputUpEmptyDetectorOutputs);
+                System.out.println("Empty detector right output = " + inputRightEmptyDetectorOutputs);
+            }
+
+            if(this.debug) {
+                System.out.println("Before position X = " + this.positionX);
+                System.out.println("Before position Y = " + this.positionY);
+            }
             this.updatePosition(inputLeftGoalDetectorOutputs, inputDownGoalDetectorOutputs, inputUpGoalDetectorOutputs, inputRightGoalDetectorOutputs, inputLeftEmptyDetectorOutputs, inputDownEmptyDetectorOutputs, inputUpEmptyDetectorOutputs, inputRightEmptyDetectorOutputs);
+            if(this.debug) {
+                System.out.println("After position X = " + this.positionX);
+                System.out.println("After position Y = " + this.positionY);
+                System.out.println("Future input lstm = " + this.scenario.getInput(this.positionX, this.positionY));
+            }
             this.updateGoal();
+            if(this.debug) {
+                System.out.println("Live = " + this.live);
+                System.out.println("Alive = " + this.alive);
+                System.out.println("########################################");
+            }
         }
     }
 
@@ -180,20 +233,14 @@ public class ColorCharacter implements Reproducible, Paintable {
     private void updateGoal() {
         final Input inputGoal = this.goal.getInput();
         final Input input = this.scenario.getInput(this.positionX, this.positionY);
-        if(input.equals(Input.VOID)) {
-             this.live = -1;
-        } else if(input.equals(Input.EMPTY)) {
-            this.fitness++;
-        } else if(input.equals(Input.BLUE)){
+        if(input.equals(Input.VOID) || input.equals(Input.BLUE)) {
             this.live = -1;
-        } else if(input.equals(inputGoal)) {
-            this.fitness++;
-            this.live+= 10;
-        }  else {
-            this.live = -1;
-        }
-        if(this.live <= 0d) {
             this.alive = false;
+        } else if(input.equals(inputGoal)) {
+            this.fitness += 10;
+            this.live+= 10;
+        } else {
+            this.fitness++;
         }
     }
 
