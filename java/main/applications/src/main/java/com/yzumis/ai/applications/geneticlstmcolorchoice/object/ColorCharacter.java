@@ -131,10 +131,10 @@ public class ColorCharacter implements Reproducible, Paintable {
             final Vector inputUpGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputsToInputVector.concatenate(inputUp.toVector()));
             final Vector inputRightGoalDetectorOutputs = this.mlpGoalDetector.calculateOutputs(lstmOutputsToInputVector.concatenate(inputRight.toVector()));
 
-            final Vector inputLeftEmptyDetectorOutputs = this.mlpGoalDetector.calculateOutputs(inputLeft.toVector());
-            final Vector inputDownEmptyDetectorOutputs = this.mlpGoalDetector.calculateOutputs(inputDown.toVector());
-            final Vector inputUpEmptyDetectorOutputs = this.mlpGoalDetector.calculateOutputs(inputUp.toVector());
-            final Vector inputRightEmptyDetectorOutputs = this.mlpGoalDetector.calculateOutputs(inputRight.toVector());
+            final Vector inputLeftEmptyDetectorOutputs = this.mlpEmptyDetector.calculateOutputs(inputLeft.toVector());
+            final Vector inputDownEmptyDetectorOutputs = this.mlpEmptyDetector.calculateOutputs(inputDown.toVector());
+            final Vector inputUpEmptyDetectorOutputs = this.mlpEmptyDetector.calculateOutputs(inputUp.toVector());
+            final Vector inputRightEmptyDetectorOutputs = this.mlpEmptyDetector.calculateOutputs(inputRight.toVector());
 
             if(this.debug) {
                 System.out.println("########################################");
