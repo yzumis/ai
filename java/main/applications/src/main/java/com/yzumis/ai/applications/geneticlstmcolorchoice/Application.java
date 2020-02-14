@@ -5,15 +5,6 @@ import com.yzumis.ai.applications.geneticlstmcolorchoice.genetic.Population;
 import com.yzumis.ai.applications.geneticlstmcolorchoice.object.ColorCharacter;
 import com.yzumis.ai.applications.geneticlstmcolorchoice.object.Goal;
 import com.yzumis.ai.applications.geneticlstmcolorchoice.object.Scenario;
-import com.yzumis.ai.applications.geneticlstmcolorchoice.object.train.EmptyDetector;
-import com.yzumis.ai.applications.geneticlstmcolorchoice.object.train.GoalDetector;
-import com.yzumis.ai.applications.geneticlstmcolorchoice.object.train.GoalMemory;
-import com.yzumis.ai.applications.geneticlstmcolorchoice.object.train.factories.EmptyDetectorFactory;
-import com.yzumis.ai.applications.geneticlstmcolorchoice.object.train.factories.GoalDetectorFactory;
-import com.yzumis.ai.applications.geneticlstmcolorchoice.object.train.factories.GoalMemoryFactory;
-import com.yzumis.ai.genetic.Individual;
-import com.yzumis.ai.lstm.Lstm;
-import com.yzumis.ai.mlp.Mlp;
 
 public class Application {
 

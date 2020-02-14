@@ -104,7 +104,7 @@ public class ColorCharacter implements Reproducible, Paintable {
         this.positionX = 0;
         this.positionY = 0;
         this.alive = true;
-        this.live = 100;
+        this.live = 20;
         this.fitness = 0d;
         this.lstm = lstm;
         this.mlpGoalDetector = mlpGoalDetector;
@@ -238,7 +238,7 @@ public class ColorCharacter implements Reproducible, Paintable {
             this.alive = false;
         } else if(input.equals(inputGoal)) {
             this.fitness += 10;
-            this.live+= 10;
+            this.live+= 5;
         } else {
             this.fitness++;
         }
