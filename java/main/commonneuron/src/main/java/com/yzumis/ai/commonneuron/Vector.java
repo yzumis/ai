@@ -95,4 +95,36 @@ public class Vector {
         return stringBuilder.toString();
     }
 
+    @Override
+    public int hashCode() {
+        return this.toString().hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object object) {
+        final boolean ret;
+        if(object instanceof Vector) {
+            final Vector vector = (Vector) object;
+            return equalsAllValues(this.values, vector.values);
+        } else {
+            ret = false;
+        }
+        return ret;
+    }
+
+    private boolean equalsAllValues(Double[] valuesA, Double[] valuesB) {
+        final boolean ret;
+        if(valuesA.length == valuesB.length) {
+            boolean allValuesEqual = true;
+            for(int i = 0; i < valuesA.length; i++) {
+                if(valuesA[i] != valuesB[i]) {
+                    allValuesEqual = false;
+                }
+            }
+            ret = allValuesEqual;
+        } else {
+            ret = false;
+        }
+        return ret;
+    }
 }
